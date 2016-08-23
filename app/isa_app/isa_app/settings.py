@@ -81,9 +81,9 @@ DATABASES = {
 #    }
      'default': {
 	 'ENGINE': 'mysql.connector.django',
-	 'NAME': 'isa_app',
-	 'USER': 'polychoron',
-	 'PASSWORD': 'SECRET_PASSWORD',
+	 'NAME': 'cs4501',
+	 'USER': 'www',
+	 'PASSWORD': '$3cureUS',
 	 'HOST': 'db',
       }
 
