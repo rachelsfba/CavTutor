@@ -1,0 +1,10 @@
+isa_app:
+   container_name: isa_app
+   image: tp33/django
+   external_links:
+      - mysql:db
+   ports:
+      - "80:8000"
+   volumes:
+      - ./:/app
+   command: bash -c "chown -R :www-data . && chmod -R 775 . && mod_wsgi-express start-server --reload-on-changes --log-to-terminal ./isa_app/isa_app/wsgi.py"
