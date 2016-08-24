@@ -1,2 +1,7 @@
+Project Goal
+===
 Web Marketplace App for CS 4501: Internet Scale Applications
-2016-08-23
+
+Author
+===
+Andrea Shaw <rshaw@olivermattei.net>
