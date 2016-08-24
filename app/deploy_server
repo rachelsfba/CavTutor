@@ -1,0 +1,6 @@
+#!/bin/sh
+APP_BASE=/app/
+DJANGO_BASE=$APP_BASE/isa_app/
+
+mod_wsgi-express start-server --reload-on-changes --working-directory $DJANGO_BASE $DJANGO_BASE/isa_app/wsgi.py &
+
