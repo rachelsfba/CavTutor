@@ -1,3 +1,5 @@
 TODO:
  - improve docker-compose.yml
+ - add a way to access docker console
+ - create a docker container for static files
 
