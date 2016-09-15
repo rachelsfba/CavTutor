@@ -6,5 +6,6 @@ isa_app:
    ports:
       - "80:8000"
    volumes:
-      - $HOME/dev/isa/app:/app
-   command: bash -c "mod_wsgi-express start-server --reload-on-changes --log-to-terminal /app/isa_app/isa_app/wsgi.py --working-directory /app/isa_app"
+       # figure out why this works
+    - ../isa/app:/app
+   command: bash -c "/app/deploy_server"

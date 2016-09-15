@@ -2,5 +2,7 @@
 APP_BASE=/app/
 DJANGO_BASE=$APP_BASE/isa_app/
 
-mod_wsgi-express start-server --reload-on-changes --working-directory $DJANGO_BASE $DJANGO_BASE/isa_app/wsgi.py &
+#mod_wsgi-express start-server --reload-on-changes --log-to-terminal /app/isa_app/isa_app/wsgi.py --working-directory /app/isa_app
 
+mod_wsgi-express start-server --reload-on-changes --log-to-terminal --working-directory $DJANGO_BASE $DJANGO_BASE/isa_app/wsgi.py
+# <--- do migrations here
