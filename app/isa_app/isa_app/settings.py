@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'tutoring_marketplace'
+    'CavTutor',
 )
 
 MIDDLEWARE_CLASSES = (
