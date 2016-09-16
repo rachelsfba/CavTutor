@@ -1,11 +1,31 @@
-isa_app:
-   container_name: isa_app
-   image: tp33/django
-   external_links:
-      - mysql:db
-   ports:
-      - "80:8000"
-   volumes:
-       # figure out why this works
-    - ../isa/app:/app
-   command: /app/deploy_server
+# docker container for our static files
+# e.g. stylesheets, images, etc.
+#
+# serves files using lighttpd
+#
+# in production, this would be served on a separate domain/server, but for
+# development we will spin up this server on port 81
+static:
+    restart: always
+    container_name: isa_static
+    image: sebp/lighttpd
+    volumes:
+        - ../isa/app/static:/var/www/localhost/htdocs/static
+    ports:
+        - "81:80"
+
+# docker container for base Django app
+#
+# serves files using Apache mod_wsgi
+app:
+    restart: always
+    container_name: isa_app
+    image: tp33/django
+    external_links:
+        - mysql:db
+    ports:
+        - "80:8000"
+    volumes:
+        # figure out why this works
+        - ../isa/app:/app
+    command: /app/deploy_server
