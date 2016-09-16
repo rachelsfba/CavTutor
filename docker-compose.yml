@@ -8,4 +8,4 @@ isa_app:
    volumes:
        # figure out why this works
     - ../isa/app:/app
-   command: bash -c "/app/deploy_server"
+   command: /app/deploy_server
