@@ -19,4 +19,4 @@ Then, clone this repository and start up our docker containers with
 
     $ docker-compose up
 
-To use the site, simply point your browser at http://localhost/.
+To use the site, simply point your browser (or CLI tool, such as `curl`) to [http://localhost/](localhost:80).
