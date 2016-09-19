@@ -10,6 +10,18 @@ class User(models.Model):
     password = models.CharField(max_length=256)
     date_joined = models.DateTimeField(auto_now=True)
 
+    def to_dict(self):
+        user_dict = {
+            'f_name': self.f_name,
+            'l_name': self.l_name,
+            'email': self.email,
+            'username': self.username,
+            'password': self.password,
+            'date_joined': self.date_joined
+        }
+
+        return user_dict
+
     def __str__(self):
         return self.l_name + ", " + self.f_name
 
