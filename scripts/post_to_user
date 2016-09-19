@@ -1,0 +1,2 @@
+#!/bin/bash
+curl --data "username=fooo&f_name=f&l_name=b&password=bar&email=adsf" localhost/api/v1/user/create

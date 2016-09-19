@@ -7,38 +7,42 @@ from .models import *
 def api_handler(request, model, action):
 
     dict_info = {}
+    ok = False
 
     # call appropriate handler here
     if model == "user":
-        dict_info = user_api_handler(request, action)
+        dict_info, ok = user_api_handler(request, action)
     elif model == "tutor":
-        dict_info = tutor_api_handler(request, action)
+        dict_info, ok = tutor_api_handler(request, action)
     elif model == "tutee":
-        dict_info = tutee_api_handler(request, action)
+        dict_info, ok = tutee_api_handler(request, action)
     elif model == "course":
-        dict_info = course_api_handler(request, action)
+        dict_info, ok = course_api_handler(request, action)
     elif model == "institution":
-        dict_info = institution_api_handler(request, action)
+        dict_info, ok = institution_api_handler(request, action)
 
-    return JsonResponse({'ok': False,
+    return JsonResponse({'ok': ok,
         'result' : dict_info})
 
 def user_api_handler(request, action):
+    ok = True
+
     if action == "create":
         user = User(f_name=request.POST['f_name'],
                 l_name=request.POST['l_name'],
                 email=request.POST['email'],
                 username=request.POST['username'],
                 password=request.POST['password'],
-                date_joined=request.POST['date_joined'])
+                )
         user.save()
     else:
         try:
             user = User.objects.get(id=action)
         except User.DoesNotExist:
             user = None
+            ok = False
 
-    return {} if user == None else user.to_dict()
+    return ({} if user == None else user.to_dict(), ok)
 
 
 def tutor_api_bandler(request, action):

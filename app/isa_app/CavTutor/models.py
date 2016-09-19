@@ -12,6 +12,7 @@ class User(models.Model):
 
     def to_dict(self):
         user_dict = {
+            'id': self.id,
             'f_name': self.f_name,
             'l_name': self.l_name,
             'email': self.email,
