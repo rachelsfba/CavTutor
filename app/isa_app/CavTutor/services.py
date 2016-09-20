@@ -1,3 +1,28 @@
+"""
+N.B. When adding a service to create a new model with a foreign key, we must
+first check if an objects exists with the given foreign key. We may use the
+following construction (in addition to other checks such as checking for
+missing fields).
+
+try:
+    giver = models.User.objects.get(pk=request.POST['giver_id'])
+except models.User.DoesNotExist:
+    return _error_response(request, result="giver not found")
+
+t = models.Thing(title=request.POST['title'],                       \
+                 description = request.POST.get('description', ''), \
+                 giver=giver,                                       \
+                 location=request.POST['location'],                 \
+                 date_given=datetime.datetime.now(),                \
+                 was_taken=False                                    \
+                 )
+try:
+    t.save()
+except db.Error:
+    return _error_response(request, result="db error")
+return _success_response(request, result={'thing_id': t.pk})
+
+"""
 import datetime
 
 from django.http import JsonResponse
@@ -7,72 +32,66 @@ from django import db
 
 from . import models
 
-def _error_response(req, msg):
-    return JsonResponse({'okay':False,'result':msg })
-def _success_response(req, msg):
-    return JsonResponse({'okay':True,'result':msg })
+# Should move this basic class to /app/isa_app/isa_app/services.py perhaps?
 
+""" An abstract class representing a Service object. """
+class Service(object):
+    # internal method to output JSON indicating that an error has occurred
+    def _error_response(request, result):
+        return JsonResponse({'okay': False, 'result': result })
 
-#when adding a db entry which references the foreign key
-#use the following construction in addition to checking for
-#missing fields
-"""
-    try:
-        giver = models.User.objects.get(pk=request.POST['giver_id'])
-    except models.User.DoesNotExist:
-        return _error_response(request, "giver not found")
-    
-    t = models.Thing(title=request.POST['title'],                       \
-                     description = request.POST.get('description', ''), \
-                     giver=giver,                                       \
-                     location=request.POST['location'],                 \
-                     date_given=datetime.datetime.now(),                \
-                     was_taken=False                                    \
-                     )
-    try:
-        t.save()
-    except db.Error:
-        return _error_response(request, "db error")
-    return _success_response(request, {'thing_id': t.pk})
+    # internal moethod to output JSON given that the requested operation was a success
+    def _success_response(request, result):
+        return JsonResponse({'okay': True, 'result': result })
 
-"""
-def create_user(request):
-    if request.method != 'POST':
-        return _error_response(request, "must make POST request")
-    if 'f_name' not in request.POST or     \
-       'l_name' not in request.POST or     \
-       'email' not in request.POST or   \
-     'password' not in request.POST or   \
-       'username' not in request.POST:
-        return _error_response(request, "missing required fields")
+    # unimplemented method used to create a new object
+    def create(request):
+        raise NotImplementedError("Child classes must implement create() before using the Service class!")
 
-    u = models.User(username=request.POST['username'],                         \
-                    f_name=request.POST['f_name'],                             \
-                    l_name=request.POST['l_name'],                             \
-                    password=hashers.make_password(request.POST['password']),  \
-                    email=request.POST['email'],                               \
-                    date_joined=datetime.datetime.now()                        \
-                    )
+    # unimplemented method meant to lookup an existing object
+    def lookup(request):
+        raise NotImplementedError("Child classes must implement lookup() before using the Service class!")
 
-    try:
-        u.save()
-    except db.Error:
-        return _error_response(request, "db error")
+""" Defines a User service API. """
+class User(Service):
+    def create(request):
+        if request.method != "POST":
+            return Service._error_response(request, result="Expected a POST request!")
+        elif 'f_name' not in request.POST or \
+            'l_name' not in request.POST or \
+            'email' not in request.POST or \
+            'password' not in request.POST or \
+            'username' not in request.POST:
+            return Service._error_response(request, result="POST data is missing required fields!")
+        else:
+            new_user = models.User(username=request.POST['username'], \
+                f_name=request.POST['f_name'], \
+                l_name=request.POST['l_name'], \
+                # use Django hashing algorithms to store a new password
+                password=hashers.make_password(request.POST['password']), \
+                email=request.POST['email'], \
+                date_joined=datetime.datetime.now(), \
+            )
 
-    return _success_response(request, {'user_id': u.pk})
+            try:
+                new_user.save()
+            except db.Error:
+                return Service._error_response(request, result="An unknown database error has occurred.")
 
-def lookup_user(request, user_id):
-    if request.method != 'GET':
-        return _error_response(request, "must make GET request")
+            return Service._success_response(request, result={'user_id': new_user.id})
 
-    try:
-        u = models.User.objects.get(pk=user_id)
-    except models.User.DoesNotExist:
-        return _error_response(request, "user not found")
+    def lookup(request, user_id=1):
+        if request.method != "GET":
+            return Service._error_response(request, result="Expected a GET request!")
+        else:
+            try:
+                lookup_user = models.User.objects.get(pk=user_id)
+            except models.User.DoesNotExist:
+                return Service._error_response(request, result="A user matching id={} was not found.".format(user_id))
 
-    return _success_response(request, {'username': u.username,      \
-                                       'f_name': u.f_name,          \
-                                       'l_name': u.l_name,          \
-                                       'email': u.email,            \
-                                       'date_joined': u.date_joined \
-                                       })
+            return Service._success_response(request, result={'username': lookup_user.username, \
+                'f_name': lookup_user.f_name, \
+                'l_name': lookup_user.l_name, \
+                'email': lookup_user.email, \
+                'date_joined': lookup_user.date_joined \
+            })
