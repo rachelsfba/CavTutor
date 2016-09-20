@@ -1,0 +1,8 @@
+#!/bin/bash
+echo -e "creating user"
+curl --data "username=fooo&f_name=f&l_name=b&password=bar&email=adsf" localhost/api/v1/users/create
+echo -e "\n\nfinding user 4"
+curl localhost/api/v1/users/4
+echo -e "\n\nfinding user 24"
+curl localhost/api/v1/users/24
+echo -e "\n"
