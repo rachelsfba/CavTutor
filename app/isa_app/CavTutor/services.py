@@ -95,3 +95,39 @@ class User(Service):
                 'email': lookup_user.email, \
                 'date_joined': lookup_user.date_joined \
             })
+
+""" Defines an Institution services API. """
+class Institution(Service):
+    def create(request):
+        if request.method != "POST":
+            return Service._error_response(request, result="Expected a POST request!")
+        elif 'name' not in request.POST or \
+            'abbrv' not in request.POST or \
+            'address' not in request.POST:
+            return Service._error_response(request, result="POST data is missing required fields!")
+        else:
+            new_inst = models.Institution(name=request.POST['name'], \
+                abbrv=request.POST['abbrv'], \
+                address=request.POST['address'], \
+            )
+
+            try:
+                new_inst.save()
+            except db.Error:
+                return Service._error_response(request, result="An unknown database error has occurred.")
+
+            return Service._success_response(request, result={'inst_id': new_inst.id})
+
+    def lookup(request, inst_id=1):
+        if request.method != "GET":
+            return Service._error_response(request, result="Expected a GET request!")
+        else:
+            try:
+                lookup_inst = models.Institution.objects.get(pk=inst_id)
+            except models.Institution.DoesNotExist:
+                return Service._error_response(request, result="An institution matching id={} was not found.".format(inst_id))
+
+            return Service._success_response(request, result={'name': lookup_inst.name, \
+                'abbrv': lookup_inst.abbrv,
+                'address': lookup_inst.address,
+            })
