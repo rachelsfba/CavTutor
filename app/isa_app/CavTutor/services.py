@@ -32,8 +32,6 @@ from django import db
 
 from . import models
 
-# Should move this basic class to /app/isa_app/isa_app/services.py perhaps?
-
 """ An abstract class representing a Service object. """
 class Service(object):
     # internal method to output JSON indicating that an error has occurred
@@ -89,12 +87,7 @@ class User(Service):
             except models.User.DoesNotExist:
                 return Service._error_response(request, result="A user matching id={} was not found.".format(user_id))
 
-            return Service._success_response(request, result={'username': lookup_user.username, \
-                'f_name': lookup_user.f_name, \
-                'l_name': lookup_user.l_name, \
-                'email': lookup_user.email, \
-                'date_joined': lookup_user.date_joined \
-            })
+            return Service._success_response(request, result=model_to_dict(lookup_user, exclude="password"))
 
 """ Defines an Institution services API. """
 class Institution(Service):
@@ -127,7 +120,4 @@ class Institution(Service):
             except models.Institution.DoesNotExist:
                 return Service._error_response(request, result="An institution matching id={} was not found.".format(inst_id))
 
-            return Service._success_response(request, result={'name': lookup_inst.name, \
-                'abbrv': lookup_inst.abbrv,
-                'address': lookup_inst.address,
-            })
+            return Service._success_response(request, result=model_to_dict(lookup_inst))
