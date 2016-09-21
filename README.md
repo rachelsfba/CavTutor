@@ -21,11 +21,11 @@ User Model
 ---
 To create a new `User` object, `POST` to:
 
-    http://localhost:80/api/va/users/create
+    http://localhost:80/api/v1/users/create
 
 To retrieve an existing `User` object, visit
 
-    http://localhost:80/api/va/users/<user_id>
+    http://localhost:80/api/v1/users/<user_id>
 
 where `<user_id>` is the id of a `User`.
 
@@ -33,11 +33,11 @@ Institution Model
 ---
 To create a new `Institution` object, `POST` to:
 
-    http://localhost:80/api/va/institutions/create
+    http://localhost:80/api/v1/institutions/create
 
 To retrieve an existing `Institution` object, visit
 
-    http://localhost:80/api/va/institutions/<inst_id>
+    http://localhost:80/api/v1/institutions/<inst_id>
 
 where `<inst_id>` is the id of a `Institution`.
 
