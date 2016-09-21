@@ -1,6 +1,6 @@
-Project Goal
+Project Description
 ===
-CavTutor tutoring marketplace web application for U.Va. CS 4501: Internet Scale Applications that is meant to illustrate concepts of scalability and best-practice full stack development for Internet-based applications. Our application will provide basic functionality to connect tutors with tutees for courses at any arbitrary instituion.
+CavTutor is a web application for CS 4501: Internet Scale Application meant to illustrate concepts of scalability and best-practice full stack development for Internet-based applications. Our application will provide basic functionality to connect tutors with tutees for courses at any arbitrary instituion.
 
 Authors
 ===
