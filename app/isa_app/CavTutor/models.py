@@ -10,18 +10,27 @@ class User(models.Model):
     password = models.CharField(max_length=256)
     date_joined = models.DateTimeField(auto_now=True)
 
-    def to_dict(self):
-        user_dict = {
-            'id': self.id,
-            'f_name': self.f_name,
-            'l_name': self.l_name,
-            'email': self.email,
-            'username': self.username,
-            'password': self.password,
-            'date_joined': self.date_joined
-        }
+    def _prune_invalid_fields(fields):
+        valid_fields = []
 
-        return user_dict
+        for field in fields:
+            try:
+                valid_fields.append(this._meta.get_field(field))
+            except FieldDoesNotExist:
+                pass
+
+        return valid_fields
+
+    """
+    # fields is a list of strings
+    def update(self, fields):
+        # real_fields is a list of valid field instances
+        real_fields = _prune_invalid_fields(fields)
+
+        for field in fields:
+            # return the field instance for each field in fields
+            field_inst = this._meta.get_field(field)
+    """
 
     def __str__(self):
         return self.l_name + ", " + self.f_name

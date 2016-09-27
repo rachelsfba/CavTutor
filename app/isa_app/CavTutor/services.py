@@ -1,68 +1,49 @@
-"""
-N.B. When adding a service to create a new model with a foreign key, we must
-first check if an objects exists with the given foreign key. We may use the
-following construction (in addition to other checks such as checking for
-missing fields).
-
-try:
-    giver = models.User.objects.get(pk=request.POST['giver_id'])
-except models.User.DoesNotExist:
-    return _error_response(request, result="giver not found")
-
-t = models.Thing(title=request.POST['title'],                       \
-                 description = request.POST.get('description', ''), \
-                 giver=giver,                                       \
-                 location=request.POST['location'],                 \
-                 date_given=datetime.datetime.now(),                \
-                 was_taken=False                                    \
-                 )
-try:
-    t.save()
-except db.Error:
-    return _error_response(request, result="db error")
-return _success_response(request, result={'thing_id': t.pk})
-
-"""
 import datetime
 
 from django.http import JsonResponse
 from django.contrib.auth import hashers
-from django.forms.models import model_to_dict
+from django.forms.models import model_to_dict, fields_for_model
 from django import db
 
 from . import models
 
-""" An abstract class representing a Service object. """
-class Service(object):
+""" An abstract class representing a self object. """
+class self(object):
     # internal method to output JSON indicating that an error has occurred
-    def _error_response(request, result):
+    def _error_response(result):
         return JsonResponse({'okay': False, 'result': result })
 
     # internal moethod to output JSON given that the requested operation was a success
-    def _success_response(request, result):
+    def _success_response(result):
         return JsonResponse({'okay': True, 'result': result })
 
     # unimplemented method used to create a new object
     def create(request):
-        raise NotImplementedError("Child classes must implement create() before using the Service class!")
+        raise NotImplementedError("Child classes must implement create() before using the self class!")
 
     # unimplemented method meant to lookup an existing object
-    def lookup(request):
-        raise NotImplementedError("Child classes must implement lookup() before using the Service class!")
+    def lookup(request, id):
+        raise NotImplementedError("Child classes must implement lookup() before using the self class!")
+
+    # unimplemented method meant to delete an existing object
+    def delete(request, id):
+        raise NotImplementedError("Child classes must implement lookup() before using the self class!")
+
 
 """ Defines a User service API. """
-class User(Service):
+class User(self):
     def create(request):
         if request.method != "POST":
-            return Service._error_response(request, result="Expected a POST request!")
+            return self._error_response(result="Expected a POST request!")
         elif 'f_name' not in request.POST or \
             'l_name' not in request.POST or \
             'email' not in request.POST or \
             'password' not in request.POST or \
             'username' not in request.POST:
-            return Service._error_response(request, result="POST data is missing required fields!")
+            return self._error_response(result="POST data is missing required fields!")
         else:
-            new_user = models.User(username=request.POST['username'], \
+            new_user = models.User(
+                username=request.POST['username'], \
                 f_name=request.POST['f_name'], \
                 l_name=request.POST['l_name'], \
                 # use Django hashing algorithms to store a new password
@@ -74,32 +55,45 @@ class User(Service):
             try:
                 new_user.save()
             except db.Error:
-                return Service._error_response(request, result="An unknown database error has occurred.")
+                return self._error_response(result="An unknown database error has occurred.")
 
-            return Service._success_response(request, result={'user_id': new_user.id})
+            return self._success_response(result={'id': new_user.id})
 
-    def lookup(request, user_id=1):
+    def delete(request, id):
         if request.method != "GET":
-            return Service._error_response(request, result="Expected a GET request!")
+            return self._error_response(result="Expected a GET request!")
         else:
             try:
-                lookup_user = models.User.objects.get(pk=user_id)
+                lookup_user = models.User.objects.get(pk=id)
             except models.User.DoesNotExist:
-                return Service._error_response(request, result="A user matching id={} was not found.".format(user_id))
+                return self._error_response(result="A user matching id={} was not found.".format(id))
 
-            return Service._success_response(request, result=model_to_dict(lookup_user, exclude="password"))
+            lookup_user.delete()
+            return self._success_response(result="User with id={} successfully removed!".format(id))
+
+    def lookup(request, id):
+        if request.method != "GET":
+            return self._error_response(result="Expected a GET request!")
+        else:
+            try:
+                lookup_user = models.User.objects.get(pk=id)
+            except models.User.DoesNotExist:
+                return self._error_response(result="A user matching id={} was not found.".format(id))
+
+            return self._success_response(result=model_to_dict(lookup_user, exclude="password"))
 
 """ Defines an Institution services API. """
-class Institution(Service):
+class Institution(self):
     def create(request):
         if request.method != "POST":
-            return Service._error_response(request, result="Expected a POST request!")
+            return self._error_response(result="Expected a POST request!")
         elif 'name' not in request.POST or \
             'abbrv' not in request.POST or \
             'address' not in request.POST:
-            return Service._error_response(request, result="POST data is missing required fields!")
+            return self._error_response(result="POST data is missing required fields!")
         else:
-            new_inst = models.Institution(name=request.POST['name'], \
+            new_inst = models.Institution(
+                name=request.POST['name'], \
                 abbrv=request.POST['abbrv'], \
                 address=request.POST['address'], \
             )
@@ -107,17 +101,17 @@ class Institution(Service):
             try:
                 new_inst.save()
             except db.Error:
-                return Service._error_response(request, result="An unknown database error has occurred.")
+                return self._error_response(result="An unknown database error has occurred.")
 
-            return Service._success_response(request, result={'inst_id': new_inst.id})
+            return self._success_response(result={'id': new_inst.id})
 
-    def lookup(request, inst_id=1):
+    def lookup(request, id):
         if request.method != "GET":
-            return Service._error_response(request, result="Expected a GET request!")
+            return self._error_response(result="Expected a GET request!")
         else:
             try:
-                lookup_inst = models.Institution.objects.get(pk=inst_id)
+                lookup_inst = models.Institution.objects.get(pk=id)
             except models.Institution.DoesNotExist:
-                return Service._error_response(request, result="An institution matching id={} was not found.".format(inst_id))
+                return self._error_response(result="An institution matching id={} was not found.".format(id))
 
-            return Service._success_response(request, result=model_to_dict(lookup_inst))
+            return self._success_response(result=model_to_dict(lookup_inst))
