@@ -12,7 +12,7 @@ static:
     volumes:
         - ../isa/app/static:/var/www/localhost/htdocs/static
     ports:
-        - "81:80"
+        - "8001:80"
 
 # docker container for base Django app
 #
@@ -24,7 +24,7 @@ app:
     external_links:
         - mysql:db
     ports:
-        - "80:8000"
+        - "8000:8000"
     volumes:
         # figure out why this works
         - ../isa/app:/app
