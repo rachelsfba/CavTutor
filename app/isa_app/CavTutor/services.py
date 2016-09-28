@@ -7,8 +7,8 @@ from django import db
 
 from . import models
 
-""" An abstract class representing a self object. """
-class self(object):
+""" An abstract class representing a Service object. """
+class Service(object):
     # internal method to output JSON indicating that an error has occurred
     def _error_response(result):
         return JsonResponse({'okay': False, 'result': result })
@@ -19,19 +19,19 @@ class self(object):
 
     # unimplemented method used to create a new object
     def create(request):
-        raise NotImplementedError("Child classes must implement create() before using the self class!")
+        raise NotImplementedError("Child classes must implement create() before using the Service class!")
 
     # unimplemented method meant to lookup an existing object
     def lookup(request, id):
-        raise NotImplementedError("Child classes must implement lookup() before using the self class!")
+        raise NotImplementedError("Child classes must implement lookup() before using the Service class!")
 
     # unimplemented method meant to delete an existing object
     def delete(request, id):
-        raise NotImplementedError("Child classes must implement lookup() before using the self class!")
+        raise NotImplementedError("Child classes must implement lookup() before using the Service class!")
 
 
 """ Defines a User service API. """
-class User(self):
+class User(Service):
     def create(request):
         if request.method != "POST":
             return self._error_response(result="Expected a POST request!")
@@ -83,7 +83,7 @@ class User(self):
             return self._success_response(result=model_to_dict(lookup_user, exclude="password"))
 
 """ Defines an Institution services API. """
-class Institution(self):
+class Institution(Service):
     def create(request):
         if request.method != "POST":
             return self._error_response(result="Expected a POST request!")
