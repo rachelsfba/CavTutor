@@ -40,9 +40,8 @@ class Course(models.Model):
     name = models.CharField(max_length=100)
     abbr = models.CharField(max_length=16, verbose_name="class abbreviation")
     instructor = models.CharField(max_length=256)
-
     def __str__(self):
-        return self.name + " (" + self.abbr + ") at " + self.institution.__str__()
+        return self.name + " (" + self.abbr + ")"
 
 class Tutor(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
