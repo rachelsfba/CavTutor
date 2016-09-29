@@ -5,21 +5,21 @@
 #
 # in production, this would be served on a separate domain/server, but for
 # development we will spin up this server on port 81
-static:
+api-static:
     restart: always
-    container_name: isa_static
+    container_name: api_static
     image: sebp/lighttpd
     volumes:
-        - ../isa/app/static:/var/www/localhost/htdocs/static
+        - ../isa/api/static:/var/www/localhost/htdocs/static
     ports:
         - "8001:80"
 
 # docker container for base Django app
 #
 # serves files using Apache mod_wsgi
-app:
+api:
     restart: always
-    container_name: isa_app
+    container_name: api
     image: tp33/django
     external_links:
         - mysql:db
@@ -27,5 +27,5 @@ app:
         - "8000:8000"
     volumes:
         # figure out why this works
-        - ../isa/app:/app
-    command: /app/deploy_server
+        - ../isa/api:/app
+    command: bash /app/deploy_server.sh
