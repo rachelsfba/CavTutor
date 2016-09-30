@@ -1,9 +1,17 @@
-# Handles API urls.
-from django.conf.urls import url, include
-from django.conf import settings
+# Handles Services API urls.
+from django.conf.urls import url
 
-BASE_PATH = r'^api/' + settings.API_VERSION
+from . import views
 
 urlpatterns = [
-    url(BASE_PATH + r'/.*$', include('CavTutor.api.urls')),
+    # User API
+    url(r'users/create$', views.User.create),
+    url(r'users/(?P<id>\d+)$', views.User.lookup),
+    url(r'users/delete/(?P<id>\d+)$', views.User.delete),
+
+    # Institution API
+    url(r'institutions/create$', views.Institution.create),
+    url(r'institutions/(?P<id>\d+)$', views.Institution.lookup),
+
+    #    url(r'^api/v1/institutions/delete/(?P<id>\d+)$', 'views.Institution.delete')),
 ]
