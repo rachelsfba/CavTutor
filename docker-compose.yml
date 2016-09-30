@@ -1,31 +1,31 @@
-# docker container for our static files
-# e.g. stylesheets, images, etc.
+# A docker container for our API-level static files
+#       (e.g. stylesheets, images, JavaScript)
 #
-# serves files using lighttpd
+# It serves files using the lightweight web server lighttpd.
 #
-# in production, this would be served on a separate domain/server, but for
-# development we will spin up this server on port 81
-api-static:
-    restart: always
+# In production, this would be served up on a separate
+# domain/server, but for development we will spin up
+# this server on port 8001.
+api_static:
     container_name: api_static
     image: sebp/lighttpd
     volumes:
-        - ../isa/api/static:/var/www/localhost/htdocs/static
+        - ./api/static:/var/www/localhost/htdocs/static
     ports:
         - "8001:80"
 
-# docker container for base Django app
+# A docker container for our API-level Django project.
 #
-# serves files using Apache mod_wsgi
+# It serves files using Apache's mod_wsgi-express.
 api:
-    restart: always
     container_name: api
     image: tp33/django
+
+    # we want to link to an external mysql docker container
     external_links:
         - mysql:db
     ports:
         - "8000:8000"
     volumes:
-        # figure out why this works
-        - ../isa/api:/app
+        - ./api:/app
     command: /app/deploy_server.sh
