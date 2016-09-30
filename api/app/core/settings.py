@@ -37,7 +37,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'CavTutor',
 )
 
@@ -112,5 +111,3 @@ STATIC_ROOT = '../static/'
 STATIC_URL = 'http://localhost:8001/static/'
 
 
-# Custom env variables
-API_VERSION = 'v1'
