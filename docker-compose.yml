@@ -28,4 +28,4 @@ api:
     volumes:
         # figure out why this works
         - ../isa/api:/app
-    command: bash /app/deploy_server.sh
+    command: /app/deploy_server.sh
