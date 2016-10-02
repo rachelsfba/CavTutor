@@ -9,9 +9,9 @@ find_user_1=4
 find_user_2=31
 
 echo -e "Creating a user..."
-curl --data "username=$username&f_name=$f_name&l_name=$l_name&password=$password&email=$email" localhost/api/v1/users/create
+curl --data "username=$username&f_name=$f_name&l_name=$l_name&password=$password&email=$email" localhost:8000/api/v1/users/create
 echo -e "\n\nFinding user $find_user_1..."
-curl localhost/api/v1/users/$find_user_1
+curl localhost:8000/api/v1/users/$find_user_1
 echo -e "\n\nFinding user $find_user_2..."
-curl localhost/api/v1/users/$find_user_2
+curl localhost:8000/api/v1/users/$find_user_2
 echo -e "\n"
