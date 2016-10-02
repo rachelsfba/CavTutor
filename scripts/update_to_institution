@@ -1,0 +1,15 @@
+#!/bin/bash
+inst_name="Universität Heidelberg"
+abbrv="Uni HD"
+address="Heidelberg, Baden-WÚrttemburg, Bundesrepublik Deutschland"
+
+update_id=1
+new_address="United States"
+
+echo -e "Creating an institution..."
+curl --data "name=$inst_name&abbrv=$abbrv&address=$address" localhost:8000/api/v1/institutions/create
+
+echo -e "\n\nUpdating institution with id=$update_id..."
+curl --data "address=$new_address" localhost:8000/api/v1/institutions/update/$update_id
+
+echo -e "\n"

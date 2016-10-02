@@ -30,9 +30,40 @@ class Service(object):
     def delete(request, id):
         raise NotImplementedError("Child classes must implement lookup() before using the Service class!")
 
+    def update(request, id):
+        raise NotImplementedError("Child classes must implement update() before using the Service class!")
 
 """ Defines an Institution services API. """
 class Institution(Service):
+
+    def update(request, id):
+        if request.method != "POST":
+            return Service._error_response(result="Expected a POST request!")
+
+        try:
+            lookup_inst = models.Institution.objects.get(pk=id)
+        except models.Institution.DoesNotExist:
+            return Service._error_response(result="An institution matching id={} was not found.".format(id))
+
+        changed_fields = {}
+
+        if 'name' in request.POST and lookup_inst.name != request.POST['name']:
+            lookup_inst.name = request.POST['name']
+            changed_fields['name'] = request.POST['name']
+
+        if 'abbrv' in request.POST and lookup_inst.abbrv != request.POST['abbrv']:
+            lookup_inst.abbrv = request.POST['abbrv']
+            changed_fields['abbrv'] = request.POST['abbrv']
+
+        if 'address' in request.POST and lookup_inst.address != request.POST['address']:
+            lookup_inst.address = request.POST['address']
+            changed_fields['address'] = request.POST['address']
+
+        if changed_fields:
+            lookup_inst.save()
+            return Service._success_response(result={'changed_fields': changed_fields})
+        else:
+            return Service._error_response(result="No fields were changed!")
 
     def create(request):
         if request.method != "POST":
@@ -54,6 +85,19 @@ class Institution(Service):
                 return Service._error_response(result="An unknown database error has occurred.")
 
             return Service._success_response(result={'id': new_inst.id})
+
+    def delete(request, id):
+        if request.method != "GET":
+            return Service._error_response(result="Expected a GET request!")
+        else:
+            try:
+                lookup_inst = models.Institution.objects.get(pk=id)
+            except models.Institution.DoesNotExist:
+                return Service._error_response(result="An institution matching id={} was not found.".format(id))
+
+            lookup_inst.delete()
+            return Service._success_response(result="Institution with id={} successfully removed!".format(id))
+
 
     def lookup(request, id):
         if request.method != "GET":
