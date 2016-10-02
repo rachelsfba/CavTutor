@@ -3,8 +3,10 @@ import datetime
 from django.http import JsonResponse
 from django import db
 from django.contrib.auth import hashers
+from django.forms import ValidationError
 from django.forms.models import model_to_dict, fields_for_model
-from django.shortcuts import render
+from django.core.validators import validate_email
+
 
 from . import models
 
@@ -113,6 +115,44 @@ class Institution(Service):
 """ Defines a User service API. """
 class User(Service):
 
+    def update(request, id):
+        if request.method != "POST":
+            return Service._error_response(result="Expected a POST request!")
+
+        try:
+            lookup_user = models.User.objects.get(pk=id)
+        except models.User.DoesNotExist:
+            return Service._error_response(result="A user matching id={} was not found.".format(id))
+
+        changed_fields = {}
+
+        if 'username' in request.POST and lookup_user.username != request.POST['username']:
+            lookup_user.username = request.POST['username']
+            changed_fields['username'] = request.POST['username']
+        if 'f_name' in request.POST and lookup_user.f_name != request.POST['f_name']:
+            lookup_user.f_name = request.POST['f_name']
+            changed_fields['f_name'] = request.POST['f_name']
+        if 'l_name' in request.POST and lookup_user.l_name != request.POST['l_name']:
+            lookup_user.l_name = request.POST['l_name']
+            changed_fields['l_name'] = request.POST['l_name']
+        if 'password' in request.POST and lookup_user.password != request.POST['password']:
+            lookup_user.password = request.POST['password']
+            changed_fields['password'] = request.POST['password']
+        if 'email' in request.POST and lookup_user.email != request.POST['email']:
+            try:
+                validate_email(request.POST['email'])
+            except ValidationError:
+                return Service._error_response(result="Given an invalid email!")
+
+            lookup_user.email = request.POST['email']
+            changed_fields['email'] = request.POST['email']
+
+        if changed_fields:
+            lookup_user.save()
+            return Service._success_response(result={'changed_fields': changed_fields})
+        else:
+            return Service._error_response(result="No fields were changed!")
+
     def create(request):
         if request.method != "POST":
             return Service._error_response(result="Expected a POST request!")
@@ -123,6 +163,11 @@ class User(Service):
             'username' not in request.POST:
             return Service._error_response(result="POST data is missing required fields!")
         else:
+            try:
+                validate_email(request.POST['email'])
+            except ValidationError:
+                return Service._error_response(result="Given an invalid email!")
+
             new_user = models.User(
                 username=request.POST['username'], \
                 f_name=request.POST['f_name'], \
