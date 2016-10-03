@@ -68,5 +68,11 @@ class Institution(models.Model):
     # in future, subdivide this into many different fields, e.g. street_addr, state_province, country
     address = models.CharField(max_length=256)
 
+    def get_num_courses(self):
+        return self.course_set.count()
+
     def __str__(self):
-        return self.name
+        return "{} ({} courses)".format(self.name, self.get_num_courses())
+
+
+
