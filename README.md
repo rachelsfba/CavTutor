@@ -36,7 +36,7 @@ patches, this API should extend to all of our remaining models.
 
 User Model
 ---
-To create a new `User` object, `POST` to:
+To create a new `User` object, `POST` to
 
     http://localhost:8003/api/v1/users/create
 
@@ -60,7 +60,7 @@ where `<user_id>` is the id of the `User` record you wish to delete.
 
 Institution Model
 ---
-To create a new `Institution` object, `POST` to:
+To create a new `Institution` object, `POST` to
 
     http://localhost:8003/api/v1/institutions/create
 
