@@ -1,6 +1,6 @@
 User Stories
 =====
-1. John is a tutor at Minnesota State University--Moorhead. He isn't new to
+1. John is a tutor at Minnesota State University  Moorhead. He isn't new to
    tutoring, but he only likes to tutor CSIS 152 (Introduction to Computers and
    Programming I) students. He charges a flat rate of $15.00/hr, but finds it
    hard to find new clients at his University by just putting up fliers. He
