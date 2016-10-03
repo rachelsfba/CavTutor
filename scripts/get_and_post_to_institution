@@ -7,9 +7,9 @@ find_inst_1=1
 find_inst_2=5
 
 echo -e "Creating an institution..."
-curl --data "name=$inst_name&abbrv=$abbrv&address=$address" localhost/api/v1/institutions/create
+curl --data "name=$inst_name&abbrv=$abbrv&address=$address" localhost:8003/api/v1/institutions/create
 echo -e "\n\nFinding institution $find_inst_1..."
-curl localhost/api/v1/institutions/$find_inst_1
+curl localhost:8003/api/v1/institutions/$find_inst_1
 echo -e "\n\nFinding institution $find_inst_2..."
-curl localhost/api/v1/institutions/$find_inst_2
+curl localhost:8003/api/v1/institutions/$find_inst_2
 echo -e "\n"
