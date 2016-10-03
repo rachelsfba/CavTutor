@@ -48,13 +48,13 @@ where `<user_id>` is the id of the `User` you wish to look up.
 
 To update an existing `User` object, `POST` to
 
-   http://localhost:8003/api/v1/users/update/<user_id>
+    http://localhost:8003/api/v1/users/update/<user_id>
 
 where `<user_id>` is the id of the `User` record you wish to update.
 
 Finally, to delete a `User` object, visit
 
-   http://localhost:8003/api/v1/users/delete/<user_id>
+    http://localhost:8003/api/v1/users/delete/<user_id>
 
 where `<user_id>` is the id of the `User` record you wish to delete.
 
@@ -72,13 +72,13 @@ where `<inst_id>` is the id of the `Institution` you wish to look up.
 
 To update an existing `Institution` object, `POST` to
 
-   http://localhost:8003/api/v1/institutions/update/<inst_id>
+    http://localhost:8003/api/v1/institutions/update/<inst_id>
 
 where `<inst_id>` is the id of the `Institution` record you wish to update.
 
 Finally, to delete a `Institution` object, visit
 
-   http://localhost:8003/api/v1/institutions/delete/<inst_id>
+    http://localhost:8003/api/v1/institutions/delete/<inst_id>
 
 where `<inst_id>` is the id of the `Institution` record you wish to delete.
 
