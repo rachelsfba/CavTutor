@@ -1,3 +1,19 @@
+# A docker container for our API-level Django project.
+#
+# It serves files using Apache's mod_wsgi-express.
+api:
+    container_name: api
+    image: tp33/django
+
+    # we want to link to an external mysql docker container
+    external_links:
+        - mysql:db
+    ports:
+        - "8003:8000"
+    volumes:
+        - ./api:/app
+    command: /app/deploy_server.sh
+
 # A docker container for our API-level static files
 #       (e.g. stylesheets, images, JavaScript)
 #
@@ -12,20 +28,36 @@ api_static:
     volumes:
         - ./api/static:/var/www/localhost/htdocs/static
     ports:
-        - "8001:80"
+        - "8002:80"
 
-# A docker container for our API-level Django project.
+# A docker container for our user experience-level Django project.
 #
 # It serves files using Apache's mod_wsgi-express.
-api:
-    container_name: api
+ux:
+    container_name: ux
     image: tp33/django
 
     # we want to link to an external mysql docker container
-    external_links:
-        - mysql:db
+    links:
+        - api
+    ports:
+        - "8001:8000"
+    volumes:
+        - ./ux:/app
+    command: /app/deploy_server.sh
+
+# A docker container for our web-facing Django project.
+#
+# It serves files using Apache's mod_wsgi-express.
+www:
+    container_name: www
+    image: tp33/django
+
+    # we want to link to an external mysql docker container
+    links:
+        - ux
     ports:
         - "8000:8000"
     volumes:
-        - ./api:/app
+        - ./ux:/app
     command: /app/deploy_server.sh
