@@ -1,7 +1,6 @@
 db/
 migrations/
 logs/
-app/
 __pycache__/
 *~
 *.swp
