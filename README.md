@@ -25,62 +25,17 @@ User Stories
 ====
 Refer to [doc/user_stories.md](doc/user_stories.md) for documented user stories.
 
+Fixtures
+===
+We use Django fixtures to prepopulate the given database instance with our test data. A Django superuser is created, with username `root` and password `root`.
 
 API Usage
 ===
-Currently, an API services layer is partially implemented for some models.
+An API services layer is for all models using Django REST framework.
 
-`Institution`s and `User`s both provide a mechanism for creating new objects,
-updating and deleting old objects, and looking up existing ones. In future
-patches, this API should extend to all of our remaining models.
+Vist the API docker homepage on port `8003` for details.
 
-User Model
----
-To create a new `User` object, `POST` to
-
-    http://localhost:8003/api/v1/users/create
-
-To retrieve an existing `User` object, visit
-
-    http://localhost:8003/api/v1/users/<user_id>
-
-where `<user_id>` is the id of the `User` you wish to look up.
-
-To update an existing `User` object, `POST` to
-
-    http://localhost:8003/api/v1/users/update/<user_id>
-
-where `<user_id>` is the id of the `User` record you wish to update.
-
-Finally, to delete a `User` object, visit
-
-    http://localhost:8003/api/v1/users/delete/<user_id>
-
-where `<user_id>` is the id of the `User` record you wish to delete.
-
-Institution Model
----
-To create a new `Institution` object, `POST` to
-
-    http://localhost:8003/api/v1/institutions/create
-
-To retrieve an existing `Institution` object, visit
-
-    http://localhost:8003/api/v1/institutions/<inst_id>
-
-where `<inst_id>` is the id of the `Institution` you wish to look up.
-
-To update an existing `Institution` object, `POST` to
-
-    http://localhost:8003/api/v1/institutions/update/<inst_id>
-
-where `<inst_id>` is the id of the `Institution` record you wish to update.
-
-Finally, to delete a `Institution` object, visit
-
-    http://localhost:8003/api/v1/institutions/delete/<inst_id>
-
-where `<inst_id>` is the id of the `Institution` record you wish to delete.
+    https://localhost:8003/
 
 Project Instantiation
 ===
