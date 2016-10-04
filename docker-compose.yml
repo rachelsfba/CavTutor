@@ -35,7 +35,7 @@ api_static:
 # It serves files using Apache's mod_wsgi-express.
 ux:
     container_name: ux
-    image: tp33/django
+    image: omattei/restful-django
 
     # we want to link to an external mysql docker container
     links:
@@ -51,7 +51,7 @@ ux:
 # It serves files using Apache's mod_wsgi-express.
 www:
     container_name: www
-    image: tp33/django
+    image: omattei/restful-django
 
     # we want to link to an external mysql docker container
     links:
