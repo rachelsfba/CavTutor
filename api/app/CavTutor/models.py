@@ -2,8 +2,8 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    f_name = models.CharField(max_length=100)
-    l_name = models.CharField(max_length=100)
+    f_name = models.CharField(max_length=100, verbose_name="First Name")
+    l_name = models.CharField(max_length=100, verbose_name="Last Name")
     email = models.EmailField(max_length=100)
     username = models.CharField(max_length=32)
     # should define password field more strictly in the future
@@ -64,7 +64,7 @@ class Tutee(models.Model):
 
 class Institution(models.Model):
     name = models.CharField(max_length=100)
-    abbrv = models.CharField(max_length=16)
+    abbr = models.CharField(max_length=16, verbose_name="School abbreviation")
     # in future, subdivide this into many different fields, e.g. street_addr, state_province, country
     address = models.CharField(max_length=256)
 
