@@ -3,7 +3,7 @@
 # It serves files using Apache's mod_wsgi-express.
 api:
     container_name: api
-    image: tp33/django
+    image: omattei/restful-django
 
     # we want to link to an external mysql docker container
     external_links:
