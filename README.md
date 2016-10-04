@@ -35,7 +35,7 @@ An API services layer is for all models using Django REST framework.
 
 Vist the API docker homepage on port `8003` for details.
 
-    https://localhost:8003/
+http://localhost:8003/
 
 Project Instantiation
 ===
