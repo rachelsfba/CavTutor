@@ -9,7 +9,7 @@ WSGI_FILE=$DJANGO_BASE/core/wsgi.py
 
 #python $DJANGO_BASE/manage.py flush
 python $DJANGO_BASE/manage.py collectstatic --noinput
-python $DJANGO_BASE/manage.py makemigrations
+python $DJANGO_BASE/manage.py makemigrations CavTutor
 python $DJANGO_BASE/manage.py migrate
 python $DJANGO_BASE/manage.py loaddata $APP_BASE/db.json
 mod_wsgi-express start-server --reload-on-changes --log-to-terminal --working-directory $DJANGO_BASE $WSGI_FILE
