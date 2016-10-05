@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from django.http.response import HttpResponse
 from urllib.request import urlopen
 
