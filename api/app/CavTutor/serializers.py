@@ -28,25 +28,25 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.User
-        fields = ('url', 'username', 'f_name', 'l_name', 'password', 'email')
+        fields = ('id', 'username', 'f_name', 'l_name', 'password', 'email')
         extra_kwargs = {'password': {'write_only': True}, }
 
 class InstitutionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Institution
-        fields = ('url', 'name', 'abbr', 'address')
+        fields = ('id', 'name', 'abbr', 'address')
 
 class CourseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Course
-        fields = ('url', 'institution', 'name', 'abbr', )
+        fields = ('id', 'institution', 'name', 'abbr', )
 
 class TutorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Tutor
-        fields = ('url', 'user', 'course', 'adv_rate', )
+        fields = ('id', 'user', 'course', 'adv_rate', )
 
 class TuteeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Tutee
-        fields = ('url', 'user', 'course', 'tutor')
+        fields = ('id', 'user', 'course', 'tutor')
