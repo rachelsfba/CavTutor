@@ -13,12 +13,24 @@ Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
-from django.contrib import admin
+#from django.contrib import admin
 
 from CavTutor import views
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+#    url(r'^admin/', include(admin.site.urls)),
     url(r'^institutions/(?P<inst_id>\d+)', views.institution_detail),
     url(r'^institutions/', views.institution_list),
+
+    url(r'^courses/(?P<course_id>\d+)', views.course_detail),
+    url(r'^courses/', views.course_list),
+
+    url(r'^tutors/(?P<tutor_id>\d+)', views.tutor_detail),
+    url(r'^tutors/', views.tutor_list),
+
+    url(r'^tutees/(?P<tutee_id>\d+)', views.tutee_detail),
+    url(r'^tutees/', views.tutee_list),
+
+    url(r'^users/(?P<user_id>\d+)', views.user_detail),
+    url(r'^users/', views.user_list),
 ]
