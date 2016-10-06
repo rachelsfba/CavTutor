@@ -12,7 +12,7 @@ def index(request):
 
     context = {
             "title" : "CavTutor: A Tutoring Marketplace",
-            "models" : ['institutions', 'users'],
+            "models" : ['institutions', 'users', 'courses'],
             # we still need implement all models!!!
             #"models" : ['institutions', 'users', 'courses', 'tutors', 'tutees'],
         }
@@ -43,14 +43,16 @@ def institution_detail(request, inst_id):
 def course_list(request):
 
     json_data = urlopen(UX_BASE + 'courses/').read().decode('utf-8')
-    context = {'courses' : json.loads(json_data) }
+    context = {'courses' : json.loads(json_data), }
 
     return render(request, 'CavTutor/course-list.html', context)
 
 def course_detail(request, course_id):
 
-    json_data = urlopen(UX_BASE + 'courses/' + course_id).read().decode('utf-8')
-    context = {'course' : json.loads(json_data) }
+    course_json_data = urlopen(UX_BASE + 'courses/' + course_id).read().decode('utf-8')
+    course_data = json.loads(course_json_data)
+
+    context = {'course' : course_data,}
 
     return render(request, 'CavTutor/course-detail.html', context)
 

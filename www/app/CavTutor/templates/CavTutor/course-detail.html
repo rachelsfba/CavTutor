@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Course | {{ course.name }} | {{ course.institution_name }}</title>
+    </head?
+    <body>
+        <b>{{ course.name }} | {{ course.institution_name }}</b>
+        <ol>
+            <li>Abbreviation: {{ course.abbr }}</li>
+            <li>Number of Tutors: {{ course.num_tutors }}</li>
+        </ol>
+        <footer>
+            <a href="{% url 'course-list' %}">Go Back?</a>
+        </footer>
+    </body>
+</html>
