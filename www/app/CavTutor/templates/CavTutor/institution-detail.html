@@ -4,10 +4,12 @@
     </head?
     <body>
         <b>{{ institution.name }}</b>
-        <ol>
+        <ul>
             <li>Abbreviation: {{ institution.abbr }}</li>
             <li>Address: {{ institution.address }}</li>
-        </ol>
+            <li>Number of Tracked Courses: {{ institution.num_courses }}</li>
+
+        </ul>
         <footer>
             <a href="{% url 'institution-list' %}">Go Back?</a>
         </footer>

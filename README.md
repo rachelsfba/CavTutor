@@ -1,6 +1,9 @@
 Project Description
 ===
-CavTutor is a web application for CS 4501: Internet Scale Application meant to illustrate concepts of scalability and best-practice full stack development for Internet-based applications. Our application will provide basic functionality to connect tutors with tutees for courses at any arbitrary instituion.
+CavTutor is a web application for CS 4501: Internet Scale Application meant to
+illustrate concepts of scalability and best-practice full stack development for
+Internet-based applications. Our application will provide basic functionality to
+connect tutors with tutees for courses at any arbitrary institution.
 
 Authors
 ===
@@ -12,14 +15,18 @@ Daniel Saha \<drs5ma@virginia.edu\>
 
 Description of Docker Containers
 ===
-There are currently 3 docker containers created by running `docker-compose up` on our project, in addition to the pre-requisite MariaDB docker instance named `mysql`; these are
+There are currently 4 docker containers created by running `docker-compose up` on our project, in addition to the pre-requisite MariaDB docker instance named `mysql`; these are
 
 0. `mysql` -- the low-level docker image container for our MariaDB database
 1. `api` -- our secondary-level services API that talks to our database directly
+   (port `8003`)
+1. `api_static` -- serves static files for API admin page and REST web API (port
+   `8002`)
 2. `ux` -- an abstract tertiary-level user experience layer that communicates
-   between our client-facing µ-services (`www`, `ios`, `android`, etc.)
+   between our client-facing µ-services (`www`, `ios`, `android`, etc.) (port
+   `8001`)
 3. `www` -- a client-facing docker image that serves HTML-based content for
-   human consumption; aimed at desktop web browsers
+   human consumption; aimed at desktop web browsers (port `8000`)
 
 User Stories
 ====
@@ -28,14 +35,6 @@ Refer to [doc/user_stories.md](doc/user_stories.md) for documented user stories.
 Fixtures
 ===
 We use Django fixtures to prepopulate the given database instance with our test data. A Django superuser is created, with username `root` and password `root`.
-
-API Usage
-===
-An API services layer is for all models using Django REST framework.
-
-Vist the API docker homepage on port `8003` for details.
-
-[localhost:8003](http://localhost:8003/)
 
 Project Instantiation
 ===

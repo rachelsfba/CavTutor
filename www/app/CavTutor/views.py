@@ -45,9 +45,9 @@ def course_list(request):
 
     return render(request, 'CavTutor/course-list.html', context)
 
-def course_detail(request, inst_id):
+def course_detail(request, course_id):
 
-    json_data = urlopen(UX_BASE + 'courses/' + inst_id).read().decode('utf-8')
+    json_data = urlopen(UX_BASE + 'courses/' + course_id).read().decode('utf-8')
     context = {'course' : json.loads(json_data) }
 
     return render(request, 'CavTutor/course-detail.html', context)
@@ -62,9 +62,9 @@ def tutor_list(request):
 
     return render(request, 'CavTutor/tutor-list.html', context)
 
-def tutor_detail(request, inst_id):
+def tutor_detail(request, tutor_id):
 
-    json_data = urlopen(UX_BASE + 'tutors/' + inst_id).read().decode('utf-8')
+    json_data = urlopen(UX_BASE + 'tutors/' + tutor_id).read().decode('utf-8')
     context = {'tutor' : json.loads(json_data) }
 
     return render(request, 'CavTutor/tutor-detail.html', context)
@@ -79,9 +79,9 @@ def tutee_list(request):
 
     return render(request, 'CavTutor/tutee-list.html', context)
 
-def tutee_detail(request, inst_id):
+def tutee_detail(request, tutee_id):
 
-    json_data = urlopen(UX_BASE + 'tutees/' + inst_id).read().decode('utf-8')
+    json_data = urlopen(UX_BASE + 'tutees/' + tutee_id).read().decode('utf-8')
     context = {'tutee' : json.loads(json_data) }
 
     return render(request, 'CavTutor/tutee-detail.html', context)
@@ -96,9 +96,9 @@ def user_list(request):
 
     return render(request, 'CavTutor/user-list.html', context)
 
-def user_detail(request, inst_id):
+def user_detail(request, user_id):
 
-    json_data = urlopen(UX_BASE + 'users/' + inst_id).read().decode('utf-8')
+    json_data = urlopen(UX_BASE + 'users/' + user_id).read().decode('utf-8')
     context = {'user' : json.loads(json_data) }
 
     return render(request, 'CavTutor/user-detail.html', context)

@@ -10,27 +10,12 @@ class User(models.Model):
     password = models.CharField(max_length=256)
     date_joined = models.DateTimeField(auto_now=True)
 
-    def _prune_invalid_fields(fields):
-        valid_fields = []
+#    def is_tutor(self):
+#        return len(Tutor.objects.filter(user=self)) > 0
 
-        for field in fields:
-            try:
-                valid_fields.append(this._meta.get_field(field))
-            except FieldDoesNotExist:
-                pass
+#    def is_tutee(self):
+#        return len(Tutee.objects.filter(user=self)) > 0
 
-        return valid_fields
-
-    """
-    # fields is a list of strings
-    def update(self, fields):
-        # real_fields is a list of valid field instances
-        real_fields = _prune_invalid_fields(fields)
-
-        for field in fields:
-            # return the field instance for each field in fields
-            field_inst = this._meta.get_field(field)
-    """
 
     def __str__(self):
         return self.l_name + ", " + self.f_name
