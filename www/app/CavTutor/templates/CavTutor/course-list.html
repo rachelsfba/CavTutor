@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Course List</title>
+    </head?
+    <body>
+        <p>Course List</p>
+
+        <ol>
+        {% for course in courses %}
+            <li><a href="{% url 'course-detail' course.id %}">{{ course.name }} at {{ course.institution_name }}</a></li>
+        {% endfor %}
+        </ol>
+
+        <footer>
+            <a href="{% url 'index' %}">Go Back?</a>
+        </footer>
+    </body>
+</html>
