@@ -127,8 +127,6 @@ class UserTestCase(APITestCase):
     def test_update(self):
         url = reverse('user-detail', args=[self.test_user.id])
 
-        dummy_context = dict(request=APIRequestFactory().get('/'))
-
         response = self.client.put(url, self.data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -179,6 +177,12 @@ class TutorTestCase(APITestCase):
                 adv_rate = '20.00',
             )
 
+        self.new_data = dict(
+                user = self.test_user.pk,
+                course = self.test_course.pk,
+                adv_rate = '25.00',
+            )
+
         self.test_tutor = models.Tutor.objects.create(**self.data)
 
     def test_create(self):
@@ -214,9 +218,7 @@ class TutorTestCase(APITestCase):
     def test_update(self):
         url = reverse('tutor-detail', args=[self.test_tutor.id])
 
-        dummy_context = dict(request=APIRequestFactory().get('/'))
-
-        response = self.client.put(url, self.data)
+        response = self.client.put(url, self.new_data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
