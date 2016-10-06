@@ -1,10 +1,14 @@
 <html>
     <head>
-        <title> Test </title>
+        <title>User List</title>
     </head?
     <body>
-        <p>User Detail Page</p>
+        <p>User List</p>
 
-        {% user %}
+        <ol>
+            {% for user in users %}
+            <li>{{ user.l_name }}, {{ user.l_name }}</li>
+            {% endfor %}
+        </ol>
     </body>
 </html>
