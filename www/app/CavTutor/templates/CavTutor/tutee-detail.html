@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>User | {{user.l_name }}, {{ user.f_name }}</title>
+    </head?
+    <body>
+        <b>{{user.l_name }}, {{ user.f_name }}</b>
+        <ol>
+            <li>Username: {{ user.username }}</li>
+            <li>E-Mail: {{ user.email }}</li>
+            <li>Is a tutor: {{ user.is_tutor|yesno }}</li>
+            <li>Is a tutee: {{ user.is_tutee|yesno }}</li>
+        </ol>
+        <footer>
+            <a href="{% url 'user-list' %}">Go Back?</a>
+        </footer>
+    </body>
+</html>

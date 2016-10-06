@@ -148,9 +148,17 @@ def course_list(request):
     if request.method != "GET":
         return HttpResponse(status=400)
 
-    json_data = urlopen(API_BASE + 'courses/?format=json').read()
+    json_data = urlopen(API_BASE + 'courses/?format=json').read().decode('utf-8')
+    data = json.loads(json_data)
 
-    return HttpResponse(json_data)
+    new_data = []
+    for course in data:
+        course['num_tutors'] = get_course_num_tutors(course['id'])
+        course['institution_name'] = get_institution_name(course['institution'])
+
+        new_data.append(course)
+
+    return HttpResponse(json.dumps(new_data))
 
 # Details a specific course
 def course_detail(request, course_id):
