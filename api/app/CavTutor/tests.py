@@ -88,6 +88,14 @@ class UserTestCase(APITestCase):
                 password = 'sadfasdf',
                 )
 
+        self.new_data = dict(
+                f_name = 'asfdklsdajfklads',
+                l_name = 'Shaw',
+                email = 'as@localhost',
+                username = 'asdf',
+                password = 'sadfasdf',
+                )
+
         self.test_user = models.User.objects.create(**self.data)
 
     def test_create(self):
@@ -127,7 +135,7 @@ class UserTestCase(APITestCase):
     def test_update(self):
         url = reverse('user-detail', args=[self.test_user.id])
 
-        response = self.client.put(url, self.data)
+        response = self.client.put(url, self.new_data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
