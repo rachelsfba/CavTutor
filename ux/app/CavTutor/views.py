@@ -4,7 +4,7 @@ from django.http.response import HttpResponse
 from urllib.request import urlopen
 from urllib.error import HTTPError
 
-import requests
+#import requests
 import json
 
 API_BASE = 'http://api:8000/'
