@@ -1,13 +1,13 @@
 <html>
     <head>
-        <title>User List</title>
+        <title>Tutee List</title>
     </head?
     <body>
-        <p>User List</p>
+        <p>Tutee List</p>
 
         <ol>
-        {% for user in users %}
-            <li><a href="{% url 'user-detail' user.id %}">{{ user.l_name }}, {{ user.f_name }}</a></li>
+        {% for tutee in tutees %}
+        <li><a href="{% url 'tutee-detail' tutee.id %}">{{ tutee.user.l_name }}, {{ tutee.user.f_name }}</a> ({{ tutee.course.abbr }})</li>
         {% endfor %}
         </ol>
 
