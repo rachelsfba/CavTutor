@@ -1,15 +1,18 @@
 <html>
     <head>
-        <title> Test </title>
+        <title>Institution List</title>
     </head?
     <body>
         <p>Institution List</p>
 
-
         <ol>
-            {% for institution in institutions %}
-            <li>{{ institution.name }}</li>
-            {% endfor %}
+        {% for institution in institutions %}
+            <li><a href="{% url 'institution-detail' inst_id=institution.id %}">{{ institution.name }}</a> ({{ institution.abbr }})</li>
+        {% endfor %}
         </ol>
+
+        <footer>
+            <a href="{% url 'index' %}">Go Back?</a>
+        </footer>
     </body>
 </html>

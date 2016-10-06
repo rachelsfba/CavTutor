@@ -1,10 +1,15 @@
 <html>
     <head>
-        <title>Test </title>
+        <title>Institution | {{institution.name }} </title>
     </head?
     <body>
-        <p>Particular Institution:</p>
-
-        {{ institution.name }}
+        <b>{{ institution.name }}</b>
+        <ol>
+            <li>Abbreviation: {{ institution.abbr }}</li>
+            <li>Address: {{ institution.address }}</li>
+        </ol>
+        <footer>
+            <a href="{% url 'institution-list' %}">Go Back?</a>
+        </footer>
     </body>
 </html>
