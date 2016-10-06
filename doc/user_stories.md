@@ -33,6 +33,13 @@ User Stories
    for Sarah to keep organized and be prepared. Sarah should be able to view a 
    complete list of all the people she tutors.
 
-6. Example user 6 wants to do X with our system.
+6. Andrew is a physics research professor who is looking to reach out to 
+   students taking the class with other professors. Andrew should be a listed
+   tutor in the CavTutor system, and should be able to review the courses he's
+   a tutoring, as well as the students taking those courses.
 
-7. Example user 7 wants to do X with our system.
+7. Melissa is a recent transfer student to Colorado University - Boulder. She's
+   a computer science major, but is struggling in her core math requirements.
+   Melissa is interested in tutoring for computer science, but also wants to
+   get help with her math classes. She should be both a tutor and a tutee for
+   her respective classes in the CavTutor system.
