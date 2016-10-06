@@ -146,8 +146,8 @@ def _tutor_foreign_key_id_to_json(tutor):
     return tutor
 
 def get_tutor_num_tutees(tutor_id):
-    tutors_json = urlopen(API_BASE + 'tutors/?format=json').read().decode('utf-8')
-    tutors_data = json.loads(tutors_json)
+    tutee_json = urlopen(API_BASE + 'tutees/?format=json').read().decode('utf-8')
+    tutee_data = json.loads(tutee_json)
 
     tutee_counter = 0
 
