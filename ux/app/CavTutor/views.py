@@ -108,17 +108,54 @@ def tutor_list(request):
     if request.method != "GET":
         return HttpResponse(status=400)
 
-    json_data = urlopen(API_BASE + 'tutors/?format=json').read()
+    tutor_json = urlopen(API_BASE + 'tutors/?format=json').read().decode('utf-8')
+    tutor_data = json.loads(tutor_json)
 
-    return HttpResponse(json_data)
+    tutor_data_parsed = []
+
+    for tutor in tutor_data:
+        tutor_data_parsed.append(_tutor_foreign_key_id_to_json(tutor))
+
+    return HttpResponse(json.dumps(tutor_data_parsed))
 
 # Details a specific tutor
 def tutor_detail(request, tutor_id):
     if request.method != "GET":
         return HttpResponse(status=400)
 
-    json_data = urlopen(API_BASE + 'tutors/{}/?format=json'.format(tutor_id)).read()
-    return HttpResponse(json_data)
+    json_data = urlopen(API_BASE + 'tutors/{}/?format=json'.format(tutor_id)).read().decode('utf-8')
+    tutor_data = json.loads(json_data)
+
+    tutor_data = _tutor_foreign_key_id_to_json(tutor_data)
+
+    tutor_data['num_tutees'] = get_tutor_num_tutees(tutor_id)
+
+    return HttpResponse(json.dumps(tutor_data))
+
+
+def _tutor_foreign_key_id_to_json(tutor):
+    user_json = urlopen(API_BASE + 'users/{}/?format=json'.format(tutor['user'])).read().decode('utf-8')
+    user_data = json.loads(user_json)
+
+    course_json = urlopen(API_BASE + 'courses/{}/?format=json'.format(tutor['course'])).read().decode('utf-8')
+    course_data = json.loads(course_json)
+
+    tutor['user'] = user_data
+    tutor['course'] = course_data
+
+    return tutor
+
+def get_tutor_num_tutees(tutor_id):
+    tutors_json = urlopen(API_BASE + 'tutors/?format=json').read().decode('utf-8')
+    tutors_data = json.loads(tutors_json)
+
+    tutee_counter = 0
+
+    for tutee in tutee_data:
+        if tutee['tutor'] == int(tutor_id):
+            tutee_counter += 1
+
+    return tutee_counter
 
 """
     Tutees

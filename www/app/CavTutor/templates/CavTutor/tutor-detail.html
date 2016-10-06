@@ -1,17 +1,16 @@
 <html>
     <head>
-        <title>User | {{user.l_name }}, {{ user.f_name }}</title>
+        <title>Tutor | {{tutor.user.l_name }}, {{ tutor.user.f_name }}</title>
     </head?
     <body>
-        <b>{{user.l_name }}, {{ user.f_name }}</b>
+        <b>{{ tutor.user.l_name }}, {{ tutor.user.f_name }}</b>
         <ol>
-            <li>Username: {{ user.username }}</li>
-            <li>E-Mail: {{ user.email }}</li>
-            <li>Is a tutor: {{ user.is_tutor|yesno }}</li>
-            <li>Is a tutee: {{ user.is_tutee|yesno }}</li>
+            <li>Course: {{ tutor.course.name }} ({{ tutor.course.abbr }})</li>
+            <li>Hourly Rate: USD$ {{ tutor.adv_rate }}</li>
+            <li>Number of pupils: {{ tutor.num_pupils }}</li>
         </ol>
         <footer>
-            <a href="{% url 'user-list' %}">Go Back?</a>
+            <a href="{% url 'tutor-list' %}">Go Back?</a>
         </footer>
     </body>
 </html>
