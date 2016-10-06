@@ -8,6 +8,8 @@ from urllib.error import HTTPError
 import json
 
 API_BASE = 'http://api:8000/'
+UX_BASE = 'http://localhost:8000/'
+
 """
     Institutions
 """
@@ -134,10 +136,10 @@ def tutor_detail(request, tutor_id):
 
 
 def _tutor_foreign_key_id_to_json(tutor):
-    user_json = urlopen(API_BASE + 'users/{}/?format=json'.format(tutor['user'])).read().decode('utf-8')
+    user_json = urlopen(UX_BASE + 'users/{}/?format=json'.format(tutor['user'])).read().decode('utf-8')
     user_data = json.loads(user_json)
 
-    course_json = urlopen(API_BASE + 'courses/{}/?format=json'.format(tutor['course'])).read().decode('utf-8')
+    course_json = urlopen(UX_BASE + 'courses/{}/?format=json'.format(tutor['course'])).read().decode('utf-8')
     course_data = json.loads(course_json)
 
     tutor['user'] = user_data
@@ -165,17 +167,43 @@ def tutee_list(request):
     if request.method != "GET":
         return HttpResponse(status=400)
 
-    json_data = urlopen(API_BASE + 'tutees/?format=json').read()
+    json_data = urlopen(API_BASE + 'tutees/?format=json').read().decode('utf-8')
+    tutee_data = json.loads(json_data)
 
-    return HttpResponse(json_data)
+    parsed_tutee_data = []
+
+    for tutee in tutee_data:
+        parsed_tutee_data.append(_tutee_foreign_key_id_to_json(tutee))
+
+    return HttpResponse(json.dumps(parsed_tutee_data))
 
 # Details a specific tutee
 def tutee_detail(request, tutee_id):
     if request.method != "GET":
         return HttpResponse(status=400)
 
-    json_data = urlopen(API_BASE + 'tutees/{}/?format=json'.format(tutee_id)).read()
-    return HttpResponse(json_data)
+    json_data = urlopen(API_BASE + 'tutees/{}/?format=json'.format(tutee_id)).read().decode('utf-8')
+    tutee_data = json.loads(json_data)
+
+    tutee_data = _tutee_foreign_key_id_to_json(tutee_data)
+
+    return HttpResponse(json.dumps(tutee_data))
+
+def _tutee_foreign_key_id_to_json(tutee):
+    user_json = urlopen(UX_BASE + 'users/{}/?format=json'.format(tutee['user'])).read().decode('utf-8')
+    user_data = json.loads(user_json)
+
+    course_json = urlopen(UX_BASE + 'courses/{}/?format=json'.format(tutee['course'])).read().decode('utf-8')
+    course_data = json.loads(course_json)
+
+    tutor_json = urlopen(UX_BASE + 'tutors/{}/?format=json'.format(tutee['tutor'])).read().decode('utf-8')
+    tutor_data = json.loads(tutor_json)
+
+    tutee['user'] = user_data
+    tutee['course'] = course_data
+    tutee['tutor'] = tutor_data
+
+    return tutee
 
 """
     Courses
@@ -221,3 +249,4 @@ def get_course_num_tutors(course_id):
             tutor_counter += 1
 
     return tutor_counter
+

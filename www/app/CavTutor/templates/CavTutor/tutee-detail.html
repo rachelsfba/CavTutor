@@ -1,16 +1,15 @@
 <html>
     <head>
-        <title>Tutor | {{user.l_name }}, {{ user.f_name }}</title>
+        <title>Tutee | {{tutee.user.l_name }}, {{ tutee.user.f_name }}</title>
     </head?
     <body>
-        <b>{{user.l_name }}, {{ user.f_name }}</b>
+        <b>{{ tutee.user.l_name }}, {{ tutee.user.f_name }}</b>
         <ul>
-            <li>Class: </li>
-            <li>Hourly Rate (USD$): </li>
-            <li>Number of pupils: </li>
+            <li>Course: {{ tutee.course.name }} ({{ tutee.course.abbr }}) </li>
+            <li>Tutor: {{ tutee.tutor.user.l_name }}, {{tutee.tutor.user.f_name }} </li>
         </ul>
         <footer>
-            <a href="{% url 'tutor-list' %}">Go Back?</a>
+            <a href="{% url 'tutee-list' %}">Go Back?</a>
         </footer>
     </body>
 </html>
