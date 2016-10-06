@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>User List</title>
+    </head?
+    <body>
+        <p>User List</p>
+
+        <ol>
+        {% for user in users %}
+            <li><a href="{% url 'user-detail' user.id %}">{{ user.l_name }}, {{ user.f_name }}</a></li>
+        {% endfor %}
+        </ol>
+
+        <footer>
+            <a href="{% url 'index' %}">Go Back?</a>
+        </footer>
+    </body>
+</html>
