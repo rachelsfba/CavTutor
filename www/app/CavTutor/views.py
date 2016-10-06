@@ -12,7 +12,9 @@ def index(request):
 
     context = {
             "title" : "CavTutor: A Tutoring Marketplace",
-            "models" : ['institutions', 'users', 'courses', 'tutors', 'tutees'],
+            "models" : ['institutions', 'users'],
+            # we still need implement all models!!!
+            #"models" : ['institutions', 'users', 'courses', 'tutors', 'tutees'],
         }
 
     return render(request, 'CavTutor/index.html', context)
