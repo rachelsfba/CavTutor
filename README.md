@@ -32,6 +32,14 @@ User Stories
 ====
 Refer to [doc/user_stories.md](doc/user_stories.md) for documented user stories.
 
+Unit and Integration Tests
+====
+Currently, some unit tests are bundled which are aimed at the API-layer of our application. In the future, integration testing will focus on the user experience layer. For now, you may run test by attaching to the `api` docker container, i.e.
+
+    $ docker exec -it api bash
+
+and then running `python app/manage.py test` inside the docker container.
+
 Fixtures
 ===
 We use Django fixtures to prepopulate the given database instance with our test data. A Django superuser is created, with username `root` and password `root`.
