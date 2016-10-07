@@ -38,7 +38,7 @@ Currently, some unit tests are bundled which are aimed at the API-layer of our a
 
     $ docker exec -it api bash
 
-and then running `python app/manage.py test` inside the docker container.
+and then running `python app/manage.py test app` inside the docker container.
 
 Fixtures
 ===
