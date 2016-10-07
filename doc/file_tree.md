@@ -5,78 +5,86 @@ The following tree demonstrates the file hierarchy for our project as of
 
 in the root folder of this repository.
 
-    .
-    ├── api
-    │   ├── app
-    │   │   ├── CavTutor
-    │   │   │   ├── admin.py
-    │   │   │   ├── __init__.py
-    │   │   │   ├── migrations
-    │   │   │   │   ├── 0001_initial.py
-    │   │   │   │   └── __init__.py
-    │   │   │   ├── models.py
-    │   │   │   ├── serializers.py
-    │   │   │   ├── tests.py
-    │   │   │   └── views.py
-    │   │   ├── core
-    │   │   │   ├── __init__.py
-    │   │   │   ├── settings.py
-    │   │   │   ├── urls.py
-    │   │   │   └── wsgi.py
-    │   │   └── manage.py
-    │   ├── db.json
-    │   └── deploy_server.sh
-    ├── doc
-    │   ├── file_tree.md
-    │   └── user_stories.md
-    ├── docker-compose.yml
-    ├── README.md
-    ├── scripts
-    │   ├── get_and_post_to_institution
-    │   ├── get_and_post_to_user
-    │   ├── update_to_institution
-    │   └── update_to_user
-    ├── ux
-    │   ├── app
-    │   │   ├── CavTutor
-    │   │   │   ├── __init__.py
-    │   │   │   ├── migrations
-    │   │   │   │   └── __init__.py
-    │   │   │   ├── tests.py
-    │   │   │   └── views.py
-    │   │   ├── core
-    │   │   │   ├── __init__.py
-    │   │   │   ├── settings.py
-    │   │   │   ├── urls.py
-    │   │   │   └── wsgi.py
-    │   │   └── manage.py
-    │   ├── deploy_server.sh
-    │   └── README.md
-    └── www
-        ├── app
-        │   ├── CavTutor
-        │   │   ├── admin.py
-        │   │   ├── __init__.py
-        │   │   ├── migrations
-        │   │   │   └── __init__.py
-        │   │   ├── templates
-        │   │   │   └── CavTutor
-        │   │   │       ├── generic-detail.html
-        │   │   │       ├── generic-list.html
-        │   │   │       ├── index.html
-        │   │   │       ├── institution-detail.html
-        │   │   │       ├── institution-list.html
-        │   │   │       ├── user-detail.html
-        │   │   │       └── user-list.html
-        │   │   ├── tests.py
-        │   │   └── views.py
-        │   ├── core
-        │   │   ├── __init__.py
-        │   │   ├── settings.py
-        │   │   ├── urls.py
-        │   │   └── wsgi.py
-        │   └── manage.py
-        ├── deploy_server.sh
-        └── README.md
+	.
+	├── api
+	│   ├── app
+	│   │   ├── CavTutor
+	│   │   │   ├── admin.py
+	│   │   │   ├── __init__.py
+	│   │   │   ├── migrations
+	│   │   │   │   ├── 0001_initial.py
+	│   │   │   │   ├── 0002_auto_20161004_0536.py
+	│   │   │   │   └── __init__.py
+	│   │   │   ├── models.py
+	│   │   │   ├── serializers.py
+	│   │   │   ├── test_courses.py
+	│   │   │   ├── test_institution.py
+	│   │   │   ├── test_tutees.py
+	│   │   │   ├── test_tutors.py
+	│   │   │   ├── test_users.py
+	│   │   │   └── views.py
+	│   │   ├── core
+	│   │   │   ├── __init__.py
+	│   │   │   ├── settings.py
+	│   │   │   ├── urls.py
+	│   │   │   └── wsgi.py
+	│   │   └── manage.py
+	│   ├── db.json
+	│   └── deploy_server.sh
+	├── doc
+	│   ├── file_tree.md
+	│   └── user_stories.md
+	├── docker-compose.yml
+	├── README.md
+	├── scripts
+	│   ├── get_and_post_to_institution
+	│   ├── get_and_post_to_user
+	│   ├── update_to_institution
+	│   └── update_to_user
+	├── ux
+	│   ├── app
+	│   │   ├── CavTutor
+	│   │   │   ├── __init__.py
+	│   │   │   ├── tests.py
+	│   │   │   └── views.py
+	│   │   ├── core
+	│   │   │   ├── __init__.py
+	│   │   │   ├── settings.py
+	│   │   │   ├── urls.py
+	│   │   │   └── wsgi.py
+	│   │   └── manage.py
+	│   ├── deploy_server.sh
+	│   └── README.md
+	└── www
+		├── app
+		│   ├── CavTutor
+		│   │   ├── admin.py
+		│   │   ├── __init__.py
+		│   │   ├── templates
+		│   │   │   └── CavTutor
+		│   │   │       ├── course-detail.html
+		│   │   │       ├── course-list.html
+		│   │   │       ├── generics
+		│   │   │       │   ├── generic-detail.html
+		│   │   │       │   └── generic-list.html
+		│   │   │       ├── index.html
+		│   │   │       ├── institution-detail.html
+		│   │   │       ├── institution-list.html
+		│   │   │       ├── tutee-detail.html
+		│   │   │       ├── tutee-list.html
+		│   │   │       ├── tutor-detail.html
+		│   │   │       ├── tutor-list.html
+		│   │   │       ├── user-detail.html
+		│   │   │       └── user-list.html
+		│   │   ├── tests.py
+		│   │   └── views.py
+		│   ├── core
+		│   │   ├── __init__.py
+		│   │   ├── settings.py
+		│   │   ├── urls.py
+		│   │   └── wsgi.py
+		│   └── manage.py
+		├── deploy_server.sh
+		└── README.md
 
-    19 directories, 53 files
+	18 directories, 62 files
