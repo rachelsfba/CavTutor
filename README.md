@@ -34,7 +34,7 @@ Refer to [doc/user_stories.md](doc/user_stories.md) for documented user stories.
 
 Unit and Integration Tests
 ====
-Currently, some unit tests are bundled which are aimed at the API-layer of our application. In the future, integration testing will focus on the user experience layer. For now, you may run test by attaching to the `api` docker container, i.e.
+Currently, some unit tests are bundled which are aimed at the API-layer of our application. In the future, integration testing will focus on the user experience layer. For now, you may run tests by attaching to the `api` docker container, i.e.
 
     $ docker exec -it api bash
 
