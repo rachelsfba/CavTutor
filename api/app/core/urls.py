@@ -13,7 +13,7 @@ Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
-from django.contrib import admin
+#from django.contrib import admin
 
 from rest_framework import routers
 from CavTutor import views
@@ -29,6 +29,6 @@ router.register(r'courses', views.CourseViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^admin/', include(admin.site.urls)),
+    #url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

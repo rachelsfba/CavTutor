@@ -10,23 +10,34 @@ from . import views, models, serializers
 """ A series of tests for the Course model and REST API. Follows CRUD model. """
 class CourseTestCase(APITestCase):
 
+    # setUp: Create some test objects to use for each test.
     def setUp(self):
         # need to be a superuser to POST create requests
-        self.superuser = DjangoUser.objects.create_superuser('root', 'root@localhost', 'secret')
-        self.client.login(username='root', password='secret')
+        self.superuser = DjangoUser.objects.create_superuser(
+                'root', 'root@localhost', 'secret'
+            )
 
-        self.test_institution = models.Institution.objects.create(name='Virginia Tech',
-            abbr='VT',
-            address='Blacksburg, VA')
+        self.client.login(
+                username='root',
+                password='secret',
+            )
+
+        self.test_institution = models.Institution.objects.create(
+                name='Virginia Tech',
+                abbr='VT',
+                address='Blacksburg, VA',
+            )
 
         # a dummy Institution object to test R, U, & D on
-        self.test_course = models.Course.objects.create(institution = self.test_institution,
-                                                            name='Intro to CS',
-                                                            abbr='cs 101',
-                                                            instructor='dahadza')
+        self.test_course = models.Course.objects.create(
+                institution = self.test_institution,
+                name='Intro to CS',
+                abbr='cs 101',
+                instructor='Saul Goodman',
+            )
 
+    # test_create: Test if we can create a new course using the API.
     def test_create(self):
-
         url = reverse('course-list')
 
         data = dict(
@@ -66,7 +77,8 @@ class CourseTestCase(APITestCase):
                 name='Intro to Programming',
                 abbr='CS 101',
                 instructor = 'John Smith',
-        )
+            )
+
         data.update({'name' : 'Intro to programming: section 2'})
 
         response = self.client.put(url, data)
