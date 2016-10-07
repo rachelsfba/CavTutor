@@ -1,5 +1,6 @@
 User Stories
 =====
+
 1. John is a tutor at Minnesota State University  Moorhead. He isn't new to
    tutoring, but he only likes to tutor CSIS 152 (Introduction to Computers and
    Programming I) students. He charges a flat rate of $15.00/hr, but finds it
@@ -22,24 +23,25 @@ User Stories
    upcoming midterm exam. They post a listing on our website looking for
    history tutors in their area.
 
-4. Herman is a 1st year Computer Science student in the College of Arts & Sciences
-   and is ahead for his year. He is extremely savvy in Python and wants to tutor 
-   CS 1110. However he is not a strong writer and is struggling in his ENWR 
-   First Year writing course. Herman should be able to both be a tutor and a 
-   tutee in the CavTutor system.  
+4. Herman is a 1st-year Computer Science student in the College of Arts & Sciences,
+   and is ahead for his year. He is extremely savvy in Python, and wants to tutor
+   CS 1110. However, he is not a strong writer, and is struggling in his ENWR
+   First Year writing course. Herman should be able to both be a tutor and a
+   tutee in the CavTutor system.
 
-5. Sarah is well versed in history, math and science and tutors many people
-   in many courses belonging to many different institutions. Therefore it is hard
-   for Sarah to keep organized and be prepared. Sarah should be able to view a 
-   complete list of all the people she tutors.
+5. Sarah is well versed in history, math, and science. She tutors people
+   in different courses at several different area institutions. With such a variety
+   of clientele, she finds it hard to keep organized and be prepared. Sarah should
+   be able to view a complete list of all the people she tutors.
 
-6. Andrew is a physics research professor who is looking to reach out to 
-   students taking the class with other professors. Andrew should be a listed
-   tutor in the CavTutor system, and should be able to review the courses he's
-   a tutoring, as well as the students taking those courses.
+6. Andrew is a retired high school physics teacher who is looking to start
+   tutoring as a side hobby. Andrew should be able to list himself as a tutor
+   without having to associate himself with a particular course or institution,
+   since he is not a student or school faculty member.
 
-7. Melissa is a recent transfer student to Colorado University - Boulder. She's
-   a computer science major, but is struggling in her core math requirements.
-   Melissa is interested in tutoring for computer science, but also wants to
-   get help with her math classes. She should be both a tutor and a tutee for
-   her respective classes in the CavTutor system.
+7. Melissa is a recent transfer student to Colorado University–Boulder from a
+   local community college. She's a computer science major, but is struggling
+   in her core math requirements. Melissa is interested in tutoring computer
+   science at her old community  college, but also needs to get help with her
+   math classes at her current institution. She should be able to be both a
+   tutor for one institution yet a tutee at another in the CavTutor system.
