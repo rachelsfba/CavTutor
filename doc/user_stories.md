@@ -5,7 +5,7 @@ User Stories
    available to tutor.
 
 2. As an internal developer for CavTutor, I should be able to create a new µ-service
-   to parse a list of courses for a given university (in .csv format) and use our API
+   to parse a list of courses for a given university (in `.csv` format) and use our API
    to update any courses that already exist and create new records.
       
 3. As an internal developer, I can create new objects by simply sending a `POST`
