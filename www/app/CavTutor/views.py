@@ -1,5 +1,14 @@
 from django.shortcuts import render
 from urllib.request import urlopen
+import json
+from urllib.error import HTTPError
+
+
+from django.shortcuts import render
+from django.http.response import HttpResponse, HttpResponseNotFound
+HTTP_ERROR_404 = json.dumps(dict(detail="HTTP 404 Error: File Not Found"))
+
+
 
 import json
 #import requests
@@ -21,6 +30,7 @@ def index(request):
 """
     Institutions
 """
+
 def institution_list(request):
 
     json_data = urlopen(UX_BASE + 'institutions/').read().decode('utf-8')
@@ -29,11 +39,14 @@ def institution_list(request):
     return render(request, 'CavTutor/institution-list.html', context)
 
 def institution_detail(request, inst_id):
+    try: 
+        json_data = urlopen(UX_BASE + 'institutions/' + inst_id).read().decode('utf-8')
+        context = {'institution' : json.loads(json_data) }
 
-    json_data = urlopen(UX_BASE + 'institutions/' + inst_id).read().decode('utf-8')
-    context = {'institution' : json.loads(json_data) }
+        return render(request, 'CavTutor/institution-detail.html', context)
 
-    return render(request, 'CavTutor/institution-detail.html', context)
+    except HTTPError as e:
+        return render(request, '404.html', {})
 
 """
     Course
@@ -46,13 +59,14 @@ def course_list(request):
     return render(request, 'CavTutor/course-list.html', context)
 
 def course_detail(request, course_id):
+    try:
+        course_json_data = urlopen(UX_BASE + 'courses/' + course_id).read().decode('utf-8')
+        course_data = json.loads(course_json_data)
 
-    course_json_data = urlopen(UX_BASE + 'courses/' + course_id).read().decode('utf-8')
-    course_data = json.loads(course_json_data)
-
-    context = {'course' : course_data,}
-
-    return render(request, 'CavTutor/course-detail.html', context)
+        context = {'course' : course_data,}
+        return render(request, 'CavTutor/course-detail.html', context)
+    except HTTPError as e:
+        return render(request, '404.html', {})
 
 """
     Tutor
@@ -65,12 +79,12 @@ def tutor_list(request):
     return render(request, 'CavTutor/tutor-list.html', context)
 
 def tutor_detail(request, tutor_id):
-
-    json_data = urlopen(UX_BASE + 'tutors/' + tutor_id).read().decode('utf-8')
-    context = {'tutor' : json.loads(json_data) }
-
-    return render(request, 'CavTutor/tutor-detail.html', context)
-
+    try:
+        json_data = urlopen(UX_BASE + 'tutors/' + tutor_id).read().decode('utf-8')
+        context = {'tutor' : json.loads(json_data) }
+        return render(request, 'CavTutor/tutor-detail.html', context)
+    except HTTPError as e:
+        return render(request, '404.html', {})
 """
     Tutee
 """
@@ -82,11 +96,13 @@ def tutee_list(request):
     return render(request, 'CavTutor/tutee-list.html', context)
 
 def tutee_detail(request, tutee_id):
+    try:
+        json_data = urlopen(UX_BASE + 'tutees/' + tutee_id).read().decode('utf-8')
+        context = {'tutee' : json.loads(json_data) }
 
-    json_data = urlopen(UX_BASE + 'tutees/' + tutee_id).read().decode('utf-8')
-    context = {'tutee' : json.loads(json_data) }
-
-    return render(request, 'CavTutor/tutee-detail.html', context)
+        return render(request, 'CavTutor/tutee-detail.html', context)
+    except HTTPError as e:
+        return render(request, '404.html', {})
 
 """
     User
@@ -99,8 +115,10 @@ def user_list(request):
     return render(request, 'CavTutor/user-list.html', context)
 
 def user_detail(request, user_id):
+    try:
+        json_data = urlopen(UX_BASE + 'users/' + user_id).read().decode('utf-8')
+        context = {'user' : json.loads(json_data) }
 
-    json_data = urlopen(UX_BASE + 'users/' + user_id).read().decode('utf-8')
-    context = {'user' : json.loads(json_data) }
-
-    return render(request, 'CavTutor/user-detail.html', context)
+        return render(request, 'CavTutor/user-detail.html', context)
+    except HTTPError as e:
+        return render(request, '404.html', {})

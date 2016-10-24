@@ -12,7 +12,6 @@ UX_BASE = 'http://localhost:8000/'
 
 HTTP_ERROR_400 = json.dumps(dict(detail="HTTP 400 Error: Bad Request"))
 HTTP_ERROR_404 = json.dumps(dict(detail="HTTP 404 Error: File Not Found"))
-
 """
     Institutions
 """
@@ -42,7 +41,6 @@ def institution_detail(request, inst_id):
 
     # add two additional boolean fields to what the API gave us
     data['num_courses'] = get_institution_num_courses(int(inst_id))
-
     return HttpResponse(json.dumps(data))
 
 
