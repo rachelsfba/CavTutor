@@ -19,8 +19,8 @@ We use two docker networks, a user-facing network which contains front-end
 docker containers, and a back-end network, which is meant to be inaccessible
 to users.
 
- - `CavTutor_frontend` -- contains `www`, `ux
- - `CavTutor_backend` -- contains `ux`, `api_v2`, `api_static`, and `mysql` (see next section)
+ - `cavtutor_frontend` -- contains `www`, `ux
+ - `cavtutor_backend` -- contains `ux`, `api_v2`, `api_static`, and `mysql` (see next section)
 
 Note that the user experience layer is the "middle man" between the two
 networks, being the only docker container on both.
@@ -30,7 +30,12 @@ Important Note for `mysql` Docker
 Please note that your external `mysql` docker container must be on the same
 docker network as ours. To connect `mysql` to the network, run
 
-    $ docker network connect mysql CavTutor_backend
+    $ docker network connect mysql cavtutor_backend
+
+If you get an error, you may need to try a different network. To list all active
+networks, run
+    
+    $ docker network ls
 
 Description of Docker Containers
 ===
