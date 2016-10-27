@@ -31,3 +31,9 @@ User Stories
 
 10. As a user, I should be able to remain registered even when I'm not currently tutoring or
    receiving help with a course.
+   
+11. As a user, I should be able to create my own account and set my own username and password.
+
+12. As a user, I can logout or have a cookie store my visit so that I don't have to login everytime I visit the page.
+
+13. As a logged in user, I can create a new listing for the classes I tutor.
