@@ -1,0 +1,9 @@
+FROM nginx:latest
+MAINTAINER Andrea Shaw <rshaw@olivermattei.net>
+
+RUN apt-get update && apt-get install -y vim htop git
+
+RUN rm -rf /etc/nginx/conf.d/default.conf
+ADD nginx.conf /etc/nginx/nginx.conf
+ADD apis.conf /etc/nginx/conf.d/apis.conf
+#ADD api_v2.conf /etc/nginx/conf.d/api_v2.conf

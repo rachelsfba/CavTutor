@@ -1,21 +1,14 @@
 from django.shortcuts import render
+from django.http.response import HttpResponse, HttpResponseNotFound
 from urllib.request import urlopen
-import json
 from urllib.error import HTTPError
 
-
-from django.shortcuts import render
-from django.http.response import HttpResponse, HttpResponseNotFound
-HTTP_ERROR_404 = json.dumps(dict(detail="HTTP 404 Error: File Not Found"))
-
-
-
 import json
-#import requests
+
 
 UX_BASE = 'http://ux:8000/'
 
-# Create your views here.
+HTTP_ERROR_404 = json.dumps({"detail": "HTTP 404 Error: File Not Found"})
 
 def index(request):
 
@@ -46,7 +39,10 @@ def institution_detail(request, inst_id):
         return render(request, 'CavTutor/institution-detail.html', context)
 
     except HTTPError as e:
-        return render(request, '404.html', {})
+        return render(request, '404.html', {
+                "model": "instititution",
+                "id": inst_id,
+            })
 
 """
     Course
@@ -66,7 +62,10 @@ def course_detail(request, course_id):
         context = {'course' : course_data,}
         return render(request, 'CavTutor/course-detail.html', context)
     except HTTPError as e:
-        return render(request, '404.html', {})
+        return render(request, '404.html', {
+                "model": "course",
+                "id": course_id,
+            })
 
 """
     Tutor
@@ -84,7 +83,11 @@ def tutor_detail(request, tutor_id):
         context = {'tutor' : json.loads(json_data) }
         return render(request, 'CavTutor/tutor-detail.html', context)
     except HTTPError as e:
-        return render(request, '404.html', {})
+        return render(request, '404.html', {
+                "model": "tutor",
+                "id": tutor_id,
+            })
+
 """
     Tutee
 """
@@ -102,7 +105,10 @@ def tutee_detail(request, tutee_id):
 
         return render(request, 'CavTutor/tutee-detail.html', context)
     except HTTPError as e:
-        return render(request, '404.html', {})
+        return render(request, '404.html', {
+                "model": "tutee",
+                "id": tutee_id,
+            })
 
 """
     User
@@ -121,4 +127,7 @@ def user_detail(request, user_id):
 
         return render(request, 'CavTutor/user-detail.html', context)
     except HTTPError as e:
-        return render(request, '404.html', {})
+        return render(request, '404.html', {
+                "model": "user",
+                "id": user_id,
+            })

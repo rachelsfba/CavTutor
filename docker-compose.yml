@@ -1,63 +1,102 @@
-# A docker container for our API-level Django project.
-#
-# It serves files using Apache's mod_wsgi-express.
-api:
-    container_name: api
-    image: omattei/restful-django
+# We use version 2 of Docker Compose
+version: '2'
 
-    # we want to link to an external mysql docker container
-    external_links:
-        - mysql:db
-    ports:
-        - "8003:8000"
-    volumes:
-        - ./api:/app
-    command: /app/deploy_server.sh
+services:
+    # The api_handler docker container is supposed to be a reverse proxy that
+    # redirects requests to either api_v1 or api_v2 depending on their URL.
+    # However, it is not working presently.
+    #api_handler:
+    #    container_name: api_handler
+    #    build: 
+    #        dockerfile: Dockerfile-nginx-reverse-proxy
+    #        context: api/handler
+    #    image: nginx-proxy-handler:latest
+    #    links: 
+    #     - api_v1
+    #     - api_v2
+    #    ports:
+    #     - "8003:8003"
+    #    volumes:
+    #     - ./api/handler:/app
+    
+    # A docker container for our API-level Django project.
+    #
+    # It serves files using Apache's mod_wsgi-express.
+    #api_v1:
+    #    container_name: api_v1
+    #    image: omattei/restful-django
+    #
+    #    # we want to link to an external mysql docker container
+    #    external_links:
+    #        - mysql:db
+    #    ports:
+    #        - "8081:8000"
+    #    volumes:
+    #        - ./api/v1:/app
+    #    command: /app/deploy_server.sh
 
-# A docker container for our API-level static files
-#       (e.g. stylesheets, images, JavaScript)
-#
-# It serves files using the lightweight web server lighttpd.
-#
-# In production, this would be served up on a separate
-# domain/server, but for development we will spin up
-# this server on port 8001.
-api_static:
-    container_name: api_static
-    image: sebp/lighttpd
-    volumes:
-        - ./api/static:/var/www/localhost/htdocs/static
-    ports:
-        - "8002:80"
+    # A docker container for our API-level Django project.
+    #
+    # It serves files using Apache's mod_wsgi-express.
+    api_v2:
+        container_name: api_v2
+        image: omattei/restful-django
 
-# A docker container for our user experience-level Django project.
-#
-# It serves files using Apache's mod_wsgi-express.
-ux:
-    container_name: ux
-    image: omattei/restful-django
+        # we want to link to an external mysql docker container
+        external_links:
+            - mysql:db
+        ports:
+            # - "8082:8000"
+             - "8003:8000"
+        volumes:
+            - ./api/v2:/app
+        command: /app/deploy_server.sh
 
-    # we want to link to an external mysql docker container
-    links:
-        - api
-    ports:
-        - "8001:8000"
-    volumes:
-        - ./ux:/app
-    command: /app/deploy_server.sh
+    # A docker container for our API-level static files
+    #       (e.g. stylesheets, images, JavaScript)
+    #
+    # It serves files using the lightweight web server lighttpd.
+    #
+    # In production, this would be served up on a separate
+    # domain/server, but for development we will spin up
+    # this server on port 8001.
+    api_static:
+        container_name: api_static
+        image: sebp/lighttpd
+        volumes:
+            - ./api/static:/var/www/localhost/htdocs/static
+        ports:
+            - "8002:80"
 
-# A docker container for our web-facing Django project.
-#
-# It serves files using Apache's mod_wsgi-express.
-www:
-    container_name: www
-    image: omattei/restful-django
+    # A docker container for our user experience-level Django project.
+    #
+    # It serves files using Apache's mod_wsgi-express.
+    ux:
+        container_name: ux
+        image: omattei/restful-django
 
-    # we want to link to an external mysql docker container
-    links:
-        - ux
-    ports:
-        - "8000:8000"
-    volumes:
-        - ./www:/app
-    command: /app/deploy_server.sh
+        # we want to link to an external mysql docker container
+        #external_links:
+        links:
+            - api_v2:api
+        ports:
+            - "8001:8000"
+        volumes:
+            - ./ux:/app
+        command: /app/deploy_server.sh
+
+    # A docker container for our web-facing Django project.
+    #
+    # It serves files using Apache's mod_wsgi-express.
+    www:
+        container_name: www
+        image: omattei/restful-django
+
+        # we want to link to an external mysql docker container
+        links:
+            - ux
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./www:/app
+        command: /app/deploy_server.sh
