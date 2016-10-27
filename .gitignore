@@ -4,4 +4,4 @@ logs/
 __pycache__/
 *~
 *.swp
-
+*.swo
