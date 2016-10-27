@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>User Login | CavTutor</title>
+    </head?
+    <body>
+        {% if status == "incomplete" %}
+            <p><emph> You didn't give us a username and/or password! </emph></p>
+        {% elif status == "incorrect" %}
+            <p><emph> You didn't give us a correct username and/or password! </emph></p>
+        {% endif %}
+
+        <p> Please provide your username and password so we can log you in! </p>
+
+        <form action="{% url 'user-login' %}" method="post">
+                {% csrf_token %}
+				<!-- need to make error msg go on same line for all fields -->
+                {{ form.as_p }}
+               <input type="submit" value="Submit" />
+        </form>
+        <footer>
+            <a href="{% url 'index' %}">Go Home?</a>
+        </footer>
+    </body>
+</html>

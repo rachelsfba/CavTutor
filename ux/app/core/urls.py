@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^tutees/', views.tutee_list),
 
     url(r'^users/(?P<user_id>\d+)', views.user_detail),
+    url(r'^users/login', views.user_login),
     url(r'^users/', views.user_list),
 ]
