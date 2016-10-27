@@ -198,11 +198,11 @@ def user_login(request):
             if not ux_response or not ux_response['user_id']:
                 status = "incorrect"
             else:
-                auth_cookie = ux_response['auth_cookie']
+                auth_cookie = ux_response['token']
                 
                 www_response = HttpResponseRedirect(next_page)
-                # 60 * 60 * 8 = 3600 * 8 = 28800 sec = 8 hrs
-                www_response.set_cookie("auth_cookie", auth_cookie, max_age=28800)
+                www_response.set_cookie("token", auth_cookie)
+
 
                 return www_response
         else: 
