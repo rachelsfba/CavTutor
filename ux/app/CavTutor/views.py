@@ -10,11 +10,14 @@ from django.contrib.auth.hashers import check_password, make_password
 from urllib.request import urlopen
 from urllib.error import HTTPError
 
+from urllib.parse import urlencode
 
 API_VERSION = 'v2'
 
 API_BASE = 'http://api:8000/api/' + API_VERSION + "/"
 UX_BASE = 'http://localhost:8000/'
+
+HTTP_ERROR_500 = json.dumps(dict(detail="HTTP 500 Error: Intersal Service Error"))
 
 HTTP_ERROR_400 = json.dumps(dict(detail="HTTP 400 Error: Bad Request"))
 HTTP_ERROR_404 = json.dumps(dict(detail="HTTP 404 Error: File Not Found"))
@@ -118,9 +121,19 @@ def user_login(request):
             if check_password(request.POST['password'], user['password']):
                 data = {
                         'user_id': user['id'],
-                        'auth_cookie': _make_new_auth_cookie(),
+                        'token': _make_new_auth_cookie()
                        }
 
+                #tell the backend api to save this users session                
+                encoded_data = urlencode(data).encode('utf-8')
+                try:
+                    request = urlopen(API_BASE + 'authenticators/', data=encoded_data)
+                except HTTPError as e:
+                    return HttpResponseServerError(e)
+                #return json.loads(request.read().decode('utf-8')), request.getcode()
+                                            
+
+                #return cookie to front end
                 return HttpResponse(json.dumps(data))
 
     return HttpResponseNotFound(HTTP_ERROR_404)
