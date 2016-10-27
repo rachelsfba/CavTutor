@@ -29,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = ('id', 'username', 'f_name', 'l_name', 'password', 'email')
-        extra_kwargs = {'password': {'write_only': True}, }
+#        extra_kwargs = {'password': {'write_only': True}, }
 
 class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
