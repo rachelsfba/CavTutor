@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from urllib.request import urlopen
 from urllib.parse import urlencode
 from urllib.error import HTTPError
@@ -174,8 +174,10 @@ def user_login(request):
             else:
                 auth_cookie = ux_response['auth_cookie']
                 
-                www_response = HttpReponseRedirect(next_page)
+                www_response = HttpResponseRedirect(next_page)
                 www_response.set_cookie("auth_cookie", auth_cookie)
+
+                return www_response
         else: 
             status = "incomplete"
 
