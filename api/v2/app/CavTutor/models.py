@@ -20,6 +20,14 @@ class User(models.Model):
     def __str__(self):
         return self.l_name + ", " + self.f_name
 
+
+class Authenticator(models.Model):
+    token = models.CharField(max_length=256)
+    expiry_date = models.DateTimeField(auto_now=False)
+    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.user_id) + ": "+str(self.token)+" expires "+str(self.expiry_date)
+
 class Course(models.Model):
     institution = models.ForeignKey('Institution', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)

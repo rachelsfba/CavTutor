@@ -50,3 +50,9 @@ class TuteeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Tutee
         fields = ('id', 'user', 'course', 'tutor')
+
+
+class AuthenticatorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Authenticator
+        fields = ('token', 'user_id', 'expiry_date')
