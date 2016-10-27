@@ -24,6 +24,7 @@ router.register(r'institutions', views.InstitutionViewSet)
 router.register(r'tutors', views.TutorViewSet)
 router.register(r'tutees', views.TuteeViewSet)
 router.register(r'courses', views.CourseViewSet)
+router.register(r'authenticators', views.AuthenticatorViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
