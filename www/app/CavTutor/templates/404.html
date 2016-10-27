@@ -1,9 +1,15 @@
 <html>
     <head>
-        <title>File Not Found | HTTP 404 </title>
+        <title>{{ model|title }} Not Found | HTTP 404 </title>
     </head?
     <body>
-		File not found!
-		<a href="/">Home</a>
+        <h1>Record not found! </h1>
+        
+        <p>You tried to find a {{ model }} with id={{ id }}, but it appears to
+        have been obliterated. I blame the Vogons.</p>
+
+        <footer>
+            <a href="{% url 'index' %}">Go Home?</a>
+        </footer>
     </body>
 </html>

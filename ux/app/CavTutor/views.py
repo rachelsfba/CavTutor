@@ -7,7 +7,9 @@ from urllib.error import HTTPError
 #import requests
 import json
 
-API_BASE = 'http://api:8000/'
+API_VERSION = 'v2'
+
+API_BASE = 'http://api:8000/api/' + API_VERSION + "/"
 UX_BASE = 'http://localhost:8000/'
 
 HTTP_ERROR_400 = json.dumps(dict(detail="HTTP 400 Error: Bad Request"))
