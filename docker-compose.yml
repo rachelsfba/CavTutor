@@ -18,7 +18,7 @@ services:
     #     - "8003:8003"
     #    volumes:
     #     - ./api/handler:/app
-    
+    #
     # A docker container for our API-level Django project.
     #
     # It serves files using Apache's mod_wsgi-express.
@@ -59,7 +59,7 @@ services:
     #
     # In production, this would be served up on a separate
     # domain/server, but for development we will spin up
-    # this server on port 8001.
+    # this server on a separate port.
     api_static:
         container_name: api_static
         image: sebp/lighttpd
@@ -74,9 +74,6 @@ services:
     ux:
         container_name: ux
         image: omattei/restful-django
-
-        # we want to link to an external mysql docker container
-        #external_links:
         links:
             - api_v2:api
         ports:
@@ -91,8 +88,6 @@ services:
     www:
         container_name: www
         image: omattei/restful-django
-
-        # we want to link to an external mysql docker container
         links:
             - ux
         ports:
