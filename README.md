@@ -13,6 +13,25 @@ Matthew Schaeffer \<mbs5mz@virginia.edu\>
 
 Daniel Saha \<drs5ma@virginia.edu\>
 
+Networks
+===
+We use two docker networks, a user-facing network which contains front-end
+docker containers, and a back-end network, which is meant to be inaccessible
+to users.
+
+ - `CavTutor_frontend` -- contains `www`, `ux
+ - `CavTutor_backend` -- contains `ux`, `api_v2`, `api_static`, and `mysql` (see next section)
+
+Note that the user experience layer is the "middle man" between the two
+networks, being the only docker container on both.
+
+Important Note for `mysql` Docker
+---
+Please note that your external `mysql` docker container must be on the same
+docker network as ours. To connect `mysql` to the network, run
+
+    $ docker network connect mysql CavTutor_backend
+
 Description of Docker Containers
 ===
 There are currently 4 docker containers created by running `docker-compose up` on our project, in addition to the pre-requisite MariaDB docker instance named `mysql`; these are
