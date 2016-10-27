@@ -1,11 +1,15 @@
-from django.shortcuts import render
-from django.http.response import HttpResponse, HttpResponseNotFound
+import os
+import hmac
+import json
 
+import core.settings
+
+from django.shortcuts import render
+from django.http.response import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
+from django.contrib.auth.hashers import check_password, make_password
 from urllib.request import urlopen
 from urllib.error import HTTPError
 
-#import requests
-import json
 
 API_VERSION = 'v2'
 
@@ -20,7 +24,7 @@ HTTP_ERROR_404 = json.dumps(dict(detail="HTTP 404 Error: File Not Found"))
 # List of all institution objects
 def institution_list(request):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         json_data = urlopen(API_BASE + 'institutions/?format=json').read()
@@ -32,7 +36,7 @@ def institution_list(request):
 # Details a specific institution object
 def institution_detail(request, inst_id):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         json_data = urlopen(API_BASE + 'institutions/{}/?format=json'.format(inst_id)).read().decode('utf-8')
@@ -71,7 +75,7 @@ def get_institution_num_courses(inst_id):
 # List of all user objects
 def user_list(request):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         json_data = urlopen(API_BASE + 'users/?format=json').read()
@@ -83,7 +87,7 @@ def user_list(request):
 # Details a specific user object
 def user_detail(request, user_id):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         json_data = urlopen(API_BASE + 'users/{}/?format=json'.format(user_id)).read().decode('utf-8')
@@ -93,12 +97,44 @@ def user_detail(request, user_id):
     data = json.loads(json_data)
 
     # add two additional boolean fields to what the API gave us
-    data['is_tutor'] = user_is_tutor(int(user_id))
-    data['is_tutee'] = user_is_tutee(int(user_id))
+    data['is_tutor'] = _user_is_tutor(int(user_id))
+    data['is_tutee'] = _user_is_tutee(int(user_id))
 
     return HttpResponse(json.dumps(data))
 
-def user_is_tutee(user_id):
+def user_login(request):
+    if request.method != "POST":
+        return HttpResponseBadRequest(HTTP_ERROR_400)
+
+    try:
+        json_data = urlopen(API_BASE + 'users/?format=json').read().decode('utf-8')
+    except HTTPError as e:
+        return HttpResponseNotFound(HTTP_ERROR_404)
+
+    data = json.loads(json_data)
+
+    for user in data:
+        if user['username'] == request.POST['username']:
+            if check_password(request.POST['password'], user['password']):
+                data = {
+                        'id': user['id'],
+                        'auth_cookie': _make_new_auth_cookie(),
+                       }
+
+                return HttpResponse(json.dumps(data))
+
+    return HttpResponseNotFound(HTTP_ERROR_404)
+
+def _make_new_auth_cookie():
+
+    authenticator = hmac.new(
+            key = settings.SECRET_KEY.encode('utf-8'),
+            msg = os.urandom(32),
+            digestmod = 'sha256').hexdigest()
+
+    return authenticator
+
+def _user_is_tutee(user_id):
     tutee_json = urlopen(API_BASE + 'tutees/?format=json').read().decode('utf-8')
     tutee_data = json.loads(tutee_json)
 
@@ -109,7 +145,7 @@ def user_is_tutee(user_id):
     return False
 
 
-def user_is_tutor(user_id):
+def _user_is_tutor(user_id):
     tutor_json = urlopen(API_BASE + 'tutors/?format=json').read().decode('utf-8')
     tutor_data = json.loads(tutor_json)
 
@@ -126,7 +162,7 @@ def user_is_tutor(user_id):
 # List of all tutors
 def tutor_list(request):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         tutor_json = urlopen(API_BASE + 'tutors/?format=json').read().decode('utf-8')
@@ -145,7 +181,7 @@ def tutor_list(request):
 # Details a specific tutor
 def tutor_detail(request, tutor_id):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         json_data = urlopen(API_BASE + 'tutors/{}/?format=json'.format(tutor_id)).read().decode('utf-8')
@@ -191,7 +227,7 @@ def get_tutor_num_tutees(tutor_id):
 # List of all tutees
 def tutee_list(request):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         json_data = urlopen(API_BASE + 'tutees/?format=json').read().decode('utf-8')
@@ -210,7 +246,7 @@ def tutee_list(request):
 # Details a specific tutee
 def tutee_detail(request, tutee_id):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         json_data = urlopen(API_BASE + 'tutees/{}/?format=json'.format(tutee_id)).read().decode('utf-8')
@@ -245,7 +281,7 @@ def _tutee_foreign_key_id_to_json(tutee):
 # List of all courses
 def course_list(request):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         json_data = urlopen(API_BASE + 'courses/?format=json').read().decode('utf-8')
@@ -266,7 +302,7 @@ def course_list(request):
 # Details a specific course
 def course_detail(request, course_id):
     if request.method != "GET":
-        return HttpResponseNotFound(HTTP_ERROR_400)
+        return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
         json_data = urlopen(API_BASE + 'courses/{}/?format=json'.format(course_id)).read().decode('utf-8')

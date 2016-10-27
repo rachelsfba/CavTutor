@@ -32,5 +32,8 @@ urlpatterns = [
 
     url(r'^tutees/(?P<tutee_id>\d+)', views.tutee_detail, name='tutee-detail'),
     url(r'^tutees', views.tutee_list, name='tutee-list'),
-    url(r'^$|^index', views.index, name='index')
+    
+    url(r'^login', views.user_login, name='user-login'),    
+    
+    url(r'^$|^index', views.index, name='index'),
 ]
