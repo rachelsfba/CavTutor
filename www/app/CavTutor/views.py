@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
-from django.http.response import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseRedirect
 from urllib.request import urlopen
 from urllib.parse import urlencode
 from urllib.error import HTTPError
@@ -169,7 +169,7 @@ def user_login(request):
             # Retrieve login response and associated status code
             ux_response, status_code = _user_login_ux(username, password)
 
-            if not ux_response or not ux_response['id']:
+            if not ux_response or not ux_response['user_id']:
                 status = "incorrect"
             else:
                 auth_cookie = ux_response['auth_cookie']

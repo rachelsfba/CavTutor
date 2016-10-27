@@ -2,10 +2,10 @@ import os
 import hmac
 import json
 
-import core.settings
+import core.settings as settings
 
 from django.shortcuts import render
-from django.http.response import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
+from django.http.response import *
 from django.contrib.auth.hashers import check_password, make_password
 from urllib.request import urlopen
 from urllib.error import HTTPError
@@ -117,7 +117,7 @@ def user_login(request):
         if user['username'] == request.POST['username']:
             if check_password(request.POST['password'], user['password']):
                 data = {
-                        'id': user['id'],
+                        'user_id': user['id'],
                         'auth_cookie': _make_new_auth_cookie(),
                        }
 
