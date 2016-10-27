@@ -16,6 +16,34 @@ import json
 UX_BASE = 'http://ux:8000/'
 
 
+def login_required(func):
+    def wrap(request, *args, **kwargs):
+        # try authenticating the user
+        user = _validate_user_cookie(request)
+
+        # failed
+        if not user:
+            # redirect the user to the login page
+            return HttpResponseRedirect(reverse('login') + '?next=' + current_url)
+        else:
+            return func(request, *args, **kwargs)
+
+    return wrap
+
+def _validate_user_cookie(request):
+    auth_cookie = request.COOKIES.get("auth_cookie")
+    
+    # check if the cookie was set
+    if auth_cookie:
+        # check if the cookie has expired
+        json_data = urlopen(UX_BASE + 'authenticators/').read().decode('utf-8')
+        
+        for authenticator in json.loads(json_data):
+            if authenticator['token'] == auth_cookie:
+                return True
+
+    return False
+
 def index(request):
 
     context = {
@@ -175,7 +203,8 @@ def user_login(request):
                 auth_cookie = ux_response['auth_cookie']
                 
                 www_response = HttpResponseRedirect(next_page)
-                www_response.set_cookie("auth_cookie", auth_cookie)
+                # 60 * 60 * 8 = 3600 * 8 = 28800 sec = 8 hrs
+                www_response.set_cookie("auth_cookie", auth_cookie, max_age=28800)
 
                 return www_response
         else: 
@@ -185,6 +214,7 @@ def user_login(request):
             'form': login_form,
             'status': status,
         })
+
 
 def _user_login_ux(username, password):
     data = {
