@@ -1,6 +1,10 @@
 # We use version 2 of Docker Compose
 version: '2'
 
+networks:
+    frontend:
+    backend: 
+
 services:
     # The api_handler docker container is supposed to be a reverse proxy that
     # redirects requests to either api_v1 or api_v2 depending on their URL.
@@ -41,7 +45,8 @@ services:
     api_v2:
         container_name: api_v2
         image: omattei/restful-django
-
+        networks:
+            - backend
         # we want to link to an external mysql docker container
         external_links:
             - mysql:db
@@ -63,6 +68,8 @@ services:
     api_static:
         container_name: api_static
         image: sebp/lighttpd
+        networks:
+            - backend
         volumes:
             - ./api/static:/var/www/localhost/htdocs/static
         ports:
@@ -74,6 +81,9 @@ services:
     ux:
         container_name: ux
         image: omattei/restful-django
+        networks:
+            - backend
+            - frontend
         links:
             - api_v2:api
         ports:
@@ -88,8 +98,8 @@ services:
     www:
         container_name: www
         image: omattei/restful-django
-        links:
-            - ux
+        networks:
+            - frontend
         ports:
             - "8000:8000"
         volumes:
