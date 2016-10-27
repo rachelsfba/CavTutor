@@ -12,9 +12,7 @@ from .forms import *
 
 import json
 
-
 UX_BASE = 'http://ux:8000/'
-
 
 def login_required(func):
     def wrap(request, *args, **kwargs):
@@ -24,7 +22,7 @@ def login_required(func):
         # failed
         if not user:
             # redirect the user to the login page
-            return HttpResponseRedirect(reverse('login') + '?next=' + current_url)
+            return HttpResponseRedirect(reverse('login'))
         else:
             return func(request, *args, **kwargs)
 
