@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>{% block title %}{% endblock %} | CavTutor Tutoring Marketplace</title>
+    </head?
+    <body>
+        <header class="align: right">
+            {% if user.is_authenticated %}
+                Hello, {{ user.f_name }}. <a href="{% url 'user-logout' %}">Logout?</a> 
+            {% else %}
+                <a href="{% url 'user-login' %}">Login</a>&nbsp;&#8756;&nbsp; 
+                <a href="{% url 'user-register' %}">Create New Account</a> 
+            {% endif %}
+        </header>
+        <hr />
+        {% block body_block %}
+        {% endblock %}
+    </body>
+</html>

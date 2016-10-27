@@ -1,18 +1,17 @@
-<html>
-    <head>
-        <title>{{ title }}</title>
-    </head?
-    <body>
-        <h1> Welcome to  {{ title }} </h1>
+{% extends 'CavTutor/generics/base.html' %}
 
-        I want to view all&hellip;
+{% block title %}{{ title }}{% endblock %}
 
-        <ol>
-        {% for model in models %}
+{% block body_block %}
+    <h1> Welcome to  {{ title }} </h1>
+
+    I want to view all&hellip;
+
+    <ol>
+    {% for model in models %}
         <li> <a href="{{ model }}">{{ model }}</a></li>
-        {% endfor %}
-        </ol>
+    {% endfor %}
+    </ol>
 
-        in the system.
-    </body>
-</html>
+    in the system.
+{% endblock %}
