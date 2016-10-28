@@ -1,6 +1,7 @@
 import os
 import hmac
 import json
+import datetime
 
 import core.settings as settings
 
@@ -106,35 +107,46 @@ def user_detail(request, user_id):
     return HttpResponse(json.dumps(data))
 
 def user_login(request):
+    # web frontend must send a POST request to ux
     if request.method != "POST":
         return HttpResponseBadRequest(HTTP_ERROR_400)
-
+    
+    # attempt to get a list of all users from the API, so we can validate
+    # against the username and password in the POST data
     try:
         json_data = urlopen(API_BASE + 'users/?format=json').read().decode('utf-8')
     except HTTPError as e:
+        # If users listing didn't work sfor some reason, 
         return HttpResponseNotFound(HTTP_ERROR_404)
 
     data = json.loads(json_data)
 
+    # we have to iterate over all the users in the entire listing. need to find
+    # a more RESTful and efficient way
     for user in data:
-        if user['username'] == request.POST['username']:
-            if check_password(request.POST['password'], user['password']):
-                data = {
-                        'user_id': user['id'],
-                        'token': _make_new_auth_cookie()
-                       }
+        # for every user in the data, check if their usernamd and password
+        # match what is in the POST data
+        if request.POST['username'] == user['username'] and \
+            check_password(request.POST['password'], user['password']):
+           
+            # create a dictionary with the two fields the API will need to
+            # create a new cookie
+            response_context = {
+                    'user': user['id'],
+                    'token': _make_new_auth_cookie(),
+                   }
 
-                #tell the backend api to save this users session                
-                encoded_data = urlencode(data).encode('utf-8')
-                try:
-                    request = urlopen(API_BASE + 'authenticators/', data=encoded_data)
-                except HTTPError as e:
-                    return HttpResponseServerError(e)
-                #return json.loads(request.read().decode('utf-8')), request.getcode()
-                                            
+            # encode the data we need to send to the API
+            encoded_data = urlencode(response_context).encode('utf-8')
 
-                #return cookie to front end
-                return HttpResponse(json.dumps(data))
+            # try to post encoded_data to Authenticator api
+            try:
+                api_auth_data = urlopen(API_BASE + 'authenticators/', data=encoded_data).read().decode('utf-8')
+            except HTTPError as e:
+                return HttpResponseServerError(e)
+            
+            #return cookie to front end
+            return HttpResponse(api_auth_data)
 
     return HttpResponseNotFound(HTTP_ERROR_404)
 
