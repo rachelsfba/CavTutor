@@ -11,8 +11,8 @@ from rest_framework import status
 from .forms import *
 
 import json
+from core.settings import UX_BASE 
 
-UX_BASE = 'http://ux:8000/'
 
 def login_required(func):
     def wrap(request, *args, **kwargs):
@@ -199,14 +199,14 @@ def user_login(request):
             # Retrieve login response and associated status code
             ux_response, status_code = _user_login_ux(username, password)
 
-            if not ux_response or not ux_response['user_id']:
+            if not ux_response or not ux_response['token']:
                 status = "incorrect"
             else:
                 auth_cookie = ux_response['token']
+                expiry = ux_response['expiry_date']
 
                 www_response = HttpResponseRedirect(next_page)
-                www_response.set_cookie("token", auth_cookie)
-
+                www_response.set_cookie("auth_token", auth_cookie, expires=expiry)
 
                 return www_response
         else:
@@ -228,7 +228,7 @@ def _user_login_ux(username, password):
     try:
         request = urlopen(UX_BASE + 'users/login/', data=encoded_data)
     except HTTPError as e:
-        return {}, 404
+        return None, 404
 
     return json.loads(request.read().decode('utf-8')), request.getcode()
 
