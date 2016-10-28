@@ -55,4 +55,4 @@ class TuteeSerializer(serializers.ModelSerializer):
 class AuthenticatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Authenticator
-        fields = ('token', 'user_id', 'expiry_date')
+        fields = ('id', 'token', 'user', 'expiry_date')
