@@ -30,11 +30,11 @@ Important Note for `mysql` Docker
 Please note that your external `mysql` docker container must be on the same
 docker network as ours. To connect `mysql` to the network, run
 
-    $ docker network connect mysql cavtutor_backend
+    $ docker network connect cavtutor_backend mysql
 
 If you get an error, you may need to try a different network. To list all active
 networks, run
-    
+
     $ docker network ls
 
 Description of Docker Containers
