@@ -1,24 +1,26 @@
 {% extends 'CavTutor/generics/base.html' %}
 
 {% block body_block %}
-	<h1>{% block title %}User Login | CavTutor{% endblock %}<h1>
-		
-        {% if status == "incomplete" %}
-            <p><strong> You didn't give us a username and/or password! </strong></p>
-        {% elif status == "incorrect" %}
-            <p><strong> You didn't give us a correct username and/or password! </strong></p>
-        {% endif %}
+	<h1>{% block title %}User Login | CavTutor{% endblock %}</h1>
 
-        <p> Please provide your username and password so we can log you in! </p>
+    {% if status == "incomplete" %}
+        <p><strong> You didn't give us a username and/or password! </strong></p>
+    {% elif status == "incorrect" %}
+        <p><strong> You didn't give us a correct username and/or password! </strong></p>
+    {% endif %}
 
+    <p> Please provide your username and password so we can log you in! </p>
+
+    <div id="form-container" style="padding-bottom: 10px;">
         <form action="{% url 'user-login' %}" method="post">
-                {% csrf_token %}
-				<!-- need to make error msg go on same line for all fields -->
-                {{ form.as_p }}
-               <input type="submit" value="Submit" />
+            {% csrf_token %}
+            <!-- need to make error msg go on same line for all fields -->
+            {{ form.as_p }}
+           <input type="submit" value="Submit" />
         </form>
-		
-        <div id="home-link">
-            <a href="{% url 'index' %}">Go Home?</a>
-        </div>
+    </div>
+
+    <div id="home-link">
+        <a href="{% url 'index' %}">Go Home?</a>
+    </div>
 {% endblock %}
