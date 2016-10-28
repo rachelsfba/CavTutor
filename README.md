@@ -1,6 +1,6 @@
 Project Description
 ===
-CavTutor is a web application for CS 4501: Internet Scale Application meant to
+CavTutor is a web application for [CS 4501: Internet Scale Applications](https://github.com/thomaspinckney3/cs4501) meant to
 illustrate concepts of scalability and best-practice full stack development for
 Internet-based applications. Our application will provide basic functionality to
 connect tutors with tutees for courses at any arbitrary institution.
