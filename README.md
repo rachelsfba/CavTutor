@@ -19,7 +19,7 @@ We use two docker networks, a user-facing network which contains front-end
 docker containers, and a back-end network, which is meant to be inaccessible
 to users.
 
- - `cavtutor_frontend` -- contains `www`, `ux
+ - `cavtutor_frontend` -- contains `www`, `ux`
  - `cavtutor_backend` -- contains `ux`, `api_v2`, `api_static`, and `mysql` (see next section)
 
 Note that the user experience layer is the "middle man" between the two
