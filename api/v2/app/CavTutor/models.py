@@ -24,7 +24,8 @@ class User(models.Model):
 class Authenticator(models.Model):
     token = models.CharField(max_length=256)
     expiry_date = models.DateTimeField(auto_now=False)
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    
     def __str__(self):
         return str(self.user_id) + ": "+str(self.token)+" expires "+str(self.expiry_date)
 
