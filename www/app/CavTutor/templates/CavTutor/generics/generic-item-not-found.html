@@ -1,0 +1,12 @@
+{% extends 'CavTutor/generics/base.html' %}<html>
+
+{% block body_block %}
+    <h1>{% block title %}{{ model|title }} Not Found | HTTP 404{% endblock %}</h1>
+
+    <p>You tried to find a {{ model }} with id={{ id }}, but it appears to
+    have been obliterated. I blame the Vogons.</p>
+
+    <div id="home-link">
+        <a href="{% url 'index' %}">Go Home?</a>
+    </div>
+{% endblock %}

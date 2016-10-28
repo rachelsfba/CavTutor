@@ -1,18 +1,15 @@
-<html>
-    <head>
-        <title>User List</title>
-    </head?
-    <body>
-        <p>User List</p>
+{% extends 'CavTutor/generics/generic-list.html' %}
 
-        <ol>
-        {% for user in users %}
-            <li><a href="{% url 'user-detail' user.id %}">{{ user.l_name }}, {{ user.f_name }}</a></li>
-        {% endfor %}
-        </ol>
+<!-- tell the parent template what sort of items we're giving it -->
+{% block model %}
+    User
+{% endblock %}
 
-        <footer>
-            <a href="{% url 'index' %}">Go Back?</a>
-        </footer>
-    </body>
-</html>
+<!-- stores our items as a list -->
+{% block items %}
+    <ol>
+    {% for user in users %}
+        <li><a href="{% url 'user-detail' user.id %}">{{ user.l_name }}, {{ user.f_name }}</a></li>
+    {% endfor %}
+    </ol>
+{% endblock %}

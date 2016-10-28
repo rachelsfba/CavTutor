@@ -30,18 +30,20 @@ def login_required(func):
 
 def _validate_user_cookie(request):
     auth_cookie = request.COOKIES.get("auth_cookie")
-    
+
     # check if the cookie was set
     if auth_cookie:
         # check if the cookie has expired
         json_data = urlopen(UX_BASE + 'authenticators/').read().decode('utf-8')
-        
+
         for authenticator in json.loads(json_data):
             if authenticator['token'] == auth_cookie:
                 return True
 
     return False
-
+"""
+    Index page
+"""
 def index(request):
 
     context = {
@@ -64,14 +66,14 @@ def institution_list(request):
     return render(request, 'CavTutor/institution-list.html', context)
 
 def institution_detail(request, inst_id):
-    try: 
+    try:
         json_data = urlopen(UX_BASE + 'institutions/' + inst_id).read().decode('utf-8')
         context = {'institution' : json.loads(json_data) }
 
         return render(request, 'CavTutor/institution-detail.html', context)
 
     except HTTPError as e:
-        return render(request, '404.html', status=404, context={
+        return render(request, 'CavTutor/generics/generic-item-not-found.html', status=404, context={
                 "model": "instititution",
                 "id": inst_id,
             })
@@ -94,7 +96,7 @@ def course_detail(request, course_id):
         context = {'course' : course_data,}
         return render(request, 'CavTutor/course-detail.html', context)
     except HTTPError as e:
-        return render(request, '404.html', status=404, context={
+        return render(request, 'CavTutor/generics/generic-item-not-found.html', status=404, context={
                 "model": "course",
                 "id": course_id,
             })
@@ -115,7 +117,7 @@ def tutor_detail(request, tutor_id):
         context = {'tutor' : json.loads(json_data) }
         return render(request, 'CavTutor/tutor-detail.html', context)
     except HTTPError as e:
-        return render(request, '404.html', status=404, context={
+        return render(request, 'CavTutor/generics/generic-item-not-found.html', status=404, context={
                 "model": "tutor",
                 "id": tutor_id,
             })
@@ -137,7 +139,7 @@ def tutee_detail(request, tutee_id):
 
         return render(request, 'CavTutor/tutee-detail.html', context)
     except HTTPError as e:
-        return render(request, '404.html', status=404, context={
+        return render(request, 'CavTutor/generics/generic-item-not-found.html', status=404, context={
                 "model": "tutee",
                 "id": tutee_id,
             })
@@ -148,7 +150,9 @@ def tutee_detail(request, tutee_id):
 def user_list(request):
 
     json_data = urlopen(UX_BASE + 'users/').read().decode('utf-8')
-    context = {'users' : json.loads(json_data) }
+    context = {
+            'users' : json.loads(json_data),
+        }
 
     return render(request, 'CavTutor/user-list.html', context)
 
@@ -159,15 +163,15 @@ def user_detail(request, user_id):
 
         return render(request, 'CavTutor/user-detail.html', context)
     except HTTPError as e:
-        return render(request, '404.html', status=404, context={
+        return render(request, 'CavTutor/generics/generic-item-not-found.html', status=404, context={
                 "model": "user",
                 "id": user_id,
             })
 
 @csrf_protect
 def user_login(request):
-    
-    # Assume we have a good form. 
+
+    # Assume we have a good form.
     status = "ok"
 
     # If the user didn't POST anything, they probably haven't filled out the
@@ -175,10 +179,10 @@ def user_login(request):
     if request.method == 'GET':
         # Create new login form and render it.
         login_form = UserLoginForm()
-        
+
     # Otherwise they must have given us something as POST data. Let's try to
     # validate that.
-    else: 
+    else:
         # Create a new Django form based on POST data.
         login_form = UserLoginForm(request.POST)
 
@@ -188,10 +192,10 @@ def user_login(request):
             # Forms will sanitize for us
             username = login_form.cleaned_data['username']
             password = login_form.cleaned_data['password']
-            
+
             # Redirect to index page after successful login.
             next_page = reverse('index')
-            
+
             # Retrieve login response and associated status code
             ux_response, status_code = _user_login_ux(username, password)
 
@@ -199,13 +203,13 @@ def user_login(request):
                 status = "incorrect"
             else:
                 auth_cookie = ux_response['token']
-                
+
                 www_response = HttpResponseRedirect(next_page)
                 www_response.set_cookie("token", auth_cookie)
 
 
                 return www_response
-        else: 
+        else:
             status = "incomplete"
 
     return render(request, 'CavTutor/user-login.html', {
@@ -219,7 +223,7 @@ def _user_login_ux(username, password):
             'username': username,
             'password': password,
         }
-    
+
     encoded_data = urlencode(data).encode('utf-8')
     try:
         request = urlopen(UX_BASE + 'users/login/', data=encoded_data)
@@ -227,5 +231,11 @@ def _user_login_ux(username, password):
         return {}, 404
 
     return json.loads(request.read().decode('utf-8')), request.getcode()
-                                                                                        
+
+def user_register(request):
+    return # yet to be implemented
+
+def user_logout(request):
+    return # yet to be implemented
+
 # vim: ai ts=4 sts=4 et sw=4
