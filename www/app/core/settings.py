@@ -102,4 +102,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Holds the URI of the root directory for the user experience layer.
 UX_BASE = 'http://ux:8000/'
