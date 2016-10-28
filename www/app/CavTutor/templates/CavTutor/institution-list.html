@@ -1,18 +1,15 @@
-<html>
-    <head>
-        <title>Institution List</title>
-    </head?
-    <body>
-        <p>Institution List</p>
+{% extends 'CavTutor/generics/generic-list.html' %}
 
-        <ol>
-        {% for institution in institutions %}
-            <li><a href="{% url 'institution-detail' inst_id=institution.id %}">{{ institution.name }}</a> ({{ institution.abbr }})</li>
-        {% endfor %}
-        </ol>
+<!-- tell the parent template what sort of items we're giving it -->
+{% block model %}
+    Institution
+{% endblock %}
 
-        <footer>
-            <a href="{% url 'index' %}">Go Back?</a>
-        </footer>
-    </body>
-</html>
+<!-- stores our items as a list -->
+{% block items %}
+    <ol>
+    {% for institution in institutions %}
+        <li><a href="{% url 'institution-detail' inst_id=institution.id %}">{{ institution.name }}</a> ({{ institution.abbr }})</li>
+    {% endfor %}
+    </ol>
+{% endblock %}

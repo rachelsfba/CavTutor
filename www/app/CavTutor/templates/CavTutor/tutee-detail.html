@@ -1,15 +1,12 @@
-<html>
-    <head>
-        <title>Tutee | {{tutee.user.l_name }}, {{ tutee.user.f_name }}</title>
-    </head?
-    <body>
-        <b>{{ tutee.user.l_name }}, {{ tutee.user.f_name }}</b>
-        <ul>
-            <li>Course: {{ tutee.course.name }} ({{ tutee.course.abbr }}) </li>
-            <li>Tutor: {{ tutee.tutor.user.l_name }}, {{tutee.tutor.user.f_name }} </li>
-        </ul>
-        <footer>
-            <a href="{% url 'tutee-list' %}">Go Back?</a>
-        </footer>
-    </body>
-</html>
+{% extends 'CavTutor/generics/generic-detail.html' %}
+
+{% block title %}Tutee | {{tutee.user.l_name }}, {{ tutee.user.f_name }}{% endblock %}
+
+{% block fields %}
+    <ul>
+        <li>Course: {{ tutee.course.name }} ({{ tutee.course.abbr }}) </li>
+        <li>Tutor: {{ tutee.tutor.user.l_name }}, {{tutee.tutor.user.f_name }} </li>
+    </ul>
+{% endblock %}
+
+{% block listings-link %}{% url 'tutee-list' %}{% endblock %}

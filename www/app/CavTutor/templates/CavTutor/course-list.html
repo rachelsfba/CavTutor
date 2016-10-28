@@ -1,18 +1,16 @@
-<html>
-    <head>
-        <title>Course List</title>
-    </head?
-    <body>
-        <p>Course List</p>
+{% extends 'CavTutor/generics/generic-list.html' %}
 
-        <ol>
-        {% for course in courses %}
-            <li><a href="{% url 'course-detail' course.id %}">{{ course.name }} at {{ course.institution_name }}</a></li>
-        {% endfor %}
-        </ol>
+<!-- tell the parent template what sort of items we're giving it -->
+{% block model %}
+    Course
+{% endblock %}
 
-        <footer>
-            <a href="{% url 'index' %}">Go Back?</a>
-        </footer>
-    </body>
-</html>
+<!-- stores our items as a list -->
+{% block items %}
+    <ol>
+    {% for course in courses %}
+        <li><a href="{% url 'course-detail' course.id %}">{{ course.name }} at {{ course.institution_name }}</a></li>
+    {% endfor %}
+    </ol>
+{% endblock %}
+

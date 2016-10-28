@@ -1,18 +1,16 @@
-<html>
-    <head>
-        <title>Tutee List</title>
-    </head?
-    <body>
-        <p>Tutee List</p>
+{% extends 'CavTutor/generics/generic-list.html' %}
 
-        <ol>
-        {% for tutee in tutees %}
+<!-- tell the parent template what sort of items we're giving it -->
+{% block model %}
+    Tutee
+{% endblock %}
+
+<!-- stores our items as a list -->
+{% block items %}
+    <ol>
+    {% for tutee in tutees %}
         <li><a href="{% url 'tutee-detail' tutee.id %}">{{ tutee.user.l_name }}, {{ tutee.user.f_name }}</a> ({{ tutee.course.abbr }})</li>
-        {% endfor %}
-        </ol>
+    {% endfor %}
+    </ol>
+{% endblock %}
 
-        <footer>
-            <a href="{% url 'index' %}">Go Back?</a>
-        </footer>
-    </body>
-</html>

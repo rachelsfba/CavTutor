@@ -1,17 +1,13 @@
-<html>
-    <head>
-        <title>Institution | {{institution.name }} </title>
-    </head?
-    <body>
-        <b>{{ institution.name }}</b>
-        <ul>
-            <li>Abbreviation: {{ institution.abbr }}</li>
-            <li>Address: {{ institution.address }}</li>
-            <li>Number of Tracked Courses: {{ institution.num_courses }}</li>
+{% extends 'CavTutor/generics/generic-detail.html' %}
 
-        </ul>
-        <footer>
-            <a href="{% url 'institution-list' %}">Go Back?</a>
-        </footer>
-    </body>
-</html>
+{% block title %}Institution | {{institution.name }}{% endblock %}
+
+{% block fields %}
+    <ul>
+        <li>Abbreviation: {{ institution.abbr }}</li>
+        <li>Address: {{ institution.address }}</li>
+        <li>Number of Tracked Courses: {{ institution.num_courses }}</li>
+    </ul>
+{% endblock %}
+
+{% block listings-link %}{% url 'institution-list' %}{% endblock %}
