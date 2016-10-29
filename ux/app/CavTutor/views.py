@@ -31,7 +31,7 @@ def institution_list(request):
         return HttpResponseBadRequest(HTTP_ERROR_400)
 
     try:
-        json_data = urlopen(API_BASE + 'institutions/?format=json').read()
+       json_data = urlopen(API_BASE + 'institutions/?format=json').read()
     except HTTPError as e:
         return HttpResponseNotFound(HTTP_ERROR_404)
 
@@ -223,10 +223,10 @@ def tutor_detail(request, tutor_id):
 
 
 def _tutor_foreign_key_id_to_json(tutor):
-    user_json = urlopen(UX_BASE + 'users/{}/?format=json'.format(tutor['user'])).read().decode('utf-8')
+    user_json = urlopen(UX_BASE + 'users/{}/'.format(tutor['user'])).read().decode('utf-8')
     user_data = json.loads(user_json)
 
-    course_json = urlopen(UX_BASE + 'courses/{}/?format=json'.format(tutor['course'])).read().decode('utf-8')
+    course_json = urlopen(UX_BASE + 'courses/{}/'.format(tutor['course'])).read().decode('utf-8')
     course_data = json.loads(course_json)
 
     tutor['user'] = user_data
@@ -285,13 +285,13 @@ def tutee_detail(request, tutee_id):
     return HttpResponse(json.dumps(tutee_data))
 
 def _tutee_foreign_key_id_to_json(tutee):
-    user_json = urlopen(UX_BASE + 'users/{}/?format=json'.format(tutee['user'])).read().decode('utf-8')
+    user_json = urlopen(UX_BASE + 'users/{}/'.format(tutee['user'])).read().decode('utf-8')
     user_data = json.loads(user_json)
 
-    course_json = urlopen(UX_BASE + 'courses/{}/?format=json'.format(tutee['course'])).read().decode('utf-8')
+    course_json = urlopen(UX_BASE + 'courses/{}/'.format(tutee['course'])).read().decode('utf-8')
     course_data = json.loads(course_json)
 
-    tutor_json = urlopen(UX_BASE + 'tutors/{}/?format=json'.format(tutee['tutor'])).read().decode('utf-8')
+    tutor_json = urlopen(UX_BASE + 'tutors/{}/'.format(tutee['tutor'])).read().decode('utf-8')
     tutor_data = json.loads(tutor_json)
 
     tutee['user'] = user_data

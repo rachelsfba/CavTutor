@@ -97,13 +97,45 @@ def _user_login_ux(username, password):
         request = urlopen(UX_BASE + 'users/login/', data=encoded_data)
     except HTTPError as e:
         return None, 404
-
+    # status code should be HTTP 201: Created
     return json.loads(request.read().decode('utf-8')), request.getcode()
 
 def register(request):
     return # yet to be implemented
 
 def logout(request):
-    return # yet to be implemented
+    
+    # Get the auth_token cookie, if it exists.
+    auth_cookie = request.COOKIES.get('auth_token')
 
-# vim: ai ts=4 sts=4 et sw=4
+    # Did the auth_cookie actually exist?
+    if auth_cookie:
+        # If so, log them out in the database and delete their cookie.
+        ux_response = _user_logout_ux(auth_cookie)
+        request.delete_cookie('auth_token')
+    
+    # Forward user to index page.
+    next_page = reverse('index')
+    www_response = HttpResponseRedirect(next_page)
+
+    return www_response
+
+def _user_logout_ux(auth_cookie):
+    
+    data = {
+            'auth_token': auth_cookie,
+        }
+
+    encoded_data = urlencode(data).encode('utf-8')
+
+    try:
+        logout = urlopen(UX_BASE + 'logout/', data=encoded_data).read().decode('utf-8')
+    except HTTPError:
+        # UX layer seems to be dysfunctional
+        if not logout: 
+            return None
+        # If the error is just that the object didn't exist, oh well, no big
+        # deal. We do the same thing if it existed or not.
+
+    return json.dumps(logout)
+
