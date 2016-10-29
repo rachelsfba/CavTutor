@@ -44,7 +44,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 class AuthenticatorViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows authneticators to be viewed or edited.
+    API endpoint that allows authenticator to be viewed or edited.
     """
     queryset = models.Authenticator.objects.all().order_by('user')
     serializer_class = serializers.AuthenticatorSerializer
