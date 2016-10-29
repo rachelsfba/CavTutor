@@ -15,8 +15,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from CavTutor import user_views, course_views, institution_views, tutor_views, \
-    tutee_views, views
+from CavTutor.user import views as user_views
+from CavTutor.institution import views as institution_views
+from CavTutor.tutor import views as tutor_views
+from CavTutor.tutee import views as tutee_views
+from CavTutor.course import views as course_views
+from CavTutor import views
 
 urlpatterns = [
     url(r'^institutions/(?P<inst_id>\d+)/?', institution_views.detail, name='institution-detail'),

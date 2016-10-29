@@ -10,7 +10,6 @@ from urllib.error import HTTPError
 from rest_framework import status
 
 from core.settings import UX_BASE 
-from .forms import *
 
 import json
 
