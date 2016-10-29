@@ -1,8 +1,11 @@
 # Template context processors
+from CavTutor.views import _get_loggedin_user
+
 # Adds user authentication context
 def auth(request):
     
-    # user.is_authenticated
-    
-    # do something here
-    return request
+    context = {
+            'user' : _get_loggedin_user(request)
+            }
+
+    return context

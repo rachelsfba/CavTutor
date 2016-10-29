@@ -29,8 +29,8 @@
     <body>
         <header>
             <span id="logo">CavTutor</span> &emsp; A Tutoring Marketplace
-            <span id="nav">
-                {% if user.is_authenticated %}
+            <span id="nav"> {{ is_logged_in }}
+                {% if user %}
                     Hello, {{ user.f_name }}. <a href="{% url 'user-logout' %}">Logout?</a>
                 {% else %}
                 <a href="{% url 'user-login' %}">Login</a> &nbsp;<b>&#8756;</b>&nbsp;

@@ -6,6 +6,7 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from urllib.request import urlopen
 from urllib.parse import urlencode
 from urllib.error import HTTPError
+import requests
 
 from rest_framework import status
 
@@ -27,20 +28,31 @@ def login_required(func):
 
     return wrap
 
-def _validate_user_cookie(request):
-    auth_cookie = request.COOKIES.get("auth_cookie")
+def _validate_user_cookie(auth_cookie):
 
     # check if the cookie was set
     if auth_cookie:
         # check if the cookie has expired
-        json_data = urlopen(UX_BASE + 'authenticators/').read().decode('utf-8')
+        postdata = {"token": auth_cookie}
 
-        for authenticator in json.loads(json_data):
-            if authenticator['token'] == auth_cookie:
-                return True
+        validate_req = requests.post(UX_BASE + 'validate/', data=postdata)
 
-    return False
+        if validate_req.status_code == 200:
+            return validate_req.json()['user_id']
 
+    return None
+
+def _get_loggedin_user(request):
+    auth_cookie = request.COOKIES.get("auth_token")
+    
+    user_id = str(_validate_user_cookie(auth_cookie))
+    
+    if user_id:
+        user_data = requests.get(UX_BASE + 'users/' + user_id)
+
+        if user_data.status_code == 200:
+            return user_data.json()
+    return 
 """
     Index page
 """

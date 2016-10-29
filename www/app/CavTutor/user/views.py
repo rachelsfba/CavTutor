@@ -4,9 +4,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponse, HttpResponseRedirect
 
-from urllib.request import urlopen
-from urllib.parse import urlencode
-from urllib.error import HTTPError
+import requests
 
 from rest_framework import status
 
@@ -17,24 +15,27 @@ import json
 
 def listings(request):
 
-    json_data = urlopen(UX_BASE + 'users/').read().decode('utf-8')
+    json_data = requests.get(UX_BASE + 'users/').json()
+
     context = {
-            'users' : json.loads(json_data),
+            'users' : json_data,
         }
 
     return render(request, 'CavTutor/user-list.html', context)
 
 def detail(request, user_id):
-    try:
-        json_data = urlopen(UX_BASE + 'users/' + user_id).read().decode('utf-8')
-        context = {'user' : json.loads(json_data) }
+    
+    user_data = requests.get(UX_BASE + 'users/' + user_id)
+    
+    if user_data.status_code == 200:
+        context = {'user' : user_data.json() }
 
         return render(request, 'CavTutor/user-detail.html', context)
-    except HTTPError as e:
-        return render(request, 'CavTutor/generics/generic-item-not-found.html', status=404, context={
-                "model": "user",
-                "id": user_id,
-            })
+
+    return render(request, 'CavTutor/generics/generic-item-not-found.html', status=404, context={
+            "model": "user",
+            "id": user_id,
+        })
 
 @csrf_protect
 def login(request):
@@ -64,8 +65,8 @@ def login(request):
             # Redirect to index page after successful login.
             next_page = reverse('index')
 
-            # Retrieve login response and associated status code
-            ux_response, status_code = _user_login_ux(username, password)
+            # Retrieve login response 
+            ux_response = _user_login_ux(username, password)
 
             if not ux_response or not ux_response['token']:
                 status = "incorrect"
@@ -92,13 +93,11 @@ def _user_login_ux(username, password):
             'password': password,
         }
 
-    encoded_data = urlencode(data).encode('utf-8')
-    try:
-        request = urlopen(UX_BASE + 'users/login/', data=encoded_data)
-    except HTTPError as e:
-        return None, 404
-    # status code should be HTTP 201: Created
-    return json.loads(request.read().decode('utf-8')), request.getcode()
+    request = requests.post(UX_BASE + 'login/', data=data)
+
+    if request.status_code == 200:
+        return request.json()
+    return 
 
 def register(request):
     return # yet to be implemented
@@ -108,16 +107,16 @@ def logout(request):
     # Get the auth_token cookie, if it exists.
     auth_cookie = request.COOKIES.get('auth_token')
 
-    # Did the auth_cookie actually exist?
-    if auth_cookie:
-        # If so, log them out in the database and delete their cookie.
-        ux_response = _user_logout_ux(auth_cookie)
-        request.delete_cookie('auth_token')
-    
     # Forward user to index page.
     next_page = reverse('index')
     www_response = HttpResponseRedirect(next_page)
 
+    # Did the auth_cookie actually exist?
+    if auth_cookie:
+        # If so, log them out in the database and delete their cookie.
+        ux_response = _user_logout_ux(auth_cookie)
+        www_response.delete_cookie('auth_token')
+    
     return www_response
 
 def _user_logout_ux(auth_cookie):
@@ -126,16 +125,13 @@ def _user_logout_ux(auth_cookie):
             'auth_token': auth_cookie,
         }
 
-    encoded_data = urlencode(data).encode('utf-8')
+    logout_response = requests.post(UX_BASE + 'logout/', data=data)
 
-    try:
-        logout = urlopen(UX_BASE + 'logout/', data=encoded_data).read().decode('utf-8')
-    except HTTPError:
-        # UX layer seems to be dysfunctional
-        if not logout: 
-            return None
-        # If the error is just that the object didn't exist, oh well, no big
-        # deal. We do the same thing if it existed or not.
+    if logout_response.status_code == 200:
+        return logout_response.json()
+    
+    # If the error is just that the object didn't exist, oh well, no big
+    # deal. We do the same thing if it existed or not.
+    return None
 
-    return json.dumps(logout)
 

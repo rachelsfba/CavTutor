@@ -36,4 +36,5 @@ urlpatterns = [
     
     url(r'^login/?$', auth_logic.login),
     url(r'^logout/?$', auth_logic.logout),
+    url(r'^validate/?$', auth_logic.validate_user_cookie),
 ]
