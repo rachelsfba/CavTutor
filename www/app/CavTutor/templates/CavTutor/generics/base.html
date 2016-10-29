@@ -29,7 +29,7 @@
     <body>
         <header>
             <span id="logo">CavTutor</span> &emsp; A Tutoring Marketplace
-            <span id="nav"> {{ is_logged_in }}
+            <span id="nav"> 
                 {% if user %}
                     Hello, {{ user.f_name }}. <a href="{% url 'user-logout' %}">Logout?</a>
                 {% else %}
