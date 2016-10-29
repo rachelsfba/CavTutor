@@ -51,11 +51,6 @@ def logout(request):
     return HttpResponse(json.dumps(response))
 
 
-def _delete_cookie(request, auth_id):
-    del_cookie = requests.request('DELETE', API_BASE + 'authenticators/{}/'.format(auth_id))
-
-    return del_cookie
-
 def login(request):
     # web frontend must send a POST request to ux
     if request.method != "POST":
@@ -100,6 +95,25 @@ def login(request):
 
     return HttpResponseNotFound(HTTP_ERROR_404)
 
+def validate_user_cookie(request):
+    
+    auth_cookie = request.POST.get("token")
+    
+    # check if the cookie was set
+    if auth_cookie:
+        # check if the cookie has expired
+        json_data = requests.request('GET', API_BASE + 'authenticators/?format=json').text
+
+        for authenticator in json.loads(json_data):
+            if authenticator['token'] == auth_cookie:
+                user_info = {
+                            'user_id': authenticator['user']
+                        }
+
+                return HttpResponse(json.dumps(user_info))
+        return HttpResponseNotFound(HTTP_ERROR_404)
+    return HttpResponseBadRequest(HTTP_ERROR_400)
+
 def _make_new_auth_cookie():
 
     authenticator = hmac.new(
@@ -108,3 +122,9 @@ def _make_new_auth_cookie():
             digestmod = 'sha256').hexdigest()
 
     return authenticator
+
+def _delete_cookie(request, auth_id):
+    del_cookie = requests.request('DELETE', API_BASE + 'authenticators/{}/'.format(auth_id))
+
+    return del_cookie
+
