@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^users/?$', views.user_list),
     
     url(r'^login/?$', auth_logic.login),
+    url(r'^register/?$', auth_logic.register),
     url(r'^logout/?$', auth_logic.logout),
     url(r'^validate/?$', auth_logic.validate_user_cookie),
 ]
