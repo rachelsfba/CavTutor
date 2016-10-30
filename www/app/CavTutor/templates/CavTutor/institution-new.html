@@ -1,0 +1,26 @@
+{% extends 'CavTutor/generics/base.html' %}
+
+{% block body_block %}
+	<h1>{% block title %}New Institution Listing | CavTutor{% endblock %}</h1>
+
+    {% if status == "incomplete" %}
+        <p><strong> You didn't give us a full Institution Listing! </strong></p>
+    {% elif status == "incorrect" %}
+        <p><strong> You didn't give us a unique Institution name! </strong></p>
+    {% endif %}
+
+    <p> Please provide your institution details so we can get you in our system! </p>
+
+    <div id="form-container" style="padding-bottom: 10px;">
+        <form action="{% url 'institution-new' %}" method="post">
+            {% csrf_token %}
+            <!-- need to make error msg go on same line for all fields -->
+            {{ form.as_p }}
+           <input type="submit" value="Submit" />
+        </form>
+    </div>
+
+    <div id="home-link">
+        <a href="{% url 'index' %}">Go Home?</a>
+    </div>
+{% endblock %}
