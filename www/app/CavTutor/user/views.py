@@ -75,6 +75,7 @@ def login(request):
                 expiry = ux_response['expiry_date']
 
                 www_response = HttpResponseRedirect(next_page)
+                #www_response = HttpResponse("Token: {} <br \><br \> Expiry Date: {}".format(auth_cookie, expiry))
                 www_response.set_cookie("auth_token", auth_cookie, expires=expiry)
 
                 return www_response
@@ -100,7 +101,7 @@ def _user_login_ux(username, password):
     return 
 
 def register(request):
-    return # yet to be implemented
+    return HttpResponseRedirect(reverse('index')) # yet to be implemented
 
 def logout(request):
     

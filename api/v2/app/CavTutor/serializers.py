@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from . import models
 from django.contrib.auth.hashers import make_password
 
@@ -51,8 +53,35 @@ class TuteeSerializer(serializers.ModelSerializer):
         model = models.Tutee
         fields = ('id', 'user', 'course', 'tutor')
 
-
 class AuthenticatorSerializer(serializers.ModelSerializer):
+    expiry_date = serializers.DateTimeField(format="%a, %d-%b-%Y %T GMT", required=False)
+    
+    def create(self, validated_data):
+        cur_date = validated_data.pop('expiry_date', timezone.now())
+        instance = self.Meta.model(**validated_data)
+        
+        #instance.expiry_date = "fubar"
+        instance.expiry_date = self._calculate_expiry_date(cur_date, hours=+8)
+        instance.save()
+
+        return instance
+    
+    def update(self, instance, validated_data):
+        cur_date = validated_data.pop('expiry_date', timezone.now())
+
+        for attr, value in validated_data.items():
+            if attr == 'expiry_data':
+                instance.expiry_date = self._calculate_expiry_date(cur_date, hours=+8)
+            else:
+                setattr(instance, attr, value)
+        instance.save()
+
+        return instance
+    
+    @staticmethod
+    def _calculate_expiry_date(today, *args, **kwargs):
+        return today + timezone.timedelta(*args, **kwargs)
+
     class Meta:
         model = models.Authenticator
         fields = ('id', 'token', 'user', 'expiry_date')
