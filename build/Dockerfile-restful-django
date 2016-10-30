@@ -1,0 +1,8 @@
+FROM tp33/django:latest
+MAINTAINER Andrea Shaw <rshaw@olivermattei.net>
+
+RUN pip install "djangorestframework" \
+	&& pip install "markdown" \
+	&& pip install "requests" \
+	&& pip install "django-filter" \
+
