@@ -1,21 +1,23 @@
 {% extends 'CavTutor/generics/base.html' %}
 
 {% block body_block %}
-	<h1>{% block title %}User Login | CavTutor{% endblock %}</h1>
+	<h1>{% block title %}Create New Account | CavTutor{% endblock %}</h1>
 
     {% if status == "incomplete" %}
-        <p><strong> You didn't give us a username and/or password! </strong></p>
-    {% elif status == "incorrect" %}
-        <p><strong> You didn't give us a correct username and/or password! </strong></p>
+        <p><strong> You didn't fill in everything or didn't fill it in correctly! </strong></p>
+    {% elif status == "invalid" %}
+        <p><strong> A user exists with that username and/or email already.</strong></p>
     {% endif %}
 
-    <p> Please provide your username and password so we can log you in! </p>
+    <p> Please fill in the form with your information. Then you'll be all set to use our app! </p>
 
     <div id="form-container" style="padding-bottom: 10px;">
-        <form action="{% url 'user-login' %}" method="post">
+        <form action="{% url 'user-register' %}" method="post">
             {% csrf_token %}
             <!-- need to make error msg go on same line for all fields -->
-            {{ form.as_p }}
+            <table>
+                {{ form.as_table }}
+            </table>
            <input type="submit" value="Submit" />
         </form>
     </div>

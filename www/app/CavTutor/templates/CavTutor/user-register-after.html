@@ -1,0 +1,11 @@
+{% extends 'CavTutor/generics/base.html' %}
+
+{% block body_block %}
+	<h1>{% block title %}New Account Created | CavTutor{% endblock %}</h1>
+
+    <p> Thanks for creating an account with us, {{ username }}! You may now log in. </p>
+
+    <div id="home-link">
+        <a href="{% url 'index' %}">Go Home?</a>
+    </div>
+{% endblock %}

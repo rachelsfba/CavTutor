@@ -28,7 +28,7 @@ class Authenticator(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}: {} expires {}".format(self.user_id, self.token, self.expiry_date)
+        return "{}: {} expires {}".format(self.user, self.token, self.expiry_date)
 
 class Course(models.Model):
     institution = models.ForeignKey('Institution', on_delete=models.CASCADE)
