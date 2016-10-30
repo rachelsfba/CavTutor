@@ -24,21 +24,11 @@ class User(models.Model):
 
 class Authenticator(models.Model):
     token = models.CharField(max_length=256)
-    expiry_date = models.DateTimeField(auto_now=True)
+    expiry_date = models.DateTimeField(auto_now=False)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
 
-    def save(self, *args, **kwargs):
-        self.expiry_data = self._calculate_expiry_date(hours=8)
-        
-        super(Authenticator, self).save(*args, **kwargs)
-
-    def _calculate_expiry_date(self, *args, **kwargs):
-        curtime = datetime.datetime.now() 
-        
-        return curtime + datetime.timedelta(*args, **kwargs)
-
     def __str__(self):
-        return str(self.user_id) + ": "+str(self.token)+" expires "+str(self.expiry_date)
+        return "{}: {} expires {}".format(self.user_id, self.token, self.expiry_date)
 
 class Course(models.Model):
     institution = models.ForeignKey('Institution', on_delete=models.CASCADE)

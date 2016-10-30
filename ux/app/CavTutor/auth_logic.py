@@ -19,7 +19,7 @@ API_VERSION = 'v2'
 API_BASE = 'http://api:8000/api/' + API_VERSION + "/"
 UX_BASE = 'http://localhost:8000/'
 
-HTTP_ERROR_500 = json.dumps(dict(detail="HTTP 500 Error: Intersal Service Error"))
+HTTP_ERROR_500 = json.dumps(dict(detail="HTTP 500 Error: Internal Service Error"))
 
 HTTP_ERROR_400 = json.dumps(dict(detail="HTTP 400 Error: Bad Request"))
 HTTP_ERROR_404 = json.dumps(dict(detail="HTTP 404 Error: File Not Found"))
@@ -55,20 +55,19 @@ def login(request):
     # web frontend must send a POST request to ux
     if request.method != "POST":
         return HttpResponseBadRequest(HTTP_ERROR_400)
-    
+   
+
     # attempt to get a list of all users from the API, so we can validate
     # against the username and password in the POST data
-    try:
-        json_data = urlopen(API_BASE + 'users/?format=json').read().decode('utf-8')
-    except HTTPError as e:
+    user_list = requests.get(API_BASE + 'users/?format=json')
+
+    if user_list.status_code != 200:
         # If users listing didn't work sfor some reason, 
         return HttpResponseNotFound(HTTP_ERROR_404)
-
-    data = json.loads(json_data)
-
+    
     # we have to iterate over all the users in the entire listing. need to find
     # a more RESTful and efficient way
-    for user in data:
+    for user in user_list.json():
         # for every user in the data, check if their usernamd and password
         # match what is in the POST data
         if request.POST['username'] == user['username'] and \
@@ -81,14 +80,11 @@ def login(request):
                     'token': _make_new_auth_cookie(),
                    }
 
-            # encode the data we need to send to the API
-            encoded_data = urlencode(response_context).encode('utf-8')
-
             # try to post encoded_data to Authenticator api
-            try:
-                api_auth_data = urlopen(API_BASE + 'authenticators/', data=encoded_data).read().decode('utf-8')
-            except HTTPError as e:
-                return HttpResponseServerError(e)
+            api_auth_data = requests.post(API_BASE + 'authenticators/', data=response_context)
+
+            if api_auth_data.status_code != 201:
+                return HttpResponseServerError(HTTP_ERROR_500)
             
             #return cookie to front end
             return HttpResponse(api_auth_data)
