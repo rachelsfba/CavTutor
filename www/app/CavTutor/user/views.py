@@ -39,7 +39,6 @@ def detail(request, user_id):
 
 @csrf_protect
 def login(request):
-
     # Assume we have a good form.
     status = "ok"
 

@@ -34,6 +34,11 @@ class UserSerializer(serializers.ModelSerializer):
 #        extra_kwargs = {'password': {'write_only': True}, }
 
 class InstitutionSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+
     class Meta:
         model = models.Institution
         fields = ('id', 'name', 'abbr', 'address')

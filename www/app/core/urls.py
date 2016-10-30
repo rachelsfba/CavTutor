@@ -25,6 +25,8 @@ from CavTutor import views
 urlpatterns = [
     url(r'^institutions/(?P<inst_id>\d+)/?', institution_views.detail, name='institution-detail'),
     url(r'^institutions/?$', institution_views.listings, name='institution-list'),
+    url(r'^institution_new/?$', institution_views.institution_new, name='institution-new'),
+
 
     url(r'^courses/(?P<course_id>\d+)/?$', course_views.detail, name='course-detail'),
     url(r'^courses/?$', course_views.listings, name='course-list'),

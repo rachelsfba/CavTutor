@@ -16,11 +16,13 @@ from django.conf.urls import include, url
 #from django.contrib import admin
 
 from CavTutor import views, auth_logic
+from CavTutor import institution_views
 
 urlpatterns = [
 #    url(r'^admin/', include(admin.site.urls)),
     url(r'^institutions/(?P<inst_id>\d+)/?$', views.institution_detail),
     url(r'^institutions/?$', views.institution_list),
+    url(r'^institutions_new/?$', institution_views.institution_new),
 
     url(r'^courses/(?P<course_id>\d+)/?$', views.course_detail),
     url(r'^courses/?$', views.course_list),
