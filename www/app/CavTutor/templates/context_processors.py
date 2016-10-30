@@ -1,5 +1,5 @@
 # Template context processors
-from CavTutor.views import _get_loggedin_user
+from CavTutor.decorators import _get_loggedin_user
 
 # Adds user authentication context
 def auth(request):

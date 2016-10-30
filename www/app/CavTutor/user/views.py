@@ -1,9 +1,10 @@
 # views for the Uesr model
-from django.views.decorators.csrf import csrf_protect
+#from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponse, HttpResponseRedirect
 
+from CavTutor.decorators import login_required, nologin_required
 import requests
 
 from rest_framework import status
@@ -37,7 +38,7 @@ def detail(request, user_id):
             "id": user_id,
         })
 
-@csrf_protect
+@nologin_required
 def login(request):
 
     # Assume we have a good form.
@@ -100,9 +101,58 @@ def _user_login_ux(username, password):
         return request.json()
     return 
 
+@nologin_required
 def register(request):
-    return HttpResponseRedirect(reverse('index')) # yet to be implemented
 
+    # Assume we have a good form.
+    status = "ok"
+
+    # If the user didn't POST anything, they probably haven't filled out the
+    # form yet. Let's give them a blank one to fill in.
+    if request.method == 'GET':
+        # Create new login form and render it.
+        register_form = UserRegisterForm()
+
+    # Otherwise they must have given us something as POST data. Let's try to
+    # validate that.
+    else:
+        # Create a new Django form based on POST data.
+        register_form = UserRegisterForm(request.POST)
+
+        # If all fields were filled in, let's try to validate that info against
+        # our database.
+        if register_form.is_valid():
+            # Redirect to index page after successful login.
+            next_page = reverse('index')
+
+            # Retrieve login response 
+            ux_register_response = _user_register_ux(request.POST)
+
+            if not ux_register_response:
+                # ux layer said the form was invalid;
+                # probably means a user already exists with that username or email
+                status = "invalid" 
+            else:
+                return render(request, 'CavTutor/user-register-after.html', {
+                        'username': request.POST.get('username'),
+                    })
+        else:
+            status = "incomplete"
+
+    return render(request, 'CavTutor/user-register.html', {
+            'form': register_form,
+            'status': status,
+        })
+
+
+def _user_register_ux(postdata):
+    request = requests.post(UX_BASE + 'register/', data=postdata)
+
+    if request.status_code == 201: # HTTP_201_CREATED
+        return request.json()
+    return
+
+@login_required
 def logout(request):
     
     # Get the auth_token cookie, if it exists.
