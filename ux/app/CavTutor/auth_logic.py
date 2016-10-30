@@ -50,7 +50,6 @@ def logout(request):
 
     return HttpResponse(json.dumps(response))
 
-
 def login(request):
     # web frontend must send a POST request to ux
     if request.method != "POST":
@@ -90,6 +89,33 @@ def login(request):
             return HttpResponse(api_auth_data)
 
     return HttpResponseNotFound(HTTP_ERROR_404)
+
+def register(request):
+    # web frontend must send a POST request to ux
+    if request.method != "POST":
+        return HttpResponseBadRequest(HTTP_ERROR_400)
+   
+    # attempt to get a list of all users from the API, so we can see if the user already exists in our system
+    user_list = requests.get(API_BASE + 'users/?format=json')
+
+    if user_list.status_code != 200:
+        # If users listing didn't work sfor some reason, 
+        return HttpResponseServerError(HTTP_ERROR_500)
+    
+    # we have to iterate over all the users in the entire listing. need to find
+    # a more RESTful and efficient way
+    for user in user_list.json():
+        # for every user in the data, check if their username or email
+        # match what is in the POST data
+        if request.POST.get('username') == user['username'] or \
+            request.POST.get('email') == user['email']:
+            
+            # user already exists in system
+            return HttpResponseBadRequest(HTTP_ERROR_400)
+    
+    register_req = requests.post(API_BASE + 'users/', data=request.POST)
+
+    return HttpResponse(register_req.text, status=201)
 
 def validate_user_cookie(request):
     
