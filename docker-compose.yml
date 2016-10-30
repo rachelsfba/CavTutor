@@ -3,7 +3,7 @@ version: '2'
 
 networks:
     frontend:
-    backend: 
+    backend:
 
 services:
     # The api_handler docker container is supposed to be a reverse proxy that
@@ -11,11 +11,11 @@ services:
     # However, it is not working presently.
     #api_handler:
     #    container_name: api_handler
-    #    build: 
+    #    build:
     #        dockerfile: Dockerfile-nginx-reverse-proxy
     #        context: api/handler
     #    image: nginx-proxy-handler:latest
-    #    links: 
+    #    links:
     #     - api_v1
     #     - api_v2
     #    ports:
@@ -44,7 +44,9 @@ services:
     # It serves files using Apache's mod_wsgi-express.
     api_v2:
         container_name: api_v2
-        image: omattei/restful-django
+        build:
+            dockerfile: Dockerfile-restful-django
+            context: build
         networks:
             - backend
         # we want to link to an external mysql docker container
@@ -80,7 +82,9 @@ services:
     # It serves files using Apache's mod_wsgi-express.
     ux:
         container_name: ux
-        image: omattei/restful-django
+        build:
+            dockerfile: Dockerfile-restful-django
+            context: build
         networks:
             - backend
             - frontend
@@ -97,7 +101,9 @@ services:
     # It serves files using Apache's mod_wsgi-express.
     www:
         container_name: www
-        image: omattei/restful-django
+        build:
+            dockerfile: Dockerfile-restful-django
+            context: build
         networks:
             - frontend
         ports:
