@@ -7,6 +7,8 @@
 
 <!-- stores our items as a list -->
 {% block items %}
+    <a href="{% url 'institution-create' %}">Create</a>
+
     <ol>
     {% for institution in institutions %}
         <li><a href="{% url 'institution-detail' inst_id=institution.id %}">{{ institution.name }}</a> ({{ institution.abbr }})</li>

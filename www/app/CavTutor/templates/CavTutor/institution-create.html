@@ -12,7 +12,7 @@
     <p> Please provide your institution details so we can get you in our system! </p>
 
     <div id="form-container" style="padding-bottom: 10px;">
-        <form action="{% url 'institution-new' %}" method="post">
+        <form action="{% url 'institution-create' %}" method="post">
             {% csrf_token %}
             <!-- need to make error msg go on same line for all fields -->
             {{ form.as_p }}
