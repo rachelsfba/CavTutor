@@ -1,15 +1,15 @@
 {% extends 'CavTutor/generics/base.html' %}
 
 {% block body_block %}
-	<h1>{% block title %}New Institution Listing | CavTutor{% endblock %}</h1>
+	<h1>{% block title %}Create Institution | CavTutor{% endblock %}</h1>
 
     {% if status == "incomplete" %}
-        <p><strong> You didn't give us a full Institution Listing! </strong></p>
+        <p><strong> You didn't fill in everything properly! </strong></p>
     {% elif status == "incorrect" %}
-        <p><strong> You didn't give us a unique Institution name! </strong></p>
+        <p><strong> The institution with that name already exists in our system. </strong></p>
     {% endif %}
 
-    <p> Please provide your institution details so we can get you in our system! </p>
+    <p> Please provide information for the institution you would like to add. </p>
 
     <div id="form-container" style="padding-bottom: 10px;">
         <form action="{% url 'institution-create' %}" method="post">
