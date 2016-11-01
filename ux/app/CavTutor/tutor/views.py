@@ -82,8 +82,6 @@ def create(request):
 
 
     for tutor in tutor_list.json():
-        print("reqpost userid vs tutor[user]: ", str(request.POST.get('user'))   , str(tutor['user']))
-        print("reqpost courseid vs tutor[course]: ", str(request.POST.get('course')) , str(tutor['course']))
         sametutor  = str(request.POST.get('user')) == str(tutor['user'])
         samecourse = str(request.POST.get('course')) == str(tutor['course'])
         if sametutor and samecourse:
@@ -92,7 +90,6 @@ def create(request):
 
     # If it wasn't found in the database already, send a POST request with the needed info.
     new_tutor_data = requests.post(API_BASE + 'tutors/', data=request.POST)
-
     if new_tutor_data.status_code != 201:
         return HttpResponseServerError()
     return HttpResponse(new_tutor_data.text, status=201)

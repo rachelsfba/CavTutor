@@ -42,8 +42,8 @@ def _tutor_register_ux(user_id, course_id, adv_rate):
         }
 
     request = requests.post(UX_BASE + 'tutors/create/', data=data)
-
-    if request.status_code == 200:
+    print(request)
+    if request.status_code == 200 or request.status_code == 201:
         return request.json()
     return 
 
@@ -69,10 +69,8 @@ def tutor_new(request):
         # our database.
         if register_form.is_valid():
             # Redirect to index page after successful login.
-            next_page = reverse('index')
-
+            #next_page = reverse('index')
             # Retrieve login response 
-
             postdata  =dict(request.POST)
 
             course_id= str(postdata['course'][0])
@@ -80,14 +78,19 @@ def tutor_new(request):
             adv_rate = str(postdata['adv_rate'][0])
 
             ux_register_response = _tutor_register_ux(user_id, course_id, adv_rate)
-
+            print(ux_register_response)
+            if ux_register_response:
+                next_page = reverse('tutor-detail', kwargs={"tutor_id": ux_register_response['id']})
+            else:
+                next_page = reverse('tutor-create')
 
             if not ux_register_response:
                 # ux layer said the form was invalid;
                 # probably means a user already exists with that username or email
                 status = "invalid" 
             else:
-                return render(request, 'CavTutor/index.html', {})
+                www_response = HttpResponseRedirect(next_page)
+                return www_response
                 #return render(request, 'CavTutor/index.html', {
                 #        'username': request.POST.get('username'),
                 #   })
