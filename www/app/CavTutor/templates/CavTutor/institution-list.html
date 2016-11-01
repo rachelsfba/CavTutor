@@ -12,8 +12,13 @@
     {% endif %}
 
     <ol>
+
     {% for institution in institutions %}
         <li><a href="{% url 'institution-detail' inst_id=institution.id %}">{{ institution.name }}</a> ({{ institution.abbr }})</li>
     {% endfor %}
     </ol>
+
+
+
+
 {% endblock %}
