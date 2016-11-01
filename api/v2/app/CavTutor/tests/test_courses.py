@@ -5,7 +5,7 @@ from django.contrib.auth.models import User as DjangoUser
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
-from . import views, models, serializers
+from CavTutor import views, models, serializers
 
 """ A series of tests for the Course model and REST API. Follows CRUD model. """
 class CourseTestCase(APITestCase):

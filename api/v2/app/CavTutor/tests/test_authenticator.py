@@ -1,42 +1,42 @@
 from django.core.urlresolvers import reverse
-import core.settings as settings
 from django.utils import timezone
+
+from django.contrib.auth.hashers import make_password, check_password
+
 import os
 import hmac
-
-from django.contrib.auth.models import User as DjangoUser
 
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
-from . import views, models, serializers
+from CavTutor import views, models, serializers
+from core import settings
 
-""" A series of tests for the User model and REST API. Follows CRUD model. """
-class UserTestCase(APITestCase):
 
+""" 
+   CavTutor.test_authenticator: A series of tests for the Authenticator model
+   and REST API. Follows CRUD model. 
+"""
+class AuthenticatorTestCase(APITestCase):
+    
+    # Set up the class before each function call.
     def setUp(self):
-        # need to be a superuser to POST create requests
-        self.superuser = DjangoUser.objects.create_superuser('root', 'root@localhost', 'secret')
-
-
         self.test_user = models.User.objects.create(
-            f_name='Andrea',
-            l_name='Shaw',
-            email='as@localhost',
-            username='asdf',
-            password='sadfasdf',
+            f_name='Foo',
+            l_name='Bar',
+            email='foo.bar@somewhere.io',
+            username='foo',
+            password=make_password('bar'),
         )
-        self.client.login(username='root', password='secret')
-
 
         # a dummy Authenticator object to test R, U, & D on
-        self.authentiactor_data = dict(
+        self.authenticator_data = dict(
             token=hmac.new(
                 key=settings.SECRET_KEY.encode('utf-8'),
                 msg=os.urandom(32),
                 digestmod='sha256').hexdigest(),
             user=self.test_user,
-            expiry_date= datetime.now() + timedelta(days=1)
+            expiry_date=timezone.now() + timezone.timedelta(hours=8)
                 )
         # Authenticator doesn't update
         # self.new_authenticator_data = dict(
@@ -52,15 +52,13 @@ class UserTestCase(APITestCase):
 
         url = reverse('authenticator-list')
 
-        data = dict(
-            token=hmac.new(
-                key=settings.SECRET_KEY.encode('utf-8'),
-                msg=os.urandom(32),
-                digestmod='sha256').hexdigest(),
-            user=self.test_user,
-            expiry_date=datetime.now() + timedelta(days=1)
-                )
-
+        data = {
+                'token': hmac.new(key=settings.SECRET_KEY.encode('utf-8'),
+                            msg=os.urandom(32),
+                            digestmod='sha256').hexdigest(),
+                'user':  self.test_user.pk,
+            }
+        
         response = self.client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
