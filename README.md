@@ -39,7 +39,9 @@ networks, run
 
 Description of Docker Containers
 ===
-There are currently 4 docker containers created by running `docker-compose up` on our project, in addition to the pre-requisite MariaDB docker instance named `mysql`; these are
+There are currently 4 docker containers created by running `docker-compose up`
+on our project, in addition to the pre-requisite MariaDB docker instance named
+`mysql`; these are
 
 0. `mysql` -- the low-level docker image container for our MariaDB database
 1. `api` -- our secondary-level services API that talks to our database directly
@@ -58,15 +60,29 @@ Refer to [doc/user_stories.md](doc/user_stories.md) for documented user stories.
 
 Unit and Integration Tests
 ====
-Currently, some unit tests are bundled which are aimed at the API-layer of our application. In the future, integration testing will focus on the user experience layer. For now, you may run tests by attaching to the `api` docker container, i.e.
+Currently, some unit tests are bundled which are aimed at the API-layer of our
+application. In the future, integration testing will focus on the user
+experience layer (it is difficult to do this because a separate API instance is
+necessary for test isolation from the UX layer). For now, you may only run tests by
+attaching to the `api` docker container, i.e.
 
     $ docker exec -it api bash
 
 and then running `python app/manage.py test app` inside the docker container.
 
+Dockerfiles
+====
+We currently use two customized `Dockerfiles`:
+
+ - `build/Dockerfile-nginx-reverse-proxy`: used on the `api_handler` docker
+   container (not yet functional)
+ - `build/Dockerfile-restful-proxy`: used on main Django containers (`www`,
+   `ux`, `api_v2`)
+
 Fixtures
 ===
-We use Django fixtures to prepopulate the given database instance with our test data. A Django superuser is created, with username `root` and password `root`.
+We use Django fixtures to prepopulate the given database instance with our test
+data. A Django superuser is created, with username `root` and password `root`.
 
 Project Instantiation
 ===
@@ -77,4 +93,5 @@ Then, clone this repository and start up our docker containers with
 
     $ docker-compose up
 
-To use the site, simply point your browser (or CLI tool, such as `curl`) to [localhost:8000](http://localhost:8000/).
+To use the site, simply point your browser (or CLI tool, such as `curl`) to
+[localhost:8000](http://localhost:8000/).

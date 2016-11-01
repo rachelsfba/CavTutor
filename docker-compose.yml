@@ -59,24 +59,6 @@ services:
             - ./api/v2:/app
         command: /app/deploy_server.sh
 
-    # A docker container for our API-level static files
-    #       (e.g. stylesheets, images, JavaScript)
-    #
-    # It serves files using the lightweight web server lighttpd.
-    #
-    # In production, this would be served up on a separate
-    # domain/server, but for development we will spin up
-    # this server on a separate port.
-    api_static:
-        container_name: api_static
-        image: sebp/lighttpd
-        networks:
-            - backend
-        volumes:
-            - ./api/static:/var/www/localhost/htdocs/static
-        ports:
-            - "8002:80"
-
     # A docker container for our user experience-level Django project.
     #
     # It serves files using Apache's mod_wsgi-express.
@@ -111,3 +93,42 @@ services:
         volumes:
             - ./www:/app
         command: /app/deploy_server.sh
+
+    # A docker container for our web-level static files
+    #       (e.g. stylesheets, images, JavaScript)
+    #
+    # It serves files using the lightweight web server lighttpd.
+    #
+    # In production, this would be served up on a separate
+    # domain/server, but for development we will spin up
+    # this server on a separate port.
+    www_static:
+        container_name: www_static
+        image: sebp/lighttpd
+        networks:
+            - backend
+        volumes:
+            - ./www/static:/var/www/localhost/htdocs/static
+        ports:
+            - "8081:80"
+
+
+
+    # A docker container for our API-level static files
+    #       (e.g. stylesheets, images, JavaScript)
+    #
+    # It serves files using the lightweight web server lighttpd.
+    #
+    # In production, this would be served up on a separate
+    # domain/server, but for development we will spin up
+    # this server on a separate port.
+    api_static:
+        container_name: api_static
+        image: sebp/lighttpd
+        networks:
+            - backend
+        volumes:
+            - ./api/static:/var/www/localhost/htdocs/static
+        ports:
+            - "8080:80"
+
