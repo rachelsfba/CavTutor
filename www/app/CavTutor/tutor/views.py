@@ -7,12 +7,12 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from urllib.request import urlopen
 from urllib.parse import urlencode
 from urllib.error import HTTPError
-
 from rest_framework import status
 
+from CavTutor.decorators import login_required, nologin_required, _get_loggedin_user
 from core.settings import UX_BASE 
 from CavTutor.tutor.forms import *
-
+import requests
 import json
 
 def listings(request):
@@ -34,7 +34,20 @@ def detail(request, tutor_id):
             })
 
 # vim: ai ts=4 sts=4 et sw=4
+def _tutor_register_ux(user_id, course_id, adv_rate):
+    data = {
+            'user': user_id,
+            'course': course_id,
+            'adv_rate': adv_rate
+        }
 
+    request = requests.post(UX_BASE + 'tutors/create/', data=data)
+    print(request)
+    if request.status_code == 200 or request.status_code == 201:
+        return request.json()
+    return 
+
+@login_required 
 def tutor_new(request):
 
     # Assume we have a good form.
@@ -53,24 +66,36 @@ def tutor_new(request):
         register_form = TutorRegisterForm(request.POST)
 
         # If all fields were filled in, let's try to validate that info against
-        # # our database.
-        # if register_form.is_valid():
-        #     # Redirect to index page after successful login.
-        #     next_page = reverse('index')
+        # our database.
+        if register_form.is_valid():
+            # Redirect to index page after successful login.
+            #next_page = reverse('index')
+            # Retrieve login response 
+            postdata  =dict(request.POST)
 
-        #     # Retrieve login response 
-        #     ux_register_response = _user_register_ux(request.POST)
+            course_id= str(postdata['course'][0])
+            user_id = str(_get_loggedin_user(request)['id'])
+            adv_rate = str(postdata['adv_rate'][0])
 
-        #     if not ux_register_response:
-        #         # ux layer said the form was invalid;
-        #         # probably means a user already exists with that username or email
-        #         status = "invalid" 
-        #     else:
-        #         return render(request, 'CavTutor/user-register-after.html', {
-        #                 'username': request.POST.get('username'),
-        #             })
-        # else:
-        #     status = "incomplete"
+            ux_register_response = _tutor_register_ux(user_id, course_id, adv_rate)
+            print(ux_register_response)
+            if ux_register_response:
+                next_page = reverse('tutor-detail', kwargs={"tutor_id": ux_register_response['id']})
+            else:
+                next_page = reverse('tutor-create')
+
+            if not ux_register_response:
+                # ux layer said the form was invalid;
+                # probably means a user already exists with that username or email
+                status = "invalid" 
+            else:
+                www_response = HttpResponseRedirect(next_page)
+                return www_response
+                #return render(request, 'CavTutor/index.html', {
+                #        'username': request.POST.get('username'),
+                #   })
+        else:
+            status = "incomplete"
 
     return render(request, 'CavTutor/tutor-register.html', {
             'form': register_form,
