@@ -81,22 +81,15 @@ def tutor_new(request):
             print(ux_register_response)
             if ux_register_response:
                 next_page = reverse('tutor-detail', kwargs={"tutor_id": ux_register_response['id']})
-            else:
-                next_page = reverse('tutor-create')
-
-            if not ux_register_response:
-                # ux layer said the form was invalid;
-                # probably means a user already exists with that username or email
-                status = "invalid" 
-            else:
                 www_response = HttpResponseRedirect(next_page)
                 return www_response
-                #return render(request, 'CavTutor/index.html', {
-                #        'username': request.POST.get('username'),
-                #   })
+            else:
+                #next_page = reverse('tutor-create')
+                status = "invalid" 
+
         else:
             status = "incomplete"
-
+    print(status)
     return render(request, 'CavTutor/tutor-register.html', {
             'form': register_form,
             'status': status,
