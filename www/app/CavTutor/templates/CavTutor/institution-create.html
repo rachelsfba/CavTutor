@@ -15,7 +15,9 @@
         <form action="{% url 'institution-create' %}" method="post">
             {% csrf_token %}
             <!-- need to make error msg go on same line for all fields -->
-            {{ form.as_p }}
+            <table>
+                {{ form.as_table }}
+            </table>
            <input type="submit" value="Submit" />
         </form>
     </div>

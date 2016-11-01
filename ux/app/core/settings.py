@@ -110,3 +110,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+API_VERSION = 'v2'
+
+API_BASE = 'http://api:8000/api/' + API_VERSION + "/"
+UX_BASE = 'http://localhost:8000/'

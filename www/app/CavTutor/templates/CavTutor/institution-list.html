@@ -7,7 +7,9 @@
 
 <!-- stores our items as a list -->
 {% block items %}
-    <a href="{% url 'institution-create' %}">Create</a>
+    {% if user %}
+        <a href="{% url 'institution-create' %}">Create</a>
+    {% endif %}
 
     <ol>
     {% for institution in institutions %}
