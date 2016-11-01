@@ -10,6 +10,8 @@ from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
 from CavTutor import views, models, serializers
+from core import settings
+
 
 """ 
    CavTutor.test_authenticator: A series of tests for the Authenticator model
