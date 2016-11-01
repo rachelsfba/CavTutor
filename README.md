@@ -63,7 +63,7 @@ Unit and Integration Tests
 Currently, some unit tests are bundled which are aimed at the API-layer of our
 application. In the future, integration testing will focus on the user
 experience layer (it is difficult to do this because a separate API instance is
-necessary for test isolation from the UX layet). For now, you may only run tests by
+necessary for test isolation from the UX layer). For now, you may only run tests by
 attaching to the `api` docker container, i.e.
 
     $ docker exec -it api bash
