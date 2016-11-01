@@ -1,9 +1,7 @@
-import core.settings as settings
-
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-from django.contriub.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import make_password, check_password
 
 import os
 import hmac
@@ -11,7 +9,7 @@ import hmac
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
-from . import views, models, serializers
+from CavTutor import views, models, serializers
 
 """ 
    CavTutor.test_authenticator: A series of tests for the Authenticator model
@@ -36,7 +34,7 @@ class AuthenticatorTestCase(APITestCase):
                 msg=os.urandom(32),
                 digestmod='sha256').hexdigest(),
             user=self.test_user,
-            expiry_date= datetime.now() + timedelta(days=1)
+            expiry_date=timezone.now() + timezone.timedelta(hours=8)
                 )
         # Authenticator doesn't update
         # self.new_authenticator_data = dict(
@@ -52,15 +50,13 @@ class AuthenticatorTestCase(APITestCase):
 
         url = reverse('authenticator-list')
 
-        data = dict(
-            token=hmac.new(
-                key=settings.SECRET_KEY.encode('utf-8'),
-                msg=os.urandom(32),
-                digestmod='sha256').hexdigest(),
-            user=self.test_user,
-            expiry_date=datetime.now() + timedelta(days=1)
-                )
-
+        data = {
+                'token': hmac.new(key=settings.SECRET_KEY.encode('utf-8'),
+                            msg=os.urandom(32),
+                            digestmod='sha256').hexdigest(),
+                'user':  self.test_user.pk,
+            }
+        
         response = self.client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
