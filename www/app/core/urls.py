@@ -36,6 +36,7 @@ urlpatterns = [
 
     url(r'^tutors/(?P<tutor_id>\d+)/?$', tutor_views.detail, name='tutor-detail'),
     url(r'^tutors/?$', tutor_views.listings, name='tutor-list'),
+    url(r'^tutors_new/?$', tutor_views.tutor_new, name='tutor-create'),
 
     url(r'^tutees/(?P<tutee_id>\d+)/?$', tutee_views.detail, name='tutee-detail'),
     url(r'^tutees/?$', tutee_views.listings, name='tutee-list'),

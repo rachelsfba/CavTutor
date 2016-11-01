@@ -33,7 +33,7 @@
                 {% if user %}
                     Hello, {{ user.f_name }}. <a href="{% url 'user-logout' %}">Logout?</a>
                 {% else %}
-                <a href="{% url 'user-login' %}">Login</a> &nbsp;<b>&#8756;</b>&nbsp;
+                <a href="{% url 'user-login' %}?next={{request.path}}">Login</a> &nbsp;<b>&#8756;</b>&nbsp;
                     <a href="{% url 'user-register' %}">Create New Account</a>
                 {% endif %}
             </span>
