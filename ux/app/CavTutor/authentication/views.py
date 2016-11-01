@@ -1,37 +1,48 @@
-import requests
-import os
-import hmac
-import json
-import datetime
+"""
+    MODULE:
+    CavTutor.authentication.views
+    
+    DESCRIPTION:
+    Handles authentication server-side logic, such as logging in, logging out,
+    creating cookies, and user registration.
+"""
 
-import core.settings as settings
+""" We need these libraries to parse the API layer's JSON responses into Python
+    data structures, as well as to update the database through sending data back
+    to the API layer. """
+import requests, json 
 
+""" These libraries are needed for cookie token generation. """
+import os, hmac
+
+""" We need to get the API_BASE prefix from the settings file so that we can
+    access the API information. """
+from core.settings import API_BASE
+
+"""  We utilize some common Django idioms, so fetch those implementations. """
 from django.shortcuts import render
 from django.http.response import *
 from django.contrib.auth.hashers import check_password, make_password
-from urllib.request import urlopen
-from urllib.error import HTTPError
 
-from urllib.parse import urlencode
+""" rest_framework.status has a list HTTP status codes, which keeps us from
+    having to write our own. """
+from rest_framework import status
 
-API_VERSION = 'v2'
+"""
+Handles logout requests by deleting the user's authentication cookie.
 
-API_BASE = 'http://api:8000/api/' + API_VERSION + "/"
-UX_BASE = 'http://localhost:8000/'
-
-HTTP_ERROR_500 = json.dumps(dict(detail="HTTP 500 Error: Internal Service Error"))
-
-HTTP_ERROR_400 = json.dumps(dict(detail="HTTP 400 Error: Bad Request"))
-HTTP_ERROR_404 = json.dumps(dict(detail="HTTP 404 Error: File Not Found"))
-
+@param request a django.http.HttpRequest object
+@return a response of type django.http.HttpResponse (or related subclass) with
+    the proper HTTP status code and any related data
+"""
 def logout(request):
     if request.method != "GET":
-        return HttpResponseBadRequest(HTTP_ERROR_400)
+        return HttpResponseBadRequest()
+    
+    authenticators = requests.get(API_BASE + 'authenticators')
 
-    try:
-        authenticators = json.loads(urlopen(API_BASE + 'authenticators/?format=json').read().decode('utf-8'))
-    except HTTPError:
-        return HttpResponseNotFound(HTTP_ERROR_404)
+    if authenticators.status_code != status.HTTP_200_OK:
+        return HttpResponseNotFound()
 
     response = {
             'ok': False,
@@ -39,7 +50,7 @@ def logout(request):
                        'I could do it myself!'.format(authenticator['token']),
         }
 
-    for authenticator in authenticators:
+    for authenticator in authenticators.json():
         if authenticator['token'] == request.POST.get('auth_token'):
             _delete_cookie(request, authenticator['id'])
             
@@ -50,10 +61,18 @@ def logout(request):
 
     return HttpResponse(json.dumps(response))
 
+"""
+Handles login requests by validating username and password combination
+against the database. 
+
+@param request a django.http.HttpRequest object
+@return a response of type django.http.HttpResponse (or related subclass) with
+    the proper HTTP status code and any related data
+"""
 def login(request):
     # web frontend must send a POST request to ux
     if request.method != "POST":
-        return HttpResponseBadRequest(HTTP_ERROR_400)
+        return HttpResponseBadRequest()
    
 
     # attempt to get a list of all users from the API, so we can validate
@@ -62,7 +81,7 @@ def login(request):
 
     if user_list.status_code != 200:
         # If users listing didn't work sfor some reason, 
-        return HttpResponseNotFound(HTTP_ERROR_404)
+        return HttpResponseNotFound()
     
     # we have to iterate over all the users in the entire listing. need to find
     # a more RESTful and efficient way
@@ -83,24 +102,32 @@ def login(request):
             api_auth_data = requests.post(API_BASE + 'authenticators/', data=response_context)
 
             if api_auth_data.status_code != 201:
-                return HttpResponseServerError(HTTP_ERROR_500)
+                return HttpResponseServerError()
             
             #return cookie to front end
-            return HttpResponse(api_auth_data)
+            return HttpResponse(api_auth_data.text)
 
-    return HttpResponseNotFound(HTTP_ERROR_404)
+    return HttpResponseNotFound()
 
+"""
+Handles user registration by first checking if a user exists with that
+information, then posting a creation request to the API.
+
+@param request a django.http.HttpRequest object
+@return a response of type django.http.HttpResponse (or related subclass) with
+    the proper HTTP status code and any related data
+"""
 def register(request):
     # web frontend must send a POST request to ux
     if request.method != "POST":
-        return HttpResponseBadRequest(HTTP_ERROR_400)
+        return HttpResponseBadRequest()
    
     # attempt to get a list of all users from the API, so we can see if the user already exists in our system
     user_list = requests.get(API_BASE + 'users/?format=json')
 
     if user_list.status_code != 200:
         # If users listing didn't work sfor some reason, 
-        return HttpResponseServerError(HTTP_ERROR_500)
+        return HttpResponseServerError()
     
     # we have to iterate over all the users in the entire listing. need to find
     # a more RESTful and efficient way
@@ -111,12 +138,19 @@ def register(request):
             request.POST.get('email') == user['email']:
             
             # user already exists in system
-            return HttpResponseBadRequest(HTTP_ERROR_400)
+            return HttpResponseBadRequest()
     
     register_req = requests.post(API_BASE + 'users/', data=request.POST)
 
     return HttpResponse(register_req.text, status=201)
 
+"""
+Validates the authentication cookie token provided in the request parameter.
+
+@param request a django.http.HttpRequest object
+@return a response of type django.http.HttpResponse (or related subclass) with
+    the proper HTTP status code and any related data
+"""
 def validate_user_cookie(request):
     
     auth_cookie = request.POST.get("token")
@@ -124,18 +158,23 @@ def validate_user_cookie(request):
     # check if the cookie was set
     if auth_cookie:
         # check if the cookie has expired
-        json_data = requests.request('GET', API_BASE + 'authenticators/?format=json').text
+        json_data = requests.get(API_BASE + 'authenticators/?format=json').json()
 
-        for authenticator in json.loads(json_data):
+        for authenticator in json_data:
             if authenticator['token'] == auth_cookie:
                 user_info = {
                             'user_id': authenticator['user']
                         }
 
                 return HttpResponse(json.dumps(user_info))
-        return HttpResponseNotFound(HTTP_ERROR_404)
-    return HttpResponseBadRequest(HTTP_ERROR_400)
+        return HttpResponseNotFound()
+    return HttpResponseBadRequest()
 
+"""
+Internal method that creates a new authenticator token.
+
+@return an authenticator token
+"""
 def _make_new_auth_cookie():
 
     authenticator = hmac.new(
@@ -145,8 +184,13 @@ def _make_new_auth_cookie():
 
     return authenticator
 
-def _delete_cookie(request, auth_id):
-    del_cookie = requests.request('DELETE', API_BASE + 'authenticators/{}/'.format(auth_id))
+"""
+Internal method that sends a DELETE request to the API for the specified token.
 
-    return del_cookie
+@param request a django.http.HttpRequest object
+@param auth_id the id of the authenticator token to delete
+@return a requests object containing the response to the deletion request
+"""
+def _delete_cookie(request, auth_id):
+    return requests.delete(API_BASE + 'authenticators/{}/'.format(auth_id))
 
