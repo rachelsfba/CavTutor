@@ -18,18 +18,12 @@ User Stories
    
 6. As an internal developer, I can update existing objects by sending a `PUT` (or `PATCH`) 
    request to our API µ-service. 
-   
-<!-- 4. As a user looking for tutors, I can post a listing on our website looking for
-   tutors in my area. -->
 
 7. As a user, I should be able to both be a tutor and a tutee for 
    different subjects in the CavTutor system.
 
 8. As a tutor, I should be able to view a complete list of all the people I tutor
    in each course.
-
-<!-- 7. As an independent tutor not tied to a university, I should be able to list myself as a tutor
-   without having to associate myself with a particular course or institution. -->
 
 9. As a user, I should be able to tutor for one institution and be a tutee at another.
 
@@ -45,3 +39,9 @@ User Stories
 14. As a user, I do not have to login everytime I visit the application because an authentication `COOKIE` was sent to my browser.
 
 15. As a logged in user, I can create a new listing for the classes I tutor.
+   
+<!-- As a user looking for tutors, I can post a listing on our website looking for
+   tutors in my area. -->
+
+<!-- As an independent tutor not tied to a university, I should be able to list myself as a tutor
+   without having to associate myself with a particular course or institution. -->
