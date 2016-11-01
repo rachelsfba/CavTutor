@@ -63,7 +63,9 @@ def login(request):
             password = login_form.cleaned_data['password']
 
             # Redirect to index page after successful login.
-            next_page = reverse('index')
+            #next_page = reverse('index')
+            next_page = request.POST.get('next','index')
+
 
             # Retrieve login response 
             ux_response = _user_login_ux(username, password)
@@ -74,6 +76,7 @@ def login(request):
                 auth_cookie = ux_response['token']
                 expiry = ux_response['expiry_date']
 
+                context = {}
                 www_response = HttpResponseRedirect(next_page)
                 #www_response = HttpResponse("Token: {} <br \><br \> Expiry Date: {}".format(auth_cookie, expiry))
                 www_response.set_cookie("auth_token", auth_cookie, expires=expiry)
@@ -82,10 +85,10 @@ def login(request):
         else:
             status = "incomplete"
 
+
     return render(request, 'CavTutor/user-login.html', {
             'form': login_form,
-            'status': status,
-        })
+            'status': status})
 
 
 def _user_login_ux(username, password):
