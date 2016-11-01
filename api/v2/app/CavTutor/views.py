@@ -19,9 +19,11 @@ class InstitutionViewSet(viewsets.ModelViewSet):
 
 
 class TutorViewSet(viewsets.ModelViewSet):
+
     """
     API endpoint that allows tutors to be viewed or edited.
     """
+    print("hit tutor api endpoint")
     queryset = models.Tutor.objects.all().order_by('course')
     serializer_class = serializers.TutorSerializer
 

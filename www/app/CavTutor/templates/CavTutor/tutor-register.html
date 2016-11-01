@@ -1,7 +1,7 @@
 {% extends 'CavTutor/generics/base.html' %}
 
 {% block body_block %}
-	<h1>{% block title %}Regsiter Tutor | CavTutor{% endblock %}</h1>
+	<h1>{% block title %}Register Tutor | CavTutor{% endblock %}</h1>
 
     {% if status == "incomplete" %}
         <p><strong> You didn't fill in everything properly! </strong></p>
@@ -9,7 +9,7 @@
         <p><strong> The institution with that name already exists in our system. </strong></p>
     {% endif %}
 
-    <p> Please provide information for the institution you would like to add. </p>
+    <p> Please provide course for which you would like to tutor. </p>
 
     <div id="form-container" style="padding-bottom: 10px;">
         <form action="{% url 'tutor-create' %}" method="post">

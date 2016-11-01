@@ -68,6 +68,35 @@ def _tutor_foreign_key_id_to_json(tutor):
     
     return tutor
 
+def create(request):
+    # web frontend must send a POST request to ux
+    if request.method != "POST":
+        return HttpResponseBadRequest()
+
+    # attempt to get a list of all obects from the API, so we can see if the
+    # given info already exists in our system
+    tutor_list = requests.get(API_BASE + 'tutors/?format=json')
+
+    if tutor_list.status_code != 200:
+        return HttpResponseServerError()
+
+
+    for tutor in tutor_list.json():
+        print("reqpost userid vs tutor[user]: ", str(request.POST.get('user'))   , str(tutor['user']))
+        print("reqpost courseid vs tutor[course]: ", str(request.POST.get('course')) , str(tutor['course']))
+        sametutor  = str(request.POST.get('user')) == str(tutor['user'])
+        samecourse = str(request.POST.get('course')) == str(tutor['course'])
+        if sametutor and samecourse:
+            # uh-oh, it already exists in system
+            return HttpResponseBadRequest()
+
+    # If it wasn't found in the database already, send a POST request with the needed info.
+    new_tutor_data = requests.post(API_BASE + 'tutors/', data=request.POST)
+
+    if new_tutor_data.status_code != 201:
+        return HttpResponseServerError()
+    return HttpResponse(new_tutor_data.text, status=201)
+
 def get_tutor_num_tutees(tutor_id):
     tutee_data = requests.get(API_BASE + 'tutees/?format=json')
     

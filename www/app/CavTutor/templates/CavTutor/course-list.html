@@ -9,7 +9,7 @@
 {% block items %}
     <ol>
     {% for course in courses %}
-        <li><a href="{% url 'course-detail' course.id %}">{{ course.name }} at {{ course.institution_name }}</a></li>
+        <li><a href="{% url 'course-detail' course.id %}">{{ course.name }} ({{course.abbr}}) at {{ course.institution_name }}</a></li>
     {% endfor %}
     </ol>
 {% endblock %}
