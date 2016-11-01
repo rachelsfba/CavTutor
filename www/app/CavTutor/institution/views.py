@@ -29,7 +29,7 @@ from CavTutor.institution.forms import *
 import requests, json
 
 @login_required
-def institution_new(request):
+def create(request):
     # Assume we have a good form.
     state = "ok"
 
@@ -78,7 +78,7 @@ def institution_new(request):
 
 def _new_listing_ux(postdata):
 
-    request = requests.post(UX_BASE + 'institutions_new/', data=postdata)
+    request = requests.post(UX_BASE + 'institutions/create/', data=postdata)
 
 
     if request.status_code == status.HTTP_201_CREATED:
