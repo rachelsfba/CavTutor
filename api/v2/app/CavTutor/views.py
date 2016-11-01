@@ -19,6 +19,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
 
 
 class TutorViewSet(viewsets.ModelViewSet):
+
     """
     API endpoint that allows tutors to be viewed or edited.
     """

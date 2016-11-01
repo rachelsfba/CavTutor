@@ -37,7 +37,7 @@ class Course(models.Model):
     instructor = models.CharField(max_length=256)
 
     def __str__(self):
-        return self.name + " (" + self.abbr + ")"
+        return self.name + " (" + self.abbr + ") at " + str(self.institution)
 
 class Tutor(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
