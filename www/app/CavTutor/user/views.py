@@ -26,10 +26,10 @@ def listings(request):
 
 def detail(request, user_id):
     
-    user_data = requests.get(UX_BASE + 'users/' + user_id)
+    user = _id_to_user(user_id)
     
-    if user_data.status_code == 200:
-        context = {'user' : user_data.json() }
+    if user:
+        context = {'user' : user }
 
         return render(request, 'CavTutor/user-detail.html', context)
 
@@ -37,6 +37,47 @@ def detail(request, user_id):
             "model": "user",
             "id": user_id,
         })
+
+def _id_to_user(user_id):
+
+    user = requests.get(UX_BASE + 'users/' + user_id)
+
+    if user.status_code == 200:
+        return user.json()
+    return
+
+
+def tutor_listings(request, user_id):
+
+    json_data = requests.get(UX_BASE + 'users/{}/teaching/'.format(user_id)).json()
+
+    context = {
+            'viewed_user' : _id_to_user(user_id),
+            'tutor_listings' : json_data,
+        }
+
+    return render(request, 'CavTutor/user-tutor-list.html', context)
+
+def tutee_listings(request, user_id):
+
+    json_data = requests.get(UX_BASE + 'users/{}/learning/'.format(user_id)).json()
+
+    context = {
+            'viewed_user' : _id_to_user(user_id),
+            'tutee_listings' : json_data,
+        }
+
+    return render(request, 'CavTutor/user-tutee-list.html', context)
+
+def listings(request):
+
+    json_data = requests.get(UX_BASE + 'users/').json()
+
+    context = {
+            'users' : json_data,
+        }
+
+    return render(request, 'CavTutor/user-list.html', context)
 
 @nologin_required
 def login(request):

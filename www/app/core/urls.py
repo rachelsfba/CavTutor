@@ -31,11 +31,13 @@ urlpatterns = [
     url(r'^courses/?$', course_views.listings, name='course-list'),
 
     url(r'^users/(?P<user_id>\d+)/?$', user_views.detail, name='user-detail'),
+    url(r'^users/(?P<user_id>\d+)/teaching?$', user_views.tutor_listings, name='user-tutor-listings'),
+    url(r'^users/(?P<user_id>\d+)/learning?$', user_views.tutee_listings, name='user-tutee-listings'),
     url(r'^users/?$', user_views.listings, name='user-list'),
 
     url(r'^tutors/(?P<tutor_id>\d+)/?$', tutor_views.detail, name='tutor-detail'),
     url(r'^tutors/?$', tutor_views.listings, name='tutor-list'),
-    url(r'^tutors_new/?$', tutor_views.tutor_new, name='tutor-create'),
+    url(r'^tutors/create/?$', tutor_views.create, name='tutor-create'),
 
     url(r'^tutees/(?P<tutee_id>\d+)/?$', tutee_views.detail, name='tutee-detail'),
     url(r'^tutees/?$', tutee_views.listings, name='tutee-list'),

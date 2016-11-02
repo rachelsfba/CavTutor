@@ -33,14 +33,15 @@ urlpatterns = [
     url(r'^courses/?$', course_views.listings, name='course-listings'),
 
     url(r'^tutors/(?P<tutor_id>\d+)/?$', tutor_views.detail, name='tutor-detail'),
-    url(r'^tutors/?$', tutor_views.listings, name='tutor-listings'),
     url(r'^tutors/create/?$', tutor_views.create, name='tutor-create'),
-
+    url(r'^tutors/?$', tutor_views.listings, name='tutor-listings'),
 
     url(r'^tutees/(?P<tutee_id>\d+)/?$', tutee_views.detail, name='tutee-detail'),
     url(r'^tutees/?$', tutee_views.listings, name='tutee-listings'),
 
     url(r'^users/(?P<user_id>\d+)/?$', user_views.detail, name='user-detail'),
+    url(r'^users/(?P<user_id>\d+)/teaching/?$', user_views.tutor_listings, name='user-tutor-listing'),
+    url(r'^users/(?P<user_id>\d+)/learning/?$', user_views.tutee_listings, name='user-tutee-listing'),
     url(r'^users/?$', user_views.listings, name='user-listings'),
     
     url(r'^login/?$', auth_logic.login, name='login'),

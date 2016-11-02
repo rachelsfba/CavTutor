@@ -82,9 +82,10 @@ def create(request):
 
 
     for tutor in tutor_list.json():
-        sametutor  = str(request.POST.get('user')) == str(tutor['user'])
-        samecourse = str(request.POST.get('course')) == str(tutor['course'])
-        if sametutor and samecourse:
+        user_matches  = request.POST.get('user') == str(tutor['user'])
+        course_matches = request.POST.get('course') == str(tutor['course'])
+        
+        if user_matches and course_matches:
             # uh-oh, it already exists in system
             return HttpResponseBadRequest()
 
