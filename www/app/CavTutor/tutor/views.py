@@ -67,7 +67,7 @@ def create(request):
             else:
                 # ux layer said the form was invalid;
                 # probably means that tutor record already exists
-
+                status = "invalid"
         else:
             status = "incomplete"
 
