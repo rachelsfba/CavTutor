@@ -1,21 +1,23 @@
 {% extends 'CavTutor/generics/base.html' %}
 
 {% block body_block %}
-	<h1>{% block title %}Register Tutor | CavTutor{% endblock %}</h1>
+	<h1>{% block title %}Tutor a New Course | CavTutor{% endblock %}</h1>
 
     {% if status == "incomplete" %}
         <p><strong> You didn't fill in everything properly! </strong></p>
-    {% elif status == "incorrect" %}
-        <p><strong> The institution with that name already exists in our system. </strong></p>
+    {% elif status == "invalid" %}
+        <p><strong> You've already listed yourself for that class! </strong></p>
     {% endif %}
 
-    <p> Please provide course for which you would like to tutor. </p>
+    <p> Please select the course you would like to tutor, as well as your hourly rate. </p>
 
     <div id="form-container" style="padding-bottom: 10px;">
         <form action="{% url 'tutor-create' %}" method="post">
             {% csrf_token %}
             <!-- need to make error msg go on same line for all fields -->
-            {{ form.as_p }}
+            <table>
+                {{ form.as_table }}
+            </table>
            <input type="submit" value="Submit" />
         </form>
     </div>
