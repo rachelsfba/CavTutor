@@ -132,3 +132,40 @@ services:
         ports:
             - "8080:80"
 
+    kafka:
+        build:
+            dockerfile: Dockerfile-restful-django
+            context: build
+        image: spotify/kafka
+        container_name: kafka
+        networks:
+            - backend
+        environment:
+            ADVERTISED_HOST: kafka
+            ADVERTISED_PORT: 9092
+        hostname: kafka
+
+    elasticsearch:
+        build:
+            dockerfile: Dockerfile-restful-django
+            context: build
+        image: elasticsearch:2.0
+        container_name: elasticsearch
+        networks:
+            - backend
+        ports:
+            - "9200:9200"
+
+    search_controller:
+        build:
+            dockerfile: Dockerfile-restful-django
+            context: build
+        networks:
+            - backend
+        container_name: search_controller
+        links:
+            - kafka:kafka
+            - elasticsearch:elasticsearch
+        volumes:
+            - ./search:/app
+        command: /app/dispatch.sh #RUN A Python script that pulls messages from Kafka and indexs that in ES
