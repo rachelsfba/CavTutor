@@ -83,7 +83,7 @@ def search(request):
     return HttpResponse(json.dumps(tutors_found))
 
 def _search_create_linear_dict(tutor):
-    user_data = requests.get(UX_BASE + 'users/{}/'.format(tutor['user']))
+    user_data = requests.get(API_BASE + 'users/{}/'.format(tutor['user']))
     course_data = requests.get(API_BASE + 'courses/{}/'.format(tutor['course']))
 
     for field_name, field_val in user_data.json().items():
