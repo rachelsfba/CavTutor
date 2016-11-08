@@ -82,6 +82,20 @@ def search(request):
     # {'timed_out': False, 'hits': {'total': 1, 'hits': [{'_score': 0.10848885, '_index': 'listing_index', '_source': {'id': 42, 'description': 'This is a used Macbook Air in great condition', 'title': 'Used MacbookAir 13"'}, '_id': '42', '_type': 'listing'}], 'max_score': 0.10848885}, '_shards': {'successful': 5, 'total': 5, 'failed': 0}, 'took': 21}
     return HttpResponse(json.dumps(tutors_found))
 
+def _search_create_linear_dict(tutor):
+    user_data = requests.get(UX_BASE + 'users/{}/'.format(tutor['user']))
+    course_data = requests.get(API_BASE + 'courses/{}/'.format(tutor['course']))
+
+    for field_name, field_val in user_data.json().items():
+        tutor['user:' + field_name] = field_val
+    for field_name, field_val in course_data.json().items():
+        tutor['course:' + field_name] = field_val
+
+    # don't even THINK about giving the web layer a password without it
+    # explicitly requiring it!~
+    del tutor['user:password']
+
+    return tutor
 
 # Details a specific tutor
 def detail(request, tutor_id):
@@ -137,7 +151,13 @@ def create(request):
     if new_tutor_data.status_code != 201:
         return HttpResponseServerError()
 
-    producer.send('new-tutor-listing-topic', new_tutor_data.content) # N.B. .content returns bytes instead of text
+    #new_tutor_parsed_data = _tutor_foreign_key_id_to_json(new_tutor_data.json())
+    new_tutor_parsed_data = _search_create_linear_dict(new_tutor_data.json())
+    new_tutor_encoded = json.dumps(new_tutor_parsed_data).encode('utf-8')
+     
+    producer.send('new-tutor-listing-topic', new_tutor_encoded)
+    #N.B. .content returns bytes instead of text
+    
     return HttpResponse(new_tutor_data.text, status=201)
 
 def get_tutor_num_tutees(tutor_id):
