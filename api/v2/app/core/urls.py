@@ -1,5 +1,4 @@
 """isa_app URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
 Examples:
@@ -34,3 +33,4 @@ urlpatterns = [
     #url(r'^', include(router.urls)),
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+
