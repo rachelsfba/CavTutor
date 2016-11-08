@@ -24,7 +24,8 @@ def search_listings(request):
 
     return render(request, 'CavTutor/user-list.html', context)
 
-@nologin_required
+
+
 def search(request):
     # Assume we have a good form.
     status = "ok"
@@ -45,18 +46,22 @@ def search(request):
         # our database.
         if search_form.is_valid():
             # Forms will sanitize for us
-            query = search_form.cleaned_data['query']
 
             # Redirect to index page after successful login.
             #next_page = reverse('index')
-            next_page = request.POST.get('next','index')
+            # next_page = request.POST.get('next','index')
             results = {"daniel":4, "richard":2, "matthew":1}
-            return render(request, 'CavTutor/search.html', {
-             'results' : results,
-            'form': search_form,
-            'status': status})
+            
             # # Retrieve login response 
-            # ux_response = _user_login_ux(username, password)
+            ux_response = requests.post(UX_BASE + 'tutors/search/', data=search_form.cleaned_data)
+
+            print(ux_response.json())
+
+
+            return render(request, 'CavTutor/search.html', {
+                 'results' : results,
+                'form': search_form,
+                'status': status})
 
             # if not ux_response or not ux_response['token']:
             #     status = "incorrect"
