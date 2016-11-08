@@ -73,7 +73,7 @@ def search(request):
             })
 
     tutors_found = []
-
+    print(search_result)
     for tutor in search_result['hits']['hits']:
         if '_source' in tutor:
             tutor_json = _tutor_foreign_key_id_to_json(tutor['_source'])
