@@ -19,7 +19,6 @@ We use two docker networks, a user-facing network which contains front-end
 docker containers, and a back-end network, which is meant to be inaccessible
 to users.
 
-
  - `cavtutor_frontend` -- contains `www`, `ux`
  - `cavtutor_backend` -- contains `ux`, `elasticsearch`, `kafka`, `search_controller`, `api_v2`, `api_static`, and `mysql` (see next section)
 
@@ -31,7 +30,7 @@ Important Note for `mysql` Docker
 Please note that your external `mysql` docker container must be on the same
 docker network as ours. To connect `mysql` to the network, run
 
-    $ docker network connect isa_backend mysql
+    $ docker network connect cavtutor_backend mysql
 
 If you get an error, you may need to try a different network. To list all active
 networks, run
