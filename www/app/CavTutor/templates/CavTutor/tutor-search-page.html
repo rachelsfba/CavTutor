@@ -1,0 +1,24 @@
+<!-- TODO turn this into a search page template -->
+
+
+
+
+
+
+
+
+{% extends 'CavTutor/generics/generic-list.html' %}
+
+<!-- tell the parent template what sort of items we're giving it -->
+{% block model %}
+    Tutor
+{% endblock %}
+
+<!-- stores our items as a list -->
+{% block items %}
+    <ol>
+    {% for tutor in tutors %}
+        <li><a href="{% url 'tutor-detail' tutor.id %}">{{ tutor.user.l_name }}, {{ tutor.user.f_name }}</a> ({{ tutor.course.abbr }})</li>
+    {% endfor %}
+    </ol>
+{% endblock %}

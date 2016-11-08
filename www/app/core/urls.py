@@ -20,6 +20,7 @@ from CavTutor.institution import views as institution_views
 from CavTutor.tutor import views as tutor_views
 from CavTutor.tutee import views as tutee_views
 from CavTutor.course import views as course_views
+from CavTutor.search import views as search_views
 from CavTutor import views
 
 urlpatterns = [
@@ -42,9 +43,12 @@ urlpatterns = [
     url(r'^tutees/(?P<tutee_id>\d+)/?$', tutee_views.detail, name='tutee-detail'),
     url(r'^tutees/?$', tutee_views.listings, name='tutee-list'),
 
+    url(r'^search/?$', search_views.search, name='search'),
+
     url(r'^login/?$', user_views.login, name='user-login'),
     url(r'^logout/?$', user_views.logout, name='user-logout'),
     url(r'^register/?$', user_views.register, name='user-register'),
 
     url(r'^$|^index/?$', views.index, name='index'),
+
 ]

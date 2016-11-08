@@ -113,4 +113,7 @@ STATIC_URL = '/static/'
 
 API_VERSION = 'v2'
 API_BASE = 'http://api:8000/api/' + API_VERSION + "/"
+
 UX_BASE = 'http://localhost:8000/'
+
+ELASTIC_SEARCH_NUM_RESULTS = 25
