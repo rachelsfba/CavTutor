@@ -1,5 +1,6 @@
 #!/bin/sh
 
 while true; do
-    sleep 2
+    python indexer.py
+    sleep 1
 done
