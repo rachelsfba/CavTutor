@@ -133,9 +133,6 @@ services:
             - "8080:80"
 
     kafka:
-        build:
-            dockerfile: Dockerfile-restful-django
-            context: build
         image: spotify/kafka
         container_name: kafka
         networks:
@@ -146,9 +143,6 @@ services:
         hostname: kafka
 
     elasticsearch:
-        build:
-            dockerfile: Dockerfile-restful-django
-            context: build
         image: elasticsearch:2.0
         container_name: elasticsearch
         networks:

@@ -19,8 +19,9 @@ We use two docker networks, a user-facing network which contains front-end
 docker containers, and a back-end network, which is meant to be inaccessible
 to users.
 
+
  - `cavtutor_frontend` -- contains `www`, `ux`
- - `cavtutor_backend` -- contains `ux`, `api_v2`, `api_static`, and `mysql` (see next section)
+ - `cavtutor_backend` -- contains `ux`, `elasticsearch`, `kafka`, `search_controller`, `api_v2`, `api_static`, and `mysql` (see next section)
 
 Note that the user experience layer is the "middle man" between the two
 networks, being the only docker container on both.
@@ -30,7 +31,7 @@ Important Note for `mysql` Docker
 Please note that your external `mysql` docker container must be on the same
 docker network as ours. To connect `mysql` to the network, run
 
-    $ docker network connect cavtutor_backend mysql
+    $ docker network connect isa_backend mysql
 
 If you get an error, you may need to try a different network. To list all active
 networks, run
@@ -39,19 +40,22 @@ networks, run
 
 Description of Docker Containers
 ===
-There are currently 4 docker containers created by running `docker-compose up`
+There are currently 7 docker containers created by running `docker-compose up`
 on our project, in addition to the pre-requisite MariaDB docker instance named
 `mysql`; these are
 
 0. `mysql` -- the low-level docker image container for our MariaDB database
 1. `api` -- our secondary-level services API that talks to our database directly
    (port `8003`)
-1. `api_static` -- serves static files for API admin page and REST web API (port
+2. `api_static` -- serves static files for API admin page and REST web API (port
    `8002`)
-2. `ux` -- an abstract tertiary-level user experience layer that communicates
+3. `ux` -- an abstract tertiary-level user experience layer that communicates
    between our client-facing µ-services (`www`, `ios`, `android`, etc.) (port
    `8001`)
-3. `www` -- a client-facing docker image that serves HTML-based content for
+4. `elasticsearch` -- search indexer implemented through ElasticSearch
+5. `kafka` -- uses Kafka queueing as packaged by Spotify to manage listing requests
+6. `search_controller` -- interfaces between `kafka` and `elasticsearch` containers to index any new records
+7. `www` -- a client-facing docker image that serves HTML-based content for
    human consumption; aimed at desktop web browsers (port `8000`)
 
 User Stories
