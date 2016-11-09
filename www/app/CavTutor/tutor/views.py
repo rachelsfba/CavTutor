@@ -76,6 +76,34 @@ def create(request):
             'status': status,
         })
 
+def search(request):
+
+    search_response = None
+
+    # If the user didn't POST anything, they probably haven't filled out the
+    # form yet. Let's give them a blank one to fill in.
+    if request.method == 'GET':
+        # Create new login form and render it.
+        search_form = TutorSearchForm()
+    
+    # Otherwise they must have given us something as POST data. Let's try to
+    # validate that.
+    else:
+        # Create a new Django form based on POST data.
+        search_form = TutorSearchForm(request.POST)
+        
+        # If all fields were filled in, let's try to validate that info against
+        # our database.
+        if search_form.is_valid():
+            # Forms will sanitize for us
+            search_response = requests.post(UX_BASE + 'tutors/search/', data=search_form.cleaned_data).json()
+
+    return render(request, 'CavTutor/tutor-search.html', {
+            'results': search_response,
+            'form': search_form,
+        })
+
+
 def _tutor_register_ux(user_id, course_id, adv_rate):
     data = {
             'user': user_id,

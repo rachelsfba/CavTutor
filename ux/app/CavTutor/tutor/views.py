@@ -73,16 +73,27 @@ def search(request):
             })
 
     tutors_found = []
-    print(search_result)
+   # print(search_result)
     for tutor in search_result['hits']['hits']:
         if '_source' in tutor:
-            tutor_json = _tutor_foreign_key_id_to_json(tutor['_source'])
+            tutor_json = _unflatten(tutor['_source'])
             tutors_found.append(tutor_json)
 
     # {'timed_out': False, 'hits': {'total': 1, 'hits': [{'_score': 0.10848885, '_index': 'listing_index', '_source': {'id': 42, 'description': 'This is a used Macbook Air in great condition', 'title': 'Used MacbookAir 13"'}, '_id': '42', '_type': 'listing'}], 'max_score': 0.10848885}, '_shards': {'successful': 5, 'total': 5, 'failed': 0}, 'took': 21}
     return HttpResponse(json.dumps(tutors_found))
 
-def _search_create_linear_dict(tutor):
+def _unflatten(item_dict):
+    new_dict = {}
+
+    for key, value in item_dict.items():
+        if "user:" not in key and "course:" not in key:
+            new_dict[key] = value
+
+    new_dict = _tutor_foreign_key_id_to_json(new_dict)
+
+    return new_dict
+
+def _flatten(tutor):
     user_data = requests.get(API_BASE + 'users/{}/'.format(tutor['user']))
     course_data = requests.get(API_BASE + 'courses/{}/'.format(tutor['course']))
 
@@ -152,7 +163,7 @@ def create(request):
         return HttpResponseServerError()
 
     #new_tutor_parsed_data = _tutor_foreign_key_id_to_json(new_tutor_data.json())
-    new_tutor_parsed_data = _search_create_linear_dict(new_tutor_data.json())
+    new_tutor_parsed_data = _flatten(new_tutor_data.json())
     new_tutor_encoded = json.dumps(new_tutor_parsed_data).encode('utf-8')
      
     producer.send('new-tutor-listing-topic', new_tutor_encoded)
