@@ -1,5 +1,18 @@
 {% extends 'CavTutor/generics/base.html' %}
 
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+th {
+    text-align: left;
+}
+</style>
+
 {% block body_block %}
 	<h1>{% block title %}User Login | CavTutor{% endblock %}</h1>
 
@@ -26,11 +39,21 @@
     </div>
 
     {% block items %}
-    <ol>
+    <table style="width:100%">
+    <tr>
+            <th>Tutor Name</th>
+            <th>Course Name</th>
+            <th>Adv Rate</th>
+    </tr>
     {% for res in results %}
-        <li>{{ res }}</li>
+        <tr>
+            <td>{{res.user.lname}},{{res.user.fname}}</td>
+            <td>{{res.course}}</td>
+            <td>{{res.institution.name}}</td>
+            <td>{{res.adv_rate}}</td>
+        </tr>
     {% endfor %}
-    </ol>
+    </table>
 {% endblock %}
 
 {% endblock %}
