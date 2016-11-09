@@ -50,13 +50,13 @@ def search(request):
             # Redirect to index page after successful login.
             #next_page = reverse('index')
             # next_page = request.POST.get('next','index')
-            results = {"daniel":4, "richard":2, "matthew":1}
+            results = [{'name':"daniel", 'course':"defense against dark artz", 'adv_rate':24.54}];
             
             # # Retrieve login response 
             ux_response = requests.post(UX_BASE + 'tutors/search/', data=search_form.cleaned_data)
 
             print(ux_response.json())
-
+            results = ux_response.json()
 
             return render(request, 'CavTutor/search.html', {
                  'results' : results,
