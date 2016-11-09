@@ -16,3 +16,5 @@ class TutorCreateForm(forms.Form):
     course = forms.ChoiceField(choices=get_all_courses())
     rate = forms.DecimalField(max_digits=16, decimal_places=2, label="Rate (USD$)")
     
+class TutorSearchForm(forms.Form):
+    query = forms.CharField(label='Query', max_length=256)
