@@ -9,6 +9,7 @@
 """ We need these libraries to parse the API layer's JSON responses into Python
     data structures, as well as to update the database through sending data back
     to the API layer. """
+
 import requests, json
 
 """ These libraries are needed for cookie token generation. """
@@ -17,6 +18,7 @@ import os, hmac
 """ We need to get the API_BASE prefix from the settings file so that we can
     access the API information. """
 from core.settings import API_BASE, UX_BASE, ELASTIC_SEARCH_NUM_RESULTS
+
 
 """  We utilize some common Django idioms, so fetch those implementations. """
 from django.shortcuts import render
@@ -36,8 +38,23 @@ from elasticsearch import Elasticsearch
 elasticsearch = Elasticsearch([{'host': 'elasticsearch'}])
 
 
+# Load all fiztures into the producer 
+def load_fixtures():
+
+    tutor_data = requests.get(API_BASE + 'tutors/?format=json')
+
+    if tutor_data.status_code != status.HTTP_200_OK:
+        return HttpResponseNotFound()
+    for tutor in tutor_data.json():
+        new_tutor_parsed_data = _flatten(tutor)
+        new_tutor_encoded = json.dumps(new_tutor_parsed_data).encode('utf-8')
+        producer.send('new-tutor-listing-topic', new_tutor_encoded)
+
+
+
 # List of all tutors
 def listings(request):
+
     if request.method != "GET":
         return HttpResponseBadRequest()
 
@@ -53,7 +70,10 @@ def listings(request):
 
     return HttpResponse(json.dumps(tutor_data_parsed))
 
+
 def search(request):
+
+
 
     if request.method != "POST" or not request.POST.get('query'):
         return HttpResponseBadRequest()
@@ -159,6 +179,7 @@ def create(request):
 
     # If it wasn't found in the database already, send a POST request with the needed info.
     new_tutor_data = requests.post(API_BASE + 'tutors/', data=request.POST)
+    
     if new_tutor_data.status_code != 201:
         return HttpResponseServerError()
 
