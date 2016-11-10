@@ -13,6 +13,10 @@
         header #nav {
             float: right;
         }
+        header #link {
+            color: inherit; 
+            text-decoration: none;
+        }
         header #logo {
             text-shadow: 2px 2px 2px #AAA;
             font-size: 18pt;
@@ -28,7 +32,7 @@
 
     <body>
         <header>
-            <span id="logo">CavTutor</span> &emsp; A Tutoring Marketplace
+            <span id="logo"><a href="/" id="link">CavTutor</a></span> &emsp; A Tutoring Marketplace
             <span id="nav"> 
                 {% if user %}
                     Hello, {{ user.f_name }}. <a href="{% url 'user-logout' %}">Logout?</a> 
