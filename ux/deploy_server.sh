@@ -14,4 +14,7 @@ WSGI_FILE=$DJANGO_BASE/core/wsgi.py
 #python $DJANGO_BASE/manage.py migrate
 #python $DJANGO_BASE/manage.py loaddata $APP_BASE/db.json
 
+#trying to load fixtures, why doesn't this work?
+#python $DJANGO_BASE/CavTutor/tutor/views.py
+
 mod_wsgi-express start-server --reload-on-changes --log-to-terminal --working-directory $DJANGO_BASE $WSGI_FILE

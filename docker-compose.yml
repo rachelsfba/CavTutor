@@ -67,6 +67,11 @@ services:
         build:
             dockerfile: Dockerfile-restful-django
             context: build
+        depends_on:
+            - kafka
+            - elasticsearch
+            - api_v2
+            - search_controller
         networks:
             - backend
             - frontend
