@@ -4,38 +4,14 @@
     <head>
         <title>{% block title %}{% endblock %} | CavTutor Tutoring Marketplace</title>
     </head>
-    {% comment %}
-        Inline stylesheet should be served in a separate user-facing docker
-        container for static files. Yes, the stylesheet is ugly and all. We'll
-        style it later.
-    {% endcomment %}
-    <style type="text/css" media="all">
-        header #nav {
-            float: right;
-        }
-        header #link {
-            color: inherit; 
-            text-decoration: none;
-        }
-        header #logo {
-            text-shadow: 2px 2px 2px #AAA;
-            font-size: 18pt;
-            font-variant: small-caps;
-        }
-        footer {
-            text-align: center;
-        }
-        html, body {
-            font-family: helvetica,arial,sans-serif;
-        }
-    </style>
+    <link rel="stylesheet" href="http://localhost:8081/static/css/style.css" />
 
     <body>
         <header>
             <span id="logo"><a href="/" id="link">CavTutor</a></span> &emsp; A Tutoring Marketplace
-            <span id="nav"> 
+            <span id="nav">
                 {% if user %}
-                    Hello, {{ user.f_name }}. <a href="{% url 'user-logout' %}">Logout?</a> 
+                    Hello, {{ user.f_name }}. <a href="{% url 'user-logout' %}">Logout?</a>
 
                 {% else %}
                 <a href="{% url 'user-login' %}?next={{request.path}}">Login</a> &nbsp;<b>&#8756;</b>&nbsp;
