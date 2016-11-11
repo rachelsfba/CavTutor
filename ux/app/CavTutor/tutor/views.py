@@ -17,8 +17,7 @@ import os, hmac
 
 """ We need to get the API_BASE prefix from the settings file so that we can
     access the API information. """
-from core.settings import API_BASE, UX_BASE, ELASTIC_SEARCH_NUM_RESULTS
-
+from core.settings import API_BASE, UX_BASE, ELASTIC_SEARCH_NUM_RESULTS, KAFKA_ADDR
 
 """  We utilize some common Django idioms, so fetch those implementations. """
 from django.shortcuts import render
@@ -31,25 +30,11 @@ from rest_framework import status
 
 """ We want to add new listings to a Kafka queue. """
 from kafka import KafkaProducer
-producer = KafkaProducer(bootstrap_servers='kafka:9092')
+producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
 
 """ We want to search all the tutor listings. """
 from elasticsearch import Elasticsearch
 elasticsearch = Elasticsearch([{'host': 'elasticsearch'}])
-
-
-# Load all fiztures into the producer 
-def load_fixtures():
-
-    tutor_data = requests.get(API_BASE + 'tutors/?format=json')
-
-    if tutor_data.status_code != status.HTTP_200_OK:
-        return HttpResponseNotFound()
-    for tutor in tutor_data.json():
-        new_tutor_parsed_data = _flatten(tutor)
-        new_tutor_encoded = json.dumps(new_tutor_parsed_data).encode('utf-8')
-        producer.send('new-tutor-listing-topic', new_tutor_encoded)
-
 
 
 # List of all tutors
@@ -72,8 +57,6 @@ def listings(request):
 
 
 def search(request):
-
-
 
     if request.method != "POST" or not request.POST.get('query'):
         return HttpResponseBadRequest()
