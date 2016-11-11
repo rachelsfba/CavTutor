@@ -117,3 +117,5 @@ API_BASE = 'http://api:8000/api/' + API_VERSION + "/"
 UX_BASE = 'http://localhost:8000/'
 
 ELASTIC_SEARCH_NUM_RESULTS = 25
+
+KAFKA_ADDR = "kafka:9092"
