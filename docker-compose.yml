@@ -91,6 +91,8 @@ services:
         build:
             dockerfile: Dockerfile-restful-django
             context: build
+        depends_on:
+            - ux
         networks:
             - frontend
         ports:
@@ -165,6 +167,9 @@ services:
         links:
             - kafka:kafka
             - elasticsearch:elasticsearch
+        depends_on:
+            - kafka
+            - elasticsearch
         volumes:
             - ./search:/app
         command: /app/dispatch.sh #RUN A Python script that pulls messages from Kafka and indexs that in ES
