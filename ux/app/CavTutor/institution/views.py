@@ -1,7 +1,7 @@
 """
     MODULE:
     CavTutor.institution.views
-    
+
     DESCRIPTION:
     Acts as a go-between for the user-facing and API layers for Institution objects.
 """
@@ -9,7 +9,7 @@
 """ We need these libraries to parse the API layer's JSON responses into Python
     data structures, as well as to update the database through sending data back
     to the API layer. """
-import requests, json 
+import requests, json
 
 """ These libraries are needed for cookie token generation. """
 import os, hmac
@@ -31,7 +31,7 @@ from rest_framework import status
 def listings(request):
     if request.method != "GET":
         return HttpResponseBadRequest()
-    
+
     data = requests.get(API_BASE + 'institutions/?format=json')
 
     if data.status_code != status.HTTP_200_OK:
@@ -45,7 +45,7 @@ def detail(request, inst_id):
         return HttpResponseBadRequest()
 
     json_data = requests.get(API_BASE + 'institutions/{}/?format=json'.format(inst_id))
-    
+
     if json_data.status_code != status.HTTP_200_OK:
         return HttpResponseNotFound()
 
@@ -56,17 +56,27 @@ def detail(request, inst_id):
 
 
 def get_institution_name(inst_id):
-    data = requests.get(API_BASE + 'institutions/{}/?format=json'.format(inst_id)).json()
+    data = requests.get(API_BASE + 'institutions/{}/?format=json'.format(inst_id))
 
-    return data['name']
+    if data.status_code != status.HTTP_200_OK:
+        return "???"
+
+    inst_obj = data.json()
+
+    return inst_obj['name']
 
 def get_institution_num_courses(inst_id):
 
-    courses_data = requests.get(API_BASE + 'courses/?format=json').json()
+    courses_data = requests.get(API_BASE + 'courses/?format=json')
+
+    if courses_data.status_code != status.HTTP_200_OK:
+        return -1
+
+    course_obj = courses_data.json()
 
     count = 0
 
-    for course in courses_data:
+    for course in course_obj:
         if course['institution'] == int(inst_id):
             count += 1
 
@@ -82,9 +92,9 @@ def create(request):
     inst_list = requests.get(API_BASE + 'institutions/?format=json')
 
     if inst_list.status_code != 200:
-        # If users listing didn't work for some reason, 
+        # If users listing didn't work for some reason,
         return HttpResponseServerError()
-    
+
     # we have to iterate over all the institutions in the entire listing. need to find
     # a more RESTful and efficient way
     for inst in inst_list.json():
@@ -93,7 +103,7 @@ def create(request):
         if request.POST.get('name') == inst['name']:
             # uh-oh, it already exists in system
             return HttpResponseBadRequest()
-    
+
     # If it wasn't found in the database already, send a POST request with the needed info.
     new_inst_data = requests.post(API_BASE + 'institutions/', data=request.POST)
 
