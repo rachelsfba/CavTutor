@@ -59,13 +59,16 @@ def detail(request, tutee_id):
     return HttpResponse(json.dumps(tutee_data))
 
 def _tutee_foreign_key_id_to_json(tutee):
-    user_data = requests.get(UX_BASE + 'users/{}/'.format(tutee['user'])) 
-    course_data = requests.get(UX_BASE + 'courses/{}/'.format(tutee['course']))
-    tutor_data = requests.get(UX_BASE + 'tutors/{}/'.format(tutee['tutor']))
-    
-    tutee['user'] = user_data.json()
-    tutee['course'] = course_data.json()
-    tutee['tutor'] = tutor_data.json()
+    # Should throw an error if a field is missing from the model
+    if tutee['user'] and tutee['course'] and tutee['tutor']:
+        user_data = requests.get(UX_BASE + 'users/{}/'.format(tutee['user']))
+        course_data = requests.get(UX_BASE + 'courses/{}/'.format(tutee['course']))
+        tutor_data = requests.get(UX_BASE + 'tutors/{}/'.format(tutee['tutor']))
 
-    return tutee
+        tutee['user'] = user_data.json()
+        tutee['course'] = course_data.json()
+        tutee['tutor'] = tutor_data.json()
 
+        return tutee
+    else:
+        return KeyError('User or Course not defined')

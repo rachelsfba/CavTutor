@@ -97,19 +97,24 @@ def _unflatten(item_dict):
     return new_dict
 
 def _flatten(tutor):
-    user_data = requests.get(API_BASE + 'users/{}/'.format(tutor['user']))
-    course_data = requests.get(API_BASE + 'courses/{}/'.format(tutor['course']))
+    # Should throw an error if a field is missing from the model
 
-    for field_name, field_val in user_data.json().items():
-        tutor['user:' + field_name] = field_val
-    for field_name, field_val in course_data.json().items():
-        tutor['course:' + field_name] = field_val
+    if tutor['user'] and tutor['course']:
+        user_data = requests.get(API_BASE + 'users/{}/'.format(tutor['user']))
+        course_data = requests.get(API_BASE + 'courses/{}/'.format(tutor['course']))
 
-    # don't even THINK about giving the web layer a password without it
-    # explicitly requiring it!~
-    del tutor['user:password']
+        for field_name, field_val in user_data.json().items():
+            tutor['user:' + field_name] = field_val
+        for field_name, field_val in course_data.json().items():
+            tutor['course:' + field_name] = field_val
 
-    return tutor
+        # don't even THINK about giving the web layer a password without it
+        # explicitly requiring it!~
+        del tutor['user:password']
+
+        return tutor
+    else:
+        return KeyError('User or Course not defined')
 
 # Details a specific tutor
 def detail(request, tutor_id):
@@ -127,17 +132,19 @@ def detail(request, tutor_id):
     return HttpResponse(json.dumps(tutor_data))
 
 def _tutor_foreign_key_id_to_json(tutor):
-    user_data = requests.get(UX_BASE + 'users/{}/'.format(tutor['user']))
-    course_data = requests.get(UX_BASE + 'courses/{}/'.format(tutor['course']))
+    # Should throw an error if a field is missing from the model
+    if tutor['user'] and tutor['course']:
+        user_data = requests.get(UX_BASE + 'users/{}/'.format(tutor['user']))
+        course_data = requests.get(UX_BASE + 'courses/{}/'.format(tutor['course']))
+        tutor['user'] = user_data.json()
+        tutor['course'] = course_data.json()
+        # don't even THINK about giving the web layer a password without it
+        # explicitly requiring it!~
+        del tutor['user']['password']
+        return tutor
 
-    tutor['user'] = user_data.json()
-    tutor['course'] = course_data.json()
-
-    # don't even THINK about giving the web layer a password without it
-    # explicitly requiring it!~
-    del tutor['user']['password']
-
-    return tutor
+    else:
+        return KeyError('User or Course not defined')
 
 def create(request):
     # web frontend must send a POST request to ux
