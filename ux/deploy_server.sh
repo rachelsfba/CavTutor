@@ -16,6 +16,11 @@ WSGI_FILE=$DJANGO_BASE/core/wsgi.py
 
 # Loads fixtures from API layer into Kafka queue
 echo "Attempting to load fixture data into Kafka..."
+until $(ping -c1 kafka &>/dev/null); do
+    printf '.'
+    sleep 1
+done
+
 python $DJANGO_BASE/load_fixtures.py
 
 mod_wsgi-express start-server --reload-on-changes --log-to-terminal --working-directory $DJANGO_BASE $WSGI_FILE

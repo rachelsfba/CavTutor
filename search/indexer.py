@@ -11,6 +11,8 @@ def handle_requests():
         )
     
     elasticsearch = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
+   
+    elasticsearch.indices.create(index='tutor-listing-indexer', ignore=400)
 
     dequeue(consumer, elasticsearch)
     
