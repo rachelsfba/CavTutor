@@ -113,7 +113,7 @@ services:
         container_name: www_static
         image: sebp/lighttpd
         networks:
-            - backend
+            - frontend
         volumes:
             - ./www/static:/var/www/localhost/htdocs/static
         ports:
@@ -172,4 +172,5 @@ services:
             - elasticsearch
         volumes:
             - ./search:/app
-        command: /app/dispatch.sh #RUN A Python script that pulls messages from Kafka and indexs that in ES
+        command: /app/dispatch.sh 
+        #RUN A Python script that pulls messages from Kafka and indexs that in ES

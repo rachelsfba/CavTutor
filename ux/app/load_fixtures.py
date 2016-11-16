@@ -13,20 +13,28 @@ import requests, json
 # We need to be able to create a KafkaProducer to send data through
 from kafka import KafkaProducer
 
+# Get HTTP status code constants
+from rest_framework import status
+
 # Load all fixtures into the Kafka queue by using a KafkaProducer
-producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
+#producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
+producer = KafkaProducer(
+        bootstrap_servers='kafka:9092',
+        # Encode JSON as bytes.
+        value_serializer=lambda v: json.dumps(v).encode('utf-8')
+    )
 
 # Fetch all tutor listings from the API.
 tutor_data = requests.get(API_BASE + 'tutors/?format=json')
 
-# Iterate through all tutor objects in the listings.
-for tutor in tutor_data.json():
-    # Flatten from a 2-D into a 1-D dictionary.
-    new_tutor_parsed_data = _flatten(tutor)
+if tutor_data.status_code != status.HTTP_200_OK:
+    print("Uh-oh! Tutor listings not found from API!")
+else:
+    # Iterate through all tutor objects in the listings.
+    for tutor in tutor_data.json():
+        # Flatten from a 2-D into a 1-D dictionary.
+        new_tutor_parsed_data = _flatten(tutor)
 
-    # Encode JSON as bytes.
-    new_tutor_encoded = json.dumps(new_tutor_parsed_data).encode('utf-8')
-
-    # Send tutor bytes to Kafka.
-    producer.send('new-tutor-listing-topic', new_tutor_encoded)
-
+        #print("Sent", tutor)
+        # Send tutor bytes to Kafka.
+        producer.send('new-tutor-listing-topic', new_tutor_parsed_data)
