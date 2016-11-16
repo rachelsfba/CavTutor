@@ -1,7 +1,7 @@
 """
     MODULE:
     CavTutor.course.views
-    
+
     DESCRIPTION:
     Acts as a go-between for the user-facing and API layers for Course objects.
 """
@@ -9,7 +9,7 @@
 """ We need these libraries to parse the API layer's JSON responses into Python
     data structures, as well as to update the database through sending data back
     to the API layer. """
-import requests, json 
+import requests, json
 
 """ These libraries are needed for cookie token generation. """
 import os, hmac
@@ -33,7 +33,7 @@ from CavTutor.institution import views as institution_views
 def listings(request):
     if request.method != "GET":
         return HttpResponseBadRequest()
-    
+
     courses = requests.get(API_BASE + 'courses/?format=json')
 
     if courses.status_code != status.HTTP_200_OK:
@@ -68,10 +68,14 @@ def detail(request, course_id):
 
 
 def get_course_num_tutors(course_id):
-    
+
     tutors = requests.get(API_BASE + 'tutors/?format=json')
+
+    if tutors.status_code != status.HTTP_200_OK:
+        return "???"
+
     tutors_data = tutors.json()
-    
+
     tutor_counter = 0
     for tutor in tutors_data:
         if tutor['course'] == int(course_id):

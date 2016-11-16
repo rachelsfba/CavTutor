@@ -99,22 +99,19 @@ def _unflatten(item_dict):
 def _flatten(tutor):
     # Should throw an error if a field is missing from the model
 
-    if tutor['user'] and tutor['course']:
-        user_data = requests.get(API_BASE + 'users/{}/'.format(tutor['user']))
-        course_data = requests.get(API_BASE + 'courses/{}/'.format(tutor['course']))
-
-        for field_name, field_val in user_data.json().items():
-            tutor['user:' + field_name] = field_val
-        for field_name, field_val in course_data.json().items():
-            tutor['course:' + field_name] = field_val
-
-        # don't even THINK about giving the web layer a password without it
-        # explicitly requiring it!~
-        del tutor['user:password']
-
-        return tutor
-    else:
+    if (user_data.status_code, course_data.status_code) != (status.HTTP_200_OK,) * 2:
         return KeyError('User or Course not defined')
+
+    for field_name, field_val in user_data.json().items():
+        tutor['user:' + field_name] = field_val
+    for field_name, field_val in course_data.json().items():
+        tutor['course:' + field_name] = field_val
+
+    # don't even THINK about giving the web layer a password without it
+    # explicitly requiring it!~
+    del tutor['user:password']
+
+    return tutor
 
 # Details a specific tutor
 def detail(request, tutor_id):
@@ -133,18 +130,20 @@ def detail(request, tutor_id):
 
 def _tutor_foreign_key_id_to_json(tutor):
     # Should throw an error if a field is missing from the model
-    if tutor['user'] and tutor['course']:
-        user_data = requests.get(UX_BASE + 'users/{}/'.format(tutor['user']))
-        course_data = requests.get(UX_BASE + 'courses/{}/'.format(tutor['course']))
-        tutor['user'] = user_data.json()
-        tutor['course'] = course_data.json()
-        # don't even THINK about giving the web layer a password without it
-        # explicitly requiring it!~
-        del tutor['user']['password']
-        return tutor
+    user_data = requests.get(UX_BASE + 'users/{}/'.format(tutor['user']))
+    course_data = requests.get(UX_BASE + 'courses/{}/'.format(tutor['course']))
 
-    else:
+    if (user_data.status_code, course_data.status_code) != (status.HTTP_200_OK,) * 2:
         return KeyError('User or Course not defined')
+
+    tutor['user'] = user_data.json()
+    tutor['course'] = course_data.json()
+
+    # don't even THINK about giving the web layer a password without it
+    # explicitly requiring it!~
+    del tutor['user']['password']
+
+    return tutor
 
 def create(request):
     # web frontend must send a POST request to ux
@@ -169,21 +168,24 @@ def create(request):
 
     # If it wasn't found in the database already, send a POST request with the needed info.
     new_tutor_data = requests.post(API_BASE + 'tutors/', data=request.POST)
-    
+
     if new_tutor_data.status_code != 201:
         return HttpResponseServerError()
 
     #new_tutor_parsed_data = _tutor_foreign_key_id_to_json(new_tutor_data.json())
     new_tutor_parsed_data = _flatten(new_tutor_data.json())
     new_tutor_encoded = json.dumps(new_tutor_parsed_data).encode('utf-8')
-     
+
     producer.send('new-tutor-listing-topic', new_tutor_encoded)
     #N.B. .content returns bytes instead of text
-    
+
     return HttpResponse(new_tutor_data.text, status=201)
 
 def get_tutor_num_tutees(tutor_id):
     tutee_data = requests.get(API_BASE + 'tutees/?format=json')
+
+    if tutee_data.status_code != status.HTTP_200_OK:
+        return "???"
 
     #can't return 404 from here :C
     #if tutor_data.status_code != status.HTTP_200_OK:
