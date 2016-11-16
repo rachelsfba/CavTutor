@@ -1,7 +1,7 @@
 """
     MODULE:
     CavTutor.user.views
-    
+
     DESCRIPTION:
     Acts as a go-between for the user-facing and API layers for User objects.
 """
@@ -9,7 +9,7 @@
 """ We need these libraries to parse the API layer's JSON responses into Python
     data structures, as well as to update the database through sending data back
     to the API layer. """
-import requests, json 
+import requests, json
 
 """ These libraries are needed for cookie token generation. """
 import os, hmac
@@ -64,52 +64,51 @@ def detail(request, user_id):
 def tutor_listings(request, user_id):
     if request.method != "GET":
         return HttpResponseBadRequest()
-    
+
     tutor_data = requests.get(API_BASE + 'tutors/?format=json')
-    
+
     if tutor_data.status_code != status.HTTP_200_OK:
         return HttpResponseNotFound()
-    
+
     tutor_data_parsed = []
 
     for tutor in tutor_data.json():
         if str(tutor['user']) == user_id:
             tutor_data_parsed.append(tutor_views._tutor_foreign_key_id_to_json(tutor))
-    
+
     return HttpResponse(json.dumps(tutor_data_parsed))
 
 def tutee_listings(request, user_id):
     if request.method != "GET":
         return HttpResponseBadRequest()
-    
+
     tutee_data = requests.get(API_BASE + 'tutees/?format=json')
-    
+
     if tutee_data.status_code != status.HTTP_200_OK:
         return HttpResponseNotFound()
-    
+
     tutee_data_parsed = []
 
     for tutee in tutee_data.json():
         if str(tutee['user']) == user_id:
             tutee_data_parsed.append(tutee_views._tutee_foreign_key_id_to_json(tutee))
-    
+
     return HttpResponse(json.dumps(tutee_data_parsed))
-
-
-
 
 def _user_is_tutee(user_id):
     tutees = requests.get(API_BASE + 'tutees/?format=json')
 
-    for record in tutees.json():
-        if record['user'] == user_id:
-            return True
+    if tutees.status_code == status.HTTP_200_OK:
+        for record in tutees.json():
+            if record['user'] == user_id:
+                return True
     return False
 
 def _user_is_tutor(user_id):
     tutors = requests.get(API_BASE + 'tutors/?format=json')
 
-    for record in tutors.json():
-        if record['user'] == user_id:
-            return True
+    if tutors.status_code == status.HTTP_200_OK:
+        for record in tutors.json():
+            if record['user'] == user_id:
+                return True
     return False

@@ -1,17 +1,17 @@
-table {
+#listing table {
     border: none;
 }
-th, td {
+#listing th, td {
     padding-right: 25px;
     text-align: left;
 }
-td {
+#listing td {
     padding-left: 15px;
 }
-th {
+#listing th {
     border-bottom: 1px solid #ddd;
 }
-tr:nth-child(even) {
+#listing tr:nth-child(even) {
     background-color: #f3f3f3;
 }
 header #nav {

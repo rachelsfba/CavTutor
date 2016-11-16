@@ -5,21 +5,25 @@ import json, requests
 
 def handle_requests():
     consumer = KafkaConsumer(
-            'new-tutor-listing-topic',
             group_id='tutor-listing-indexer',
-            bootstrap_servers=['kafka:9092']
+            bootstrap_servers=['kafka:9092'],
+            value_deserializer=lambda v: json.loads(v.decode('utf-8')),
         )
     
     elasticsearch = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
 
+    elasticsearch.indices.create(index='tutor-listing-indexer', ignore=400)
+
+    consumer.subscribe(['new-tutor-listing-topic',])
     dequeue(consumer, elasticsearch)
     
-def dequeue(kafka, search):
-    for message in kafka:
-        new_tutor = json.loads(message.value.decode('utf-8'))
+def dequeue(consumer, elasticsearch):
+    for message in consumer:
+        #new_tutor = json.loads(message.value.decode('utf-8'))
+        new_tutor = message.value
         
-        search.index(index='tutor-listing-indexer', doc_type='listing', id=new_tutor['id'], body=new_tutor)
-        search.indices.refresh(index="tutor-listing-indexer")
+        elasticsearch.index(index='tutor-listing-indexer', doc_type='listing', id=new_tutor['id'], body=new_tutor)
+        elasticsearch.indices.refresh(index="tutor-listing-indexer")
 
 try:
     handle_requests()
