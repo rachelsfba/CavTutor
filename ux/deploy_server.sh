@@ -41,7 +41,7 @@ echo -e "Successfully pinged search_controller!"
 echo -e "All dependency containers loaded! (3/3)"
 
 # for now manually making us sleep for a few seconds
-sleep 10
+sleep 5
 
 python $DJANGO_BASE/load_fixtures.py
 
