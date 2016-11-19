@@ -58,10 +58,13 @@ def listings(request):
 
 def search(request):
 
-    if request.method != "POST" or not request.POST.get('query'):
+    if request.method != "GET" or not request.GET.get('query'):
         return HttpResponseBadRequest()
 
-    query_str = request.POST.get('query')
+    query_str = request.GET.get('query')
+
+    if not elasticsearch.indices.exists('tutor-listing-indexer'):
+        return HttpNotFound()
 
     search_result = elasticsearch.search(
             index='tutor-listing-indexer',
@@ -156,7 +159,6 @@ def create(request):
 
     if tutor_list.status_code != 200:
         return HttpResponseServerError()
-
 
     for tutor in tutor_list.json():
         user_matches  = request.POST.get('user') == str(tutor['user'])

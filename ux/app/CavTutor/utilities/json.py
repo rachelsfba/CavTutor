@@ -18,7 +18,7 @@ def _flatten(tutor):
     course_data = requests.get(API_BASE + 'courses/{}/'.format(tutor['course']))
 
     if (user_data.status_code, course_data.status_code) != (status.HTTP_200_OK,) * 2:
-        return "???"
+        return []
 
     for field_name, field_val in user_data.json().items():
         tutor['user:' + field_name] = field_val
