@@ -24,4 +24,5 @@ sleep 5
 while true; do
     python indexer.py
     sleep 1
+    echo -e "Relooping"
 done

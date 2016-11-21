@@ -36,6 +36,8 @@ producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
 from elasticsearch import Elasticsearch
 elasticsearch = Elasticsearch([{'host': 'elasticsearch'}])
 
+""" Get some useful json methods we will use """
+from CavTutor.utilities.json import _flatten, _unflatten, _tutor_foreign_key_id_to_json
 
 # List of all tutors
 def listings(request):
@@ -88,34 +90,6 @@ def search(request):
     # {'timed_out': False, 'hits': {'total': 1, 'hits': [{'_score': 0.10848885, '_index': 'listing_index', '_source': {'id': 42, 'description': 'This is a used Macbook Air in great condition', 'title': 'Used MacbookAir 13"'}, '_id': '42', '_type': 'listing'}], 'max_score': 0.10848885}, '_shards': {'successful': 5, 'total': 5, 'failed': 0}, 'took': 21}
     return HttpResponse(json.dumps(tutors_found))
 
-def _unflatten(item_dict):
-    new_dict = {}
-
-    for key, value in item_dict.items():
-        if "user:" not in key and "course:" not in key:
-            new_dict[key] = value
-
-    new_dict = _tutor_foreign_key_id_to_json(new_dict)
-
-    return new_dict
-
-def _flatten(tutor):
-    # Should throw an error if a field is missing from the model
-
-    if (user_data.status_code, course_data.status_code) != (status.HTTP_200_OK,) * 2:
-        return KeyError('User or Course not defined')
-
-    for field_name, field_val in user_data.json().items():
-        tutor['user:' + field_name] = field_val
-    for field_name, field_val in course_data.json().items():
-        tutor['course:' + field_name] = field_val
-
-    # don't even THINK about giving the web layer a password without it
-    # explicitly requiring it!~
-    del tutor['user:password']
-
-    return tutor
-
 # Details a specific tutor
 def detail(request, tutor_id):
     if request.method != "GET":
@@ -130,23 +104,6 @@ def detail(request, tutor_id):
     tutor_data['num_tutees'] = get_tutor_num_tutees(tutor_id)
 
     return HttpResponse(json.dumps(tutor_data))
-
-def _tutor_foreign_key_id_to_json(tutor):
-    # Should throw an error if a field is missing from the model
-    user_data = requests.get(UX_BASE + 'users/{}/'.format(tutor['user']))
-    course_data = requests.get(UX_BASE + 'courses/{}/'.format(tutor['course']))
-
-    if (user_data.status_code, course_data.status_code) != (status.HTTP_200_OK,) * 2:
-        return KeyError('User or Course not defined')
-
-    tutor['user'] = user_data.json()
-    tutor['course'] = course_data.json()
-
-    # don't even THINK about giving the web layer a password without it
-    # explicitly requiring it!~
-    del tutor['user']['password']
-
-    return tutor
 
 def create(request):
     # web frontend must send a POST request to ux
