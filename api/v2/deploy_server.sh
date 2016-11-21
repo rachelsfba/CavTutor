@@ -3,8 +3,8 @@
 # its daemon, and populates a clean database instance with example data.
 #
 # This script will be called by docker-compose.yml from the parent directory.
-APP_BASE=/app/
-DJANGO_BASE=$APP_BASE/app/
+APP_BASE=/app
+DJANGO_BASE=$APP_BASE/app
 WSGI_FILE=$DJANGO_BASE/core/wsgi.py
 
 #python $DJANGO_BASE/manage.py flush

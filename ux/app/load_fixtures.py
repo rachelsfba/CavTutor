@@ -18,11 +18,7 @@ from rest_framework import status
 
 # Load all fixtures into the Kafka queue by using a KafkaProducer
 #producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
-producer = KafkaProducer(
-        bootstrap_servers='kafka:9092',
-        # Encode JSON as bytes.
-        value_serializer=lambda v: json.dumps(v).encode('utf-8')
-    )
+producer = KafkaProducer(bootstrap_servers='kafka:9092')
 
 # Fetch all tutor listings from the API.
 tutor_data = requests.get(API_BASE + 'tutors/?format=json')
@@ -33,8 +29,9 @@ else:
     # Iterate through all tutor objects in the listings.
     for tutor in tutor_data.json():
         # Flatten from a 2-D into a 1-D dictionary.
-        new_tutor_parsed_data = _flatten(tutor)
+        tutor_flat = _flatten(tutor)
+        tutor_bytes = json.dumps(tutor_flat).encode('utf-8')
 
-        #print("Sent", tutor)
+        print("Sent", tutor_bytes, "\n\n\n")
         # Send tutor bytes to Kafka.
-        producer.send('new-tutor-listing-topic', new_tutor_parsed_data)
+        producer.send('new-tutor-listing-topic', tutor_bytes)
