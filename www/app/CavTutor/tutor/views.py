@@ -8,7 +8,7 @@ from rest_framework import status
 from CavTutor.decorators import login_required, nologin_required, _get_loggedin_user
 from CavTutor.tutor.forms import *
 
-from core.settings import UX_BASE 
+from core.settings import UX_BASE
 
 import requests, json
 
@@ -22,7 +22,7 @@ def listings(request):
 def detail(request, tutor_id):
     json_data = requests.get(UX_BASE + 'tutors/' + tutor_id)
     context = {'tutor' : json_data.json() }
-    
+
     if json_data.status_code == status.HTTP_200_OK:
         return render(request, 'CavTutor/tutor-detail.html', context)
 
@@ -31,7 +31,7 @@ def detail(request, tutor_id):
             "id": tutor_id,
         })
 
-@login_required 
+@login_required
 def create(request):
 
     # Assume we have a good form.
@@ -52,17 +52,17 @@ def create(request):
         # If all fields were filled in, let's try to validate that info against
         # our database.
         if _form.is_valid():
-            
+
             course = request.POST.get('course')
             adv_rate = request.POST.get('rate')
 
             user = _get_loggedin_user(request)['id']
 
             ux_response = _tutor_register_ux(user, course, adv_rate)
-            
+
             if ux_response:
                 next_page = reverse('tutor-detail', kwargs={"tutor_id": ux_response['id']})
-                
+
                 return HttpResponseRedirect(next_page)
             else:
                 # ux layer said the form was invalid;
@@ -80,23 +80,17 @@ def search(request):
 
     search_response = None
 
-    # If the user didn't POST anything, they probably haven't filled out the
-    # form yet. Let's give them a blank one to fill in.
-    if request.method == 'GET':
-        # Create new login form and render it.
+    if not request.GET.get('query'):
         search_form = TutorSearchForm()
-    
-    # Otherwise they must have given us something as POST data. Let's try to
-    # validate that.
     else:
         # Create a new Django form based on POST data.
-        search_form = TutorSearchForm(request.POST)
-        
-        # If all fields were filled in, let's try to validate that info against
-        # our database.
-        if search_form.is_valid():
-            # Forms will sanitize for us
-            search_response = requests.post(UX_BASE + 'tutors/search/', data=search_form.cleaned_data).json()
+        search_form = TutorSearchForm(request.GET)
+
+    # If all fields were filled in, let's try to validate that info against
+    # our database.
+    if search_form.is_valid():
+        # Forms will sanitize for us
+        search_response = requests.get(UX_BASE + 'tutors/search/', params=search_form.cleaned_data).json()
 
     return render(request, 'CavTutor/tutor-search.html', {
             'results': search_response,
@@ -115,6 +109,6 @@ def _tutor_register_ux(user_id, course_id, adv_rate):
 
     if request.status_code == 201:
         return request.json()
-    return 
+    return
 
 # vim: ai ts=4 sts=4 et sw=4
