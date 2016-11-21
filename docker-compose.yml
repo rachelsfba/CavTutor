@@ -47,6 +47,7 @@ services:
         build:
             dockerfile: Dockerfile-restful-django
             context: build
+        image: restful-django
         networks:
             - backend
         # we want to link to an external mysql docker container
@@ -64,19 +65,17 @@ services:
     # It serves files using Apache's mod_wsgi-express.
     ux:
         container_name: ux
-        build:
-            dockerfile: Dockerfile-restful-django
-            context: build
+        image: restful-django
         depends_on:
             - kafka
             - elasticsearch
             - api_v2
             - search_controller
+        links:
+            - api_v2:api
         networks:
             - backend
             - frontend
-        links:
-            - api_v2:api
         ports:
             - "8001:8000"
         volumes:
@@ -88,9 +87,7 @@ services:
     # It serves files using Apache's mod_wsgi-express.
     www:
         container_name: www
-        build:
-            dockerfile: Dockerfile-restful-django
-            context: build
+        image: restful-django
         depends_on:
             - ux
         networks:
@@ -158,19 +155,13 @@ services:
             - "9200:9200"
 
     search_controller:
-        build:
-            dockerfile: Dockerfile-restful-django
-            context: build
+        image: restful-django
         networks:
             - backend
         container_name: search_controller
-        links:
-            - kafka:kafka
-            - elasticsearch:elasticsearch
         depends_on:
             - kafka
             - elasticsearch
         volumes:
             - ./search:/app
-        command: /app/dispatch.sh 
-        #RUN A Python script that pulls messages from Kafka and indexs that in ES
+        command: /app/dispatch.sh

@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-
+#!/usr/bin/python
 """ Get kafka-python library loaded. """
 from kafka import KafkaConsumer
 
@@ -9,31 +8,22 @@ from elasticsearch import Elasticsearch
 """ JSON and requests libraries. """
 import json, requests
 
-def dequeue(consumer, elasticsearch):
-    for message in consumer:
-
-        try:
-            new_tutor = json.loads(message.value.decode('utf-8'))
-            elasticsearch.index(index='tutor-listing-indexer', doc_type='listing', id=new_tutor['id'], body=new_tutor)
-        except ValueError:
-            continue
-
-        elasticsearch.indices.refresh(index="tutor-listing-indexer")
-
 consumer = KafkaConsumer(
+        'new-tutor-listing-topic',
         group_id='tutor-listing-indexer',
         bootstrap_servers=['kafka:9092'],
     )
 
+elasticsearch = Elasticsearch(['elasticsearch'])
 
-consumer.subscribe(['new-tutor-listing-topic',])
-elasticsearch = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
+if not elasticsearch.indices.exists('tutor-listing-indexer'):
+    elasticsearch.indices.create(index='tutor-listing-indexer')
 
-print("---1---")
+for message in consumer:
+    print("Received", message.value, "\n\n\n")
+    new_tutor = json.loads(message.value.decode('utf-8'))
+    elasticsearch.index(index='tutor-listing-indexer', doc_type='listing', id=new_tutor['id'], body=new_tutor)
 
-while not elasticsearch.indices.exists('tutor-listing-indexer'):
-    elasticsearch.indices.create(index='tutor-listing-indexer', ignore=400)
+    elasticsearch.indices.refresh(index="tutor-listing-indexer")
 
-print("---2---")
-dequeue(consumer, elasticsearch)
-print("---3---")
+
