@@ -3,19 +3,11 @@
 {% block body_block %}
 	<h1>{% block title %}Tutor Search | CavTutor{% endblock %}</h1>
 
-    {% if status == "incomplete" %}
-        <p><strong> you need to give a query </strong></p>
-    {% elif status == "incorrect" %}
-        <p><strong> invalid query </strong></p>
-    {% endif %}
-
     <p> Search:  </p>
     <div id="form-container" style="padding-bottom: 10px;">
 
 
-        <form action="{% url 'tutor-search' %}" method="post" >
-
-            {% csrf_token %}
+        <form action="{% url 'tutor-search' %}" method="get" >
 
             <!-- need to make error msg go on same line for all fields -->
             <table>
@@ -49,5 +41,4 @@
         </table>
     </div>
     {% endblock %}
-
 {% endblock %}
