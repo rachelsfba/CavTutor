@@ -1,6 +1,7 @@
 # We use version 2 of Docker Compose
 version: '2'
 
+# See README for notes about networking.
 networks:
     frontend:
     backend:
