@@ -6,6 +6,7 @@ networks:
     frontend:
     backend:
 
+
 services:
     # The api_handler docker container is supposed to be a reverse proxy that
     # redirects requests to either api_v1 or api_v2 depending on their URL.
