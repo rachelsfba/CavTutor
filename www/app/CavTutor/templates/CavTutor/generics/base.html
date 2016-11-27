@@ -4,7 +4,8 @@
     <head>
         <title>{% block title %}{% endblock %} | CavTutor Tutoring Marketplace</title>
     </head>
-    <link rel="stylesheet" href="http://{{ request.META.HTTP_HOST }}:8081/static/css/style.css" />
+
+    <link rel="stylesheet" href="http://{{ request.META.SERVER_NAME }}:8081/static/css/style.css" />
     <body>
         <header>
             <span id="logo"><a href="/" id="link">CavTutor</a></span> &emsp; A Tutoring Marketplace
