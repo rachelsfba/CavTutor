@@ -44,7 +44,6 @@ def _tutor_foreign_key_id_to_json(tutor):
     return tutor
 
 def _tutor_foreign_key_id_to_json_v2(tutor, user_list, course_list):
-    print("inside _tutor_foreign_key_id_to_json_v2")
     # Should throw an error if a field is missing from the model
     user_id = tutor['user']
     course_id = tutor['course']
