@@ -1,13 +1,13 @@
 {% extends 'CavTutor/generics/generic-detail.html' %}
 
-{% block title %}User | {{user.l_name }}, {{ user.f_name }}{% endblock %}
+{% block title %}User | {{userobj.l_name }}, {{ userobj.f_name }}{% endblock %}
 
 {% block fields %}
     <ul>
-        <li>Username: {{ user.username }}</li>
-        <li>E-Mail: {{ user.email }}</li>
-        <li>Is a tutor: {{ user.is_tutor|yesno }}</li>
-        <li>Is a tutee: {{ user.is_tutee|yesno }}</li>
+        <li>Username: {{ userobj.username }}</li>
+        <li>E-Mail: {{ userobj.email }}</li>
+        <li>Is a tutor: {{ userobj.is_tutor|yesno }}</li>
+        <li>Is a tutee: {{ userobj.is_tutee|yesno }}</li>
     </ul>
 {% endblock %}
 
