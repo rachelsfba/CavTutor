@@ -10,6 +10,10 @@ WSGI_FILE=$DJANGO_BASE/core/wsgi.py
 # Loads fixtures from API layer into Kafka queue
 # uses dockerize to wait until api and kafka are up and ready
 dockerize -timeout 30s -wait tcp://api:8000 \
-    -wait tcp://kafka:9092 \
-    python $DJANGO_BASE/load_fixtures.py && \
-    mod_wsgi-express start-server --reload-on-changes --log-to-terminal --working-directory $DJANGO_BASE $WSGI_FILE
+    -wait tcp://kafka:9092 
+
+# Still need a hardcoded delay for now to laod fixtures properly.
+sleep 5
+python $DJANGO_BASE/load_fixtures.py
+
+mod_wsgi-express start-server --reload-on-changes --log-to-terminal --working-directory $DJANGO_BASE $WSGI_FILE

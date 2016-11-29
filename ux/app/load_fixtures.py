@@ -32,6 +32,6 @@ else:
         tutor_flat = _flatten(tutor)
         tutor_bytes = json.dumps(tutor_flat).encode('utf-8')
 
-        print("Sent", tutor_bytes, "\n\n\n")
+        #print("Sent", tutor_bytes, "\n\n\n")
         # Send tutor bytes to Kafka.
         producer.send('new-tutor-listing-topic', tutor_bytes)
