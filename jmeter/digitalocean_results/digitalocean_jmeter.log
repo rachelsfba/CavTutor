@@ -1,0 +1,208 @@
+2016/11/29 19:07:58 INFO  - jmeter.util.JMeterUtils: Setting Locale to en_US 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: Loading user properties from: /usr/local/Cellar/jmeter/3.0/libexec/bin/user.properties 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: Loading system properties from: /usr/local/Cellar/jmeter/3.0/libexec/bin/system.properties 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: Copyright (c) 1998-2016 The Apache Software Foundation 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: Version 3.0 r1743807 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: java.version=1.8.0_60 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: os.name=Mac OS X 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: os.arch=x86_64 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: os.version=10.11.6 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: file.encoding=UTF-8 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: Max memory     =514850816 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: Available Processors =8 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: Default Locale=English (United States) 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: JMeter  Locale=English (United States) 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: JMeterHome=/usr/local/Cellar/jmeter/3.0/libexec 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: user.dir  =/Users/danielsaha/marketplace/isa/jmeter 
+2016/11/29 19:07:58 INFO  - jmeter.JMeter: PWD       =/Users/danielsaha/marketplace/isa/jmeter 
+2016/11/29 19:07:59 INFO  - jmeter.JMeter: IP: 172.25.99.5 Name: d-172-25-99-5.dhcp.virginia.edu FullName: d-172-25-99-5.dhcp.virginia.edu 
+2016/11/29 19:07:59 INFO  - jmeter.gui.action.LookAndFeelCommand: Using look and feel: com.apple.laf.AquaLookAndFeel [Mac OS X, System] 
+2016/11/29 19:07:59 INFO  - jmeter.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties 
+2016/11/29 19:08:01 INFO  - jmeter.engine.util.CompoundVariable: Note: Function class names must contain the string: '.functions.' 
+2016/11/29 19:08:01 INFO  - jmeter.engine.util.CompoundVariable: Note: Function class names must not contain the string: '.gui.' 
+2016/11/29 19:08:01 INFO  - kg.apc.jmeter.JMeterPluginsUtils: JMeter-Plugins.org v.1.4.0 
+2016/11/29 19:08:02 INFO  - jmeter.util.BSFTestElement: Registering JMeter version of JavaScript engine as work-round for BSF-22 
+2016/11/29 19:08:02 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser 
+2016/11/29 19:08:02 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser 
+2016/11/29 19:08:02 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser 
+2016/11/29 19:08:02 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser 
+2016/11/29 19:08:02 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser 
+2016/11/29 19:08:02 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser 
+2016/11/29 19:08:02 INFO  - jorphan.exec.KeyToolUtils: keytool found at 'keytool' 
+2016/11/29 19:08:02 INFO  - jmeter.protocol.http.proxy.ProxyControl: HTTP(S) Test Script Recorder SSL Proxy will use keys that support embedded 3rd party resources in file /usr/local/Cellar/jmeter/3.0/libexec/bin/proxyserver.jks 
+2016/11/29 19:08:02 INFO  - jmeter.gui.util.MenuFactory: Skipping org.apache.jmeter.protocol.mongodb.config.MongoSourceElement 
+2016/11/29 19:08:02 INFO  - jmeter.gui.util.MenuFactory: Skipping org.apache.jmeter.protocol.mongodb.sampler.MongoScriptSampler 
+2016/11/29 19:08:02 INFO  - jmeter.gui.util.MenuFactory: Skipping org.apache.jmeter.visualizers.DistributionGraphVisualizer 
+2016/11/29 19:08:03 INFO  - jmeter.samplers.SampleResult: Note: Sample TimeStamps are START times 
+2016/11/29 19:08:03 INFO  - jmeter.samplers.SampleResult: sampleresult.default.encoding is set to ISO-8859-1 
+2016/11/29 19:08:03 INFO  - jmeter.samplers.SampleResult: sampleresult.useNanoTime=true 
+2016/11/29 19:08:03 INFO  - jmeter.samplers.SampleResult: sampleresult.nanoThreadSleep=5000 
+2016/11/29 19:08:03 INFO  - jmeter.gui.util.MenuFactory: Skipping org.apache.jmeter.visualizers.SplineVisualizer 
+2016/11/29 19:08:08 INFO  - jmeter.services.FileServer: Default base='/Users/danielsaha/marketplace/isa/jmeter' 
+2016/11/29 19:08:08 INFO  - jmeter.gui.action.Load: Loading file: /Users/danielsaha/marketplace/isa/jmeter/digitalocean_plan.jmx 
+2016/11/29 19:08:08 INFO  - jmeter.services.FileServer: Set new base='/Users/danielsaha/marketplace/isa/jmeter' 
+2016/11/29 19:08:08 INFO  - jmeter.save.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2 
+2016/11/29 19:08:08 INFO  - jmeter.save.SaveService: Using SaveService properties file encoding UTF-8 
+2016/11/29 19:08:08 INFO  - jmeter.save.SaveService: Using SaveService properties version 2.9 
+2016/11/29 19:08:08 INFO  - jmeter.save.SaveService: All converter versions present and correct 
+2016/11/29 19:08:08 INFO  - jmeter.save.SaveService: Loading file: /Users/danielsaha/marketplace/isa/jmeter/digitalocean_plan.jmx 
+2016/11/29 19:08:08 INFO  - jmeter.protocol.http.control.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_ 
+2016/11/29 19:08:08 INFO  - jmeter.services.FileServer: Set new base='/Users/danielsaha/marketplace/isa/jmeter' 
+2016/11/29 19:09:10 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2016/11/29 19:09:10 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2016/11/29 19:09:10 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2016/11/29 19:09:10 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2016/11/29 19:09:11 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : JMeter SEARCH_TEST 
+2016/11/29 19:09:11 INFO  - jmeter.engine.StandardJMeterEngine: Starting 10 threads for group JMeter SEARCH_TEST. 
+2016/11/29 19:09:11 INFO  - jmeter.engine.StandardJMeterEngine: Test will stop on error 
+2016/11/29 19:09:11 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 10 ramp-up 40 perThread 4000.0 delayedStart=false 
+2016/11/29 19:09:11 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-1 
+2016/11/29 19:09:11 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2016/11/29 19:09:11 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2016/11/29 19:09:11 INFO  - jmeter.protocol.http.sampler.HTTPHCAbstractImpl: Local host = d-172-25-99-5.dhcp.virginia.edu 
+2016/11/29 19:09:11 INFO  - jmeter.protocol.http.sampler.HTTPHC4Impl: HTTP request retry count = 0 
+2016/11/29 19:09:12 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-1 
+2016/11/29 19:09:12 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-1 
+2016/11/29 19:09:15 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-2 
+2016/11/29 19:09:16 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-2 
+2016/11/29 19:09:16 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-2 
+2016/11/29 19:09:19 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-3 
+2016/11/29 19:09:20 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-3 
+2016/11/29 19:09:20 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-3 
+2016/11/29 19:09:23 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-4 
+2016/11/29 19:09:25 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-4 
+2016/11/29 19:09:25 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-4 
+2016/11/29 19:09:27 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-5 
+2016/11/29 19:09:28 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-5 
+2016/11/29 19:09:28 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-5 
+2016/11/29 19:09:31 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-6 
+2016/11/29 19:09:32 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-6 
+2016/11/29 19:09:32 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-6 
+2016/11/29 19:09:35 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-7 
+2016/11/29 19:09:36 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-7 
+2016/11/29 19:09:36 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-7 
+2016/11/29 19:09:39 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-8 
+2016/11/29 19:09:40 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-8 
+2016/11/29 19:09:40 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-8 
+2016/11/29 19:09:43 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-9 
+2016/11/29 19:09:44 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-9 
+2016/11/29 19:09:44 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-9 
+2016/11/29 19:09:47 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 1-10 
+2016/11/29 19:09:48 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 1-10 
+2016/11/29 19:09:48 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 1-10 
+2016/11/29 19:09:48 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2016/11/29 19:09:48 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2016/11/29 19:10:19 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2016/11/29 19:10:19 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2016/11/29 19:10:19 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2016/11/29 19:10:20 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : JMeter USER_TEST 
+2016/11/29 19:10:20 INFO  - jmeter.engine.StandardJMeterEngine: Starting 10 threads for group JMeter USER_TEST. 
+2016/11/29 19:10:20 INFO  - jmeter.engine.StandardJMeterEngine: Test will stop on error 
+2016/11/29 19:10:20 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 10 ramp-up 15 perThread 1500.0 delayedStart=false 
+2016/11/29 19:10:20 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-1 
+2016/11/29 19:10:20 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2016/11/29 19:10:20 INFO  - jmeter.engine.StandardJMeterEngine: Waiting for thread group: JMeter USER_TEST to finish before starting next group 
+2016/11/29 19:10:21 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-2 
+2016/11/29 19:10:22 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-1 
+2016/11/29 19:10:22 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-1 
+2016/11/29 19:10:23 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-3 
+2016/11/29 19:10:24 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-2 
+2016/11/29 19:10:24 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-2 
+2016/11/29 19:10:24 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-4 
+2016/11/29 19:10:25 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-3 
+2016/11/29 19:10:25 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-3 
+2016/11/29 19:10:26 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-5 
+2016/11/29 19:10:27 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-4 
+2016/11/29 19:10:27 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-4 
+2016/11/29 19:10:27 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-6 
+2016/11/29 19:10:28 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-5 
+2016/11/29 19:10:28 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-5 
+2016/11/29 19:10:29 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-7 
+2016/11/29 19:10:30 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-6 
+2016/11/29 19:10:30 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-6 
+2016/11/29 19:10:30 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-8 
+2016/11/29 19:10:31 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-7 
+2016/11/29 19:10:31 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-7 
+2016/11/29 19:10:32 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-9 
+2016/11/29 19:10:32 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-8 
+2016/11/29 19:10:32 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-8 
+2016/11/29 19:10:33 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter USER_TEST 1-10 
+2016/11/29 19:10:34 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-9 
+2016/11/29 19:10:34 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-9 
+2016/11/29 19:10:35 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter USER_TEST 1-10 
+2016/11/29 19:10:35 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter USER_TEST 1-10 
+2016/11/29 19:10:35 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 2 : JMeter LISTING_TEST 
+2016/11/29 19:10:35 INFO  - jmeter.engine.StandardJMeterEngine: Starting 10 threads for group JMeter LISTING_TEST. 
+2016/11/29 19:10:35 INFO  - jmeter.engine.StandardJMeterEngine: Test will stop on error 
+2016/11/29 19:10:35 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 2 threads 10 ramp-up 30 perThread 3000.0 delayedStart=false 
+2016/11/29 19:10:35 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-1 
+2016/11/29 19:10:35 INFO  - jmeter.threads.ThreadGroup: Started thread group number 2 
+2016/11/29 19:10:35 INFO  - jmeter.engine.StandardJMeterEngine: Waiting for thread group: JMeter LISTING_TEST to finish before starting next group 
+2016/11/29 19:10:38 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-2 
+2016/11/29 19:10:39 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-1 
+2016/11/29 19:10:39 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-1 
+2016/11/29 19:10:41 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-3 
+2016/11/29 19:10:42 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-2 
+2016/11/29 19:10:42 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-2 
+2016/11/29 19:10:44 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-4 
+2016/11/29 19:10:45 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-3 
+2016/11/29 19:10:45 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-3 
+2016/11/29 19:10:47 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-5 
+2016/11/29 19:10:48 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-4 
+2016/11/29 19:10:48 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-4 
+2016/11/29 19:10:50 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-6 
+2016/11/29 19:10:51 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-5 
+2016/11/29 19:10:51 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-5 
+2016/11/29 19:10:53 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-7 
+2016/11/29 19:10:54 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-6 
+2016/11/29 19:10:54 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-6 
+2016/11/29 19:10:56 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-8 
+2016/11/29 19:10:57 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-7 
+2016/11/29 19:10:57 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-7 
+2016/11/29 19:10:59 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-9 
+2016/11/29 19:11:00 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-8 
+2016/11/29 19:11:00 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-8 
+2016/11/29 19:11:02 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter LISTING_TEST 2-10 
+2016/11/29 19:11:03 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-9 
+2016/11/29 19:11:03 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-9 
+2016/11/29 19:11:06 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter LISTING_TEST 2-10 
+2016/11/29 19:11:06 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter LISTING_TEST 2-10 
+2016/11/29 19:11:06 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 3 : JMeter SEARCH_TEST 
+2016/11/29 19:11:06 INFO  - jmeter.engine.StandardJMeterEngine: Starting 10 threads for group JMeter SEARCH_TEST. 
+2016/11/29 19:11:06 INFO  - jmeter.engine.StandardJMeterEngine: Test will stop on error 
+2016/11/29 19:11:06 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 3 threads 10 ramp-up 40 perThread 4000.0 delayedStart=false 
+2016/11/29 19:11:06 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-1 
+2016/11/29 19:11:06 INFO  - jmeter.threads.ThreadGroup: Started thread group number 3 
+2016/11/29 19:11:06 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2016/11/29 19:11:08 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-1 
+2016/11/29 19:11:08 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-1 
+2016/11/29 19:11:10 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-2 
+2016/11/29 19:11:12 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-2 
+2016/11/29 19:11:12 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-2 
+2016/11/29 19:11:14 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-3 
+2016/11/29 19:11:16 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-3 
+2016/11/29 19:11:16 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-3 
+2016/11/29 19:11:18 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-4 
+2016/11/29 19:11:20 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-4 
+2016/11/29 19:11:20 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-4 
+2016/11/29 19:11:22 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-5 
+2016/11/29 19:11:24 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-5 
+2016/11/29 19:11:24 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-5 
+2016/11/29 19:11:26 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-6 
+2016/11/29 19:11:28 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-6 
+2016/11/29 19:11:28 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-6 
+2016/11/29 19:11:30 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-7 
+2016/11/29 19:11:32 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-7 
+2016/11/29 19:11:32 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-7 
+2016/11/29 19:11:34 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-8 
+2016/11/29 19:11:36 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-8 
+2016/11/29 19:11:36 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-8 
+2016/11/29 19:11:38 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-9 
+2016/11/29 19:11:40 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-9 
+2016/11/29 19:11:40 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-9 
+2016/11/29 19:11:42 INFO  - jmeter.threads.JMeterThread: Thread started: JMeter SEARCH_TEST 3-10 
+2016/11/29 19:11:44 INFO  - jmeter.threads.JMeterThread: Thread is done: JMeter SEARCH_TEST 3-10 
+2016/11/29 19:11:44 INFO  - jmeter.threads.JMeterThread: Thread finished: JMeter SEARCH_TEST 3-10 
+2016/11/29 19:11:44 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2016/11/29 19:11:44 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 

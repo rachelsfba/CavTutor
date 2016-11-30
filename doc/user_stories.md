@@ -40,6 +40,11 @@ User Stories
 
 15. As a logged in user, I can create a new listing for the classes I tutor.
    
+16. As a user, I can search tutor listings based on keyword parameters.
+
+17. As a tutor, I can create a listing of myself for any arbitrary course.
+
+
 <!-- As a user looking for tutors, I can post a listing on our website looking for
    tutors in my area. -->
 

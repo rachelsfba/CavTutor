@@ -29,7 +29,7 @@ def detail(request, user_id):
     user = _id_to_user(user_id)
     
     if user:
-        context = {'user' : user }
+        context = {'userobj' : user }
 
         return render(request, 'CavTutor/user-detail.html', context)
 
@@ -37,6 +37,7 @@ def detail(request, user_id):
             "model": "user",
             "id": user_id,
         })
+
 
 def _id_to_user(user_id):
 

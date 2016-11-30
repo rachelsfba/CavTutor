@@ -38,8 +38,14 @@ elasticsearch = Elasticsearch([{'host': 'elasticsearch'}])
 
 """ Get some useful json methods we will use """
 from CavTutor.utilities.json import _flatten, _unflatten, _tutor_foreign_key_id_to_json
+from CavTutor.utilities.json import _tutor_foreign_key_id_to_json_v2
+
+
+    #user_data = requests.get(UX_BASE + 'users/{}/'.format(tutor['user']))
+    #course_data = requests.get(UX_BASE + 'courses/{}/'.format(tutor['course']))
 
 # List of all tutors
+
 def listings(request):
 
     if request.method != "GET":
@@ -52,8 +58,28 @@ def listings(request):
 
     tutor_data_parsed = []
 
+
+    # multiple api calls to users/{}/ and coures/{}/ 
+    # inside the _tutor_foreign_key_id_to_json function
+    # seemed to be slowing down the tutor listings page
+    # So instead lets make an api call once to grab 
+    # all user and course listings
+    user_data = requests.get(UX_BASE + 'users/')
+    course_data = requests.get(UX_BASE + 'courses/')
+
+    if (user_data.status_code, course_data.status_code) != (status.HTTP_200_OK,) * 2:
+        return KeyError('User or Course listings not defined')
+    
+    
+    user_list = list(user_data.json())
+    course_list = list(course_data.json())
+    # for each tutor in the listing pass these lists as an arguments to 
+    # _tutor_foreign_key_id_to_json_v2(tutor, user_list, course_list)
+    # which replaces tutors ['course'] and ['user'] fields(originally numbers
+    # representing foreign key id) with the user or course json in user_list and course_list 
+    # which has the same tutor['id'] and tutor['course'].
     for tutor in tutor_data.json():
-        tutor_data_parsed.append(_tutor_foreign_key_id_to_json(tutor))
+        tutor_data_parsed.append(_tutor_foreign_key_id_to_json_v2(tutor, user_list, course_list))
 
     return HttpResponse(json.dumps(tutor_data_parsed))
 

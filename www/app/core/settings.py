@@ -21,12 +21,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '18u-3m!&03--k#aos7s=nco%^9^vv8$5(d@e)j%ag=!zh91j70'
+with open(os.path.join(BASE_DIR, 'secret.txt')) as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['www', 'localhost']
+ALLOWED_HOSTS = ['www', 'localhost', '45.55.50.171', 'isa.olivermattei.net']
 
 
 # Application definition
@@ -101,7 +102,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-
 STATIC_URL = '/static/'
 
 # Holds the URI of the root directory for the user experience layer.
