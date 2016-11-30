@@ -43,6 +43,25 @@ def _tutor_foreign_key_id_to_json(tutor):
 
     return tutor
 
+def _tutor_foreign_key_id_to_json_v2(tutor, user_list, course_list):
+    # Should throw an error if a field is missing from the model
+    user_id = tutor['user']
+    course_id = tutor['course']
+
+
+    user_data = [user_json for user_json in user_list if user_json['id'] == user_id][0]
+    course_data = [course_json for course_json in course_list if course_json['id'] == course_id][0]
+
+    tutor['user'] = user_data
+    tutor['course'] = course_data
+
+    # don't even THINK about giving the web layer a password without it
+    # explicitly requiring it!~
+    #del tutor['user']['password']
+
+    return tutor
+
+
 
 def _flatten(tutor):
     user_data = requests.get(API_BASE + 'users/{}/'.format(tutor['user']))

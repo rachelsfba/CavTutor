@@ -95,7 +95,7 @@ services:
         networks:
             - frontend
         ports:
-            - "8000:8000"
+            - "80:8000"
         volumes:
             - ./www:/app
         command: /app/deploy_server.sh
