@@ -9,7 +9,7 @@ import requests
 
 from rest_framework import status
 
-from core.settings import UX_BASE 
+from core.settings import UX_BASE
 from .forms import *
 
 import json
@@ -25,11 +25,11 @@ def listings(request):
     return render(request, 'CavTutor/user-list.html', context)
 
 def detail(request, user_id):
-    
+
     user = _id_to_user(user_id)
-    
+
     if user:
-        context = {'userobj' : user }
+        context = {'user' : user }
 
         return render(request, 'CavTutor/user-detail.html', context)
 
@@ -109,7 +109,7 @@ def login(request):
             next_page = request.POST.get('next','index')
 
 
-            # Retrieve login response 
+            # Retrieve login response
             ux_response = _user_login_ux(username, password)
 
             if not ux_response or not ux_response['token']:
@@ -143,7 +143,7 @@ def _user_login_ux(username, password):
 
     if request.status_code == 200:
         return request.json()
-    return 
+    return
 
 @nologin_required
 def register(request):
@@ -169,13 +169,13 @@ def register(request):
             # Redirect to index page after successful login.
             next_page = reverse('index')
 
-            # Retrieve login response 
+            # Retrieve login response
             ux_register_response = _user_register_ux(request.POST)
 
             if not ux_register_response:
                 # ux layer said the form was invalid;
                 # probably means a user already exists with that username or email
-                status = "invalid" 
+                status = "invalid"
             else:
                 return render(request, 'CavTutor/user-register-after.html', {
                         'username': request.POST.get('username'),
@@ -198,7 +198,7 @@ def _user_register_ux(postdata):
 
 @login_required
 def logout(request):
-    
+
     # Get the auth_token cookie, if it exists.
     auth_cookie = request.COOKIES.get('auth_token')
 
@@ -211,11 +211,11 @@ def logout(request):
         # If so, log them out in the database and delete their cookie.
         ux_response = _user_logout_ux(auth_cookie)
         www_response.delete_cookie('auth_token')
-    
+
     return www_response
 
 def _user_logout_ux(auth_cookie):
-    
+
     data = {
             'auth_token': auth_cookie,
         }
@@ -224,7 +224,7 @@ def _user_logout_ux(auth_cookie):
 
     if logout_response.status_code == 200:
         return logout_response.json()
-    
+
     # If the error is just that the object didn't exist, oh well, no big
     # deal. We do the same thing if it existed or not.
     return None
