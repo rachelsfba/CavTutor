@@ -5,7 +5,7 @@ from CavTutor.decorators import _get_loggedin_user
 def auth(request):
 
     context = {
-            '__user__' : _get_loggedin_user(request)
+            'v_user' : _get_loggedin_user(request) # verified user
             }
 
     return context
