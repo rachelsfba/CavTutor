@@ -1,8 +1,10 @@
+import os
 from pyspark import SparkContext
 
-sc = SparkContext("spark://spark-master:7077", "PopularItems")
+sc = SparkContext(os.environ.get("MASTER"), "PopularItems")
 
-data = sc.textFile("/tmp/data/input.txt", 2)     # each worker loads a piece of the data file
+# each worker loads a piece of the data file
+data = sc.textFile(os.environ.get("SPARK_INPUT_FILE"), 2)
 
 
 
