@@ -1,3 +1,4 @@
+""" data_generator.py: generates dummy data to input into Spark instances """
 import string
 import random
 
