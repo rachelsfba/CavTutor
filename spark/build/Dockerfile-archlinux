@@ -1,0 +1,13 @@
+FROM finalduty/archlinux
+MAINTAINER Andrea Shaw <rshaw@olivermattei.net>
+
+RUN pacman -Syu --noconfirm python python-pip git
+
+RUN pip install --upgrade pip \
+	&& pip install "markdown" \
+	&& pip install "requests" \
+	&& pip install "py4j" \
+    && pip install "numpy" \
+    && pip install ""
+
+WORKDIR /app
