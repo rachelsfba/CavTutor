@@ -1,0 +1,221 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,grpThreads,allThreads,Latency,IdleTime
+1480464551137,262,Index Page,200,OK,JMeter SEARCH_TEST 1-1,text,true,,1503,1,1,260,0
+1480464551401,527,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-1,text,true,,2727,1,1,527,0
+1480464551935,189,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-1,text,true,,2006,1,1,189,0
+1480464552125,101,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-1,text,true,,1849,1,1,101,0
+1480464552227,623,Search Page CS,200,OK,JMeter SEARCH_TEST 1-1,text,true,,2882,1,1,622,0
+1480464552850,78,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-1,text,true,,1849,1,1,78,0
+1480464555096,68,Index Page,200,OK,JMeter SEARCH_TEST 1-2,text,true,,1503,1,1,68,0
+1480464555165,466,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-2,text,true,,2727,1,1,466,0
+1480464555633,449,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-2,text,true,,2639,1,1,449,0
+1480464556083,79,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-2,text,true,,1849,1,1,79,0
+1480464556163,579,Search Page CS,200,OK,JMeter SEARCH_TEST 1-2,text,true,,2882,1,1,579,0
+1480464556742,90,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-2,text,true,,1849,1,1,90,0
+1480464559095,68,Index Page,200,OK,JMeter SEARCH_TEST 1-3,text,true,,1503,1,1,67,0
+1480464559163,548,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-3,text,true,,2727,1,1,548,0
+1480464559712,307,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-3,text,true,,2191,1,1,306,0
+1480464560019,79,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-3,text,true,,1849,1,1,79,0
+1480464560099,637,Search Page CS,200,OK,JMeter SEARCH_TEST 1-3,text,true,,2882,1,1,636,0
+1480464560736,80,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-3,text,true,,1849,1,1,79,0
+1480464563095,69,Index Page,200,OK,JMeter SEARCH_TEST 1-4,text,true,,1503,1,1,68,0
+1480464563164,541,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-4,text,true,,2727,1,1,541,0
+1480464563706,511,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-4,text,true,,2639,1,1,511,0
+1480464564218,86,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-4,text,true,,1849,1,1,86,0
+1480464564305,629,Search Page CS,200,OK,JMeter SEARCH_TEST 1-4,text,true,,2882,1,1,629,0
+1480464564934,83,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-4,text,true,,1849,1,1,83,0
+1480464567098,67,Index Page,200,OK,JMeter SEARCH_TEST 1-5,text,true,,1503,1,1,67,0
+1480464567166,533,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-5,text,true,,2727,1,1,532,0
+1480464567699,170,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-5,text,true,,1954,1,1,170,0
+1480464567870,84,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-5,text,true,,1849,1,1,84,0
+1480464567955,562,Search Page CS,200,OK,JMeter SEARCH_TEST 1-5,text,true,,2882,1,1,562,0
+1480464568518,77,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-5,text,true,,1849,1,1,77,0
+1480464571101,64,Index Page,200,OK,JMeter SEARCH_TEST 1-6,text,true,,1503,1,1,64,0
+1480464571165,528,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-6,text,true,,2727,1,1,527,0
+1480464571694,80,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-6,text,true,,1846,1,1,80,0
+1480464571775,84,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-6,text,true,,1849,1,1,84,0
+1480464571860,652,Search Page CS,200,OK,JMeter SEARCH_TEST 1-6,text,true,,2882,1,1,652,0
+1480464572513,88,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-6,text,true,,1849,1,1,88,0
+1480464575098,65,Index Page,200,OK,JMeter SEARCH_TEST 1-7,text,true,,1503,1,1,65,0
+1480464575164,522,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-7,text,true,,2727,1,1,522,0
+1480464575688,179,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-7,text,true,,1954,1,1,179,0
+1480464575868,83,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-7,text,true,,1849,1,1,83,0
+1480464575952,656,Search Page CS,200,OK,JMeter SEARCH_TEST 1-7,text,true,,2882,1,1,655,0
+1480464576608,78,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-7,text,true,,1849,1,1,78,0
+1480464579099,69,Index Page,200,OK,JMeter SEARCH_TEST 1-8,text,true,,1503,1,1,69,0
+1480464579169,510,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-8,text,true,,2727,1,1,510,0
+1480464579680,80,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-8,text,true,,1849,1,1,79,0
+1480464579760,88,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-8,text,true,,1849,1,1,88,0
+1480464579849,649,Search Page CS,200,OK,JMeter SEARCH_TEST 1-8,text,true,,2882,1,1,648,0
+1480464580498,79,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-8,text,true,,1849,1,1,79,0
+1480464583098,66,Index Page,200,OK,JMeter SEARCH_TEST 1-9,text,true,,1503,1,1,66,0
+1480464583165,509,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-9,text,true,,2727,1,1,508,0
+1480464583675,173,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-9,text,true,,1999,1,1,172,0
+1480464583849,86,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-9,text,true,,1849,1,1,86,0
+1480464583936,659,Search Page CS,200,OK,JMeter SEARCH_TEST 1-9,text,true,,2882,1,1,658,0
+1480464584595,86,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-9,text,true,,1849,1,1,86,0
+1480464587099,64,Index Page,200,OK,JMeter SEARCH_TEST 1-10,text,true,,1503,1,1,63,0
+1480464587163,505,Course Listing Page,200,OK,JMeter SEARCH_TEST 1-10,text,true,,2727,1,1,504,0
+1480464587669,510,Search Page course keyword,200,OK,JMeter SEARCH_TEST 1-10,text,true,,2639,1,1,510,0
+1480464588179,80,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-10,text,true,,1849,1,1,80,0
+1480464588260,635,Search Page CS,200,OK,JMeter SEARCH_TEST 1-10,text,true,,2882,1,1,635,0
+1480464588895,80,Search Page randomstring,200,OK,JMeter SEARCH_TEST 1-10,text,true,,1849,1,1,80,0
+1480464620028,87,Index Page,200,OK,JMeter USER_TEST 1-1,text,true,,1503,1,1,87,0
+1480464620116,78,Register Page,200,OK,JMeter USER_TEST 1-1,text,true,,2432,1,1,78,0
+1480464620197,175,Register Page,200,OK,JMeter USER_TEST 1-1,text,true,,1174,1,1,175,0
+1480464620373,75,Login Page,200,OK,JMeter USER_TEST 1-1,text,true,,1992,1,1,75,0
+1480464620450,208,Login Post,200,OK,JMeter USER_TEST 1-1,text,true,,1885,1,1,139,0
+1480464620660,143,User Listing Page,200,OK,JMeter USER_TEST 1-1,text,true,,1722,1,1,142,0
+1480464620803,496,Course Listing Page,200,OK,JMeter USER_TEST 1-1,text,true,,2651,1,1,495,0
+1480464621300,185,Tutor Create Page,200,OK,JMeter USER_TEST 1-1,text,true,,2892,1,1,184,0
+1480464621531,73,Index Page,200,OK,JMeter USER_TEST 1-2,text,true,,1503,2,2,72,0
+1480464621604,92,Register Page,200,OK,JMeter USER_TEST 1-2,text,true,,2432,2,2,92,0
+1480464621697,210,Register Page,200,OK,JMeter USER_TEST 1-2,text,true,,1174,2,2,210,0
+1480464621908,91,Login Page,200,OK,JMeter USER_TEST 1-2,text,true,,1992,2,2,91,0
+1480464621486,535,Tutor Create Page,200,OK,JMeter USER_TEST 1-1,text,true,,1503,2,2,292,0
+1480464622021,237,Logout Page,200,OK,JMeter USER_TEST 1-1,text,true,,1824,2,2,152,0
+1480464622000,259,Login Post,200,OK,JMeter USER_TEST 1-2,text,true,,1885,1,1,181,0
+1480464622259,144,User Listing Page,200,OK,JMeter USER_TEST 1-2,text,true,,1793,1,1,144,0
+1480464622404,591,Course Listing Page,200,OK,JMeter USER_TEST 1-2,text,true,,2651,1,1,591,0
+1480464623031,74,Index Page,200,OK,JMeter USER_TEST 1-3,text,true,,1503,2,2,74,0
+1480464623105,93,Register Page,200,OK,JMeter USER_TEST 1-3,text,true,,2432,2,2,93,0
+1480464622996,237,Tutor Create Page,200,OK,JMeter USER_TEST 1-2,text,true,,2892,2,2,237,0
+1480464623198,205,Register Page,200,OK,JMeter USER_TEST 1-3,text,true,,1174,2,2,205,0
+1480464623404,94,Login Page,200,OK,JMeter USER_TEST 1-3,text,true,,1992,2,2,94,0
+1480464623499,257,Login Post,200,OK,JMeter USER_TEST 1-3,text,true,,1885,2,2,178,0
+1480464623233,591,Tutor Create Page,200,OK,JMeter USER_TEST 1-2,text,true,,1519,2,2,358,0
+1480464623757,166,User Listing Page,200,OK,JMeter USER_TEST 1-3,text,true,,1864,2,2,166,0
+1480464623824,204,Logout Page,200,OK,JMeter USER_TEST 1-2,text,true,,1824,2,2,136,0
+1480464623924,605,Course Listing Page,200,OK,JMeter USER_TEST 1-3,text,true,,2651,2,2,604,0
+1480464624526,75,Index Page,200,OK,JMeter USER_TEST 1-4,text,true,,1503,2,2,75,0
+1480464624602,92,Register Page,200,OK,JMeter USER_TEST 1-4,text,true,,2432,2,2,92,0
+1480464624530,235,Tutor Create Page,200,OK,JMeter USER_TEST 1-3,text,true,,2892,2,2,235,0
+1480464624695,177,Register Page,200,OK,JMeter USER_TEST 1-4,text,true,,1174,2,2,177,0
+1480464624873,111,Login Page,200,OK,JMeter USER_TEST 1-4,text,true,,1992,2,2,110,0
+1480464624984,241,Login Post,200,OK,JMeter USER_TEST 1-4,text,true,,1885,2,2,165,0
+1480464624766,586,Tutor Create Page,200,OK,JMeter USER_TEST 1-3,text,true,,1504,2,2,353,0
+1480464625226,179,User Listing Page,200,OK,JMeter USER_TEST 1-4,text,true,,1935,2,2,177,0
+1480464625353,207,Logout Page,200,OK,JMeter USER_TEST 1-3,text,true,,1824,2,2,137,0
+1480464625405,559,Course Listing Page,200,OK,JMeter USER_TEST 1-4,text,true,,2651,1,1,558,0
+1480464626030,84,Index Page,200,OK,JMeter USER_TEST 1-5,text,true,,1503,2,2,84,0
+1480464625964,220,Tutor Create Page,200,OK,JMeter USER_TEST 1-4,text,true,,2892,2,2,220,0
+1480464626114,98,Register Page,200,OK,JMeter USER_TEST 1-5,text,true,,2432,2,2,98,0
+1480464626213,227,Register Page,200,OK,JMeter USER_TEST 1-5,text,true,,1174,2,2,227,0
+1480464626440,98,Login Page,200,OK,JMeter USER_TEST 1-5,text,true,,1992,2,2,97,0
+1480464626185,592,Tutor Create Page,200,OK,JMeter USER_TEST 1-4,text,true,,1519,2,2,373,0
+1480464626538,256,Login Post,200,OK,JMeter USER_TEST 1-5,text,true,,1885,2,2,190,0
+1480464626795,170,User Listing Page,200,OK,JMeter USER_TEST 1-5,text,true,,2006,2,2,170,0
+1480464626777,226,Logout Page,200,OK,JMeter USER_TEST 1-4,text,true,,1824,2,2,163,0
+1480464626966,535,Course Listing Page,200,OK,JMeter USER_TEST 1-5,text,true,,2651,1,1,534,0
+1480464627528,72,Index Page,200,OK,JMeter USER_TEST 1-6,text,true,,1503,2,2,71,0
+1480464627600,91,Register Page,200,OK,JMeter USER_TEST 1-6,text,true,,2432,2,2,91,0
+1480464627501,249,Tutor Create Page,200,OK,JMeter USER_TEST 1-5,text,true,,2892,2,2,249,0
+1480464627691,205,Register Page,200,OK,JMeter USER_TEST 1-6,text,true,,1174,2,2,205,0
+1480464627897,90,Login Page,200,OK,JMeter USER_TEST 1-6,text,true,,1992,2,2,90,0
+1480464627988,274,Login Post,200,OK,JMeter USER_TEST 1-6,text,true,,1885,2,2,204,0
+1480464627751,598,Tutor Create Page,200,OK,JMeter USER_TEST 1-5,text,true,,1519,2,2,364,0
+1480464628263,178,User Listing Page,200,OK,JMeter USER_TEST 1-6,text,true,,2077,2,2,178,0
+1480464628349,219,Logout Page,200,OK,JMeter USER_TEST 1-5,text,true,,1824,2,2,150,0
+1480464628442,595,Course Listing Page,200,OK,JMeter USER_TEST 1-6,text,true,,2651,2,2,595,0
+1480464629034,75,Index Page,200,OK,JMeter USER_TEST 1-7,text,true,,1503,2,2,75,0
+1480464629109,86,Register Page,200,OK,JMeter USER_TEST 1-7,text,true,,2432,2,2,85,0
+1480464629038,247,Tutor Create Page,200,OK,JMeter USER_TEST 1-6,text,true,,2892,2,2,247,0
+1480464629196,168,Register Page,200,OK,JMeter USER_TEST 1-7,text,true,,1174,2,2,168,0
+1480464629365,89,Login Page,200,OK,JMeter USER_TEST 1-7,text,true,,1992,2,2,89,0
+1480464629455,270,Login Post,200,OK,JMeter USER_TEST 1-7,text,true,,1885,2,2,185,0
+1480464629286,606,Tutor Create Page,200,OK,JMeter USER_TEST 1-6,text,true,,1504,2,2,331,0
+1480464629726,190,User Listing Page,200,OK,JMeter USER_TEST 1-7,text,true,,2148,2,2,189,0
+1480464629892,239,Logout Page,200,OK,JMeter USER_TEST 1-6,text,true,,1824,2,2,167,0
+1480464629917,619,Course Listing Page,200,OK,JMeter USER_TEST 1-7,text,true,,2651,2,2,618,0
+1480464630533,71,Index Page,200,OK,JMeter USER_TEST 1-8,text,true,,1503,2,2,70,0
+1480464630604,89,Register Page,200,OK,JMeter USER_TEST 1-8,text,true,,2432,2,2,89,0
+1480464630536,215,Tutor Create Page,200,OK,JMeter USER_TEST 1-7,text,true,,2892,2,2,215,0
+1480464630694,170,Register Page,200,OK,JMeter USER_TEST 1-8,text,true,,1174,2,2,169,0
+1480464630864,88,Login Page,200,OK,JMeter USER_TEST 1-8,text,true,,1992,2,2,88,0
+1480464630953,258,Login Post,200,OK,JMeter USER_TEST 1-8,text,true,,1885,2,2,185,0
+1480464630752,543,Tutor Create Page,200,OK,JMeter USER_TEST 1-7,text,true,,1542,2,2,330,0
+1480464631212,188,User Listing Page,200,OK,JMeter USER_TEST 1-8,text,true,,2219,2,2,186,0
+1480464631296,233,Logout Page,200,OK,JMeter USER_TEST 1-7,text,true,,1824,2,2,140,0
+1480464631401,607,Course Listing Page,200,OK,JMeter USER_TEST 1-8,text,true,,2651,1,1,606,0
+1480464632031,71,Index Page,200,OK,JMeter USER_TEST 1-9,text,true,,1503,2,2,70,0
+1480464632102,90,Register Page,200,OK,JMeter USER_TEST 1-9,text,true,,2432,2,2,90,0
+1480464632009,224,Tutor Create Page,200,OK,JMeter USER_TEST 1-8,text,true,,2892,2,2,224,0
+1480464632193,201,Register Page,200,OK,JMeter USER_TEST 1-9,text,true,,1174,2,2,201,0
+1480464632395,83,Login Page,200,OK,JMeter USER_TEST 1-9,text,true,,1992,2,2,82,0
+1480464632234,490,Tutor Create Page,200,OK,JMeter USER_TEST 1-8,text,true,,1503,2,2,282,0
+1480464632478,257,Login Post,200,OK,JMeter USER_TEST 1-9,text,true,,1885,2,2,192,0
+1480464632736,182,User Listing Page,200,OK,JMeter USER_TEST 1-9,text,true,,2290,2,2,181,0
+1480464632725,224,Logout Page,200,OK,JMeter USER_TEST 1-8,text,true,,1824,2,2,154,0
+1480464632919,616,Course Listing Page,200,OK,JMeter USER_TEST 1-9,text,true,,2651,2,2,615,0
+1480464633532,71,Index Page,200,OK,JMeter USER_TEST 1-10,text,true,,1503,2,2,71,0
+1480464633603,92,Register Page,200,OK,JMeter USER_TEST 1-10,text,true,,2432,2,2,92,0
+1480464633536,240,Tutor Create Page,200,OK,JMeter USER_TEST 1-9,text,true,,2892,2,2,240,0
+1480464633695,196,Register Page,200,OK,JMeter USER_TEST 1-10,text,true,,1174,2,2,195,0
+1480464633892,88,Login Page,200,OK,JMeter USER_TEST 1-10,text,true,,1992,2,2,88,0
+1480464633980,284,Login Post,200,OK,JMeter USER_TEST 1-10,text,true,,1885,2,2,211,0
+1480464633777,543,Tutor Create Page,200,OK,JMeter USER_TEST 1-9,text,true,,1519,2,2,332,0
+1480464634265,170,User Listing Page,200,OK,JMeter USER_TEST 1-10,text,true,,2361,2,2,170,0
+1480464634320,222,Logout Page,200,OK,JMeter USER_TEST 1-9,text,true,,1824,2,2,149,0
+1480464634436,643,Course Listing Page,200,OK,JMeter USER_TEST 1-10,text,true,,2651,1,1,643,0
+1480464635080,204,Tutor Create Page,200,OK,JMeter USER_TEST 1-10,text,true,,2892,1,1,204,0
+1480464635285,499,Tutor Create Page,200,OK,JMeter USER_TEST 1-10,text,true,,1503,1,1,306,0
+1480464635785,201,Logout Page,200,OK,JMeter USER_TEST 1-10,text,true,,1824,1,1,137,0
+1480464666171,65,Index Page,200,OK,JMeter SEARCH_TEST 3-1,text,true,,1503,1,1,65,0
+1480464666236,587,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-1,text,true,,2727,1,1,587,0
+1480464666824,716,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-1,text,true,,2864,1,1,716,0
+1480464667540,79,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-1,text,true,,1849,1,1,79,0
+1480464667620,1046,Search Page CS,200,OK,JMeter SEARCH_TEST 3-1,text,true,,3835,1,1,1045,0
+1480464668666,84,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-1,text,true,,1849,1,1,84,0
+1480464670174,75,Index Page,200,OK,JMeter SEARCH_TEST 3-2,text,true,,1503,1,1,75,0
+1480464670249,465,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-2,text,true,,2727,1,1,464,0
+1480464670714,89,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-2,text,true,,1847,1,1,88,0
+1480464670803,75,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-2,text,true,,1849,1,1,75,0
+1480464670878,1065,Search Page CS,200,OK,JMeter SEARCH_TEST 3-2,text,true,,3835,1,1,1065,0
+1480464671943,83,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-2,text,true,,1849,1,1,83,0
+1480464674175,69,Index Page,200,OK,JMeter SEARCH_TEST 3-3,text,true,,1503,1,1,69,0
+1480464674245,565,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-3,text,true,,2727,1,1,565,0
+1480464674811,921,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-3,text,true,,3592,1,1,921,0
+1480464675733,79,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-3,text,true,,1849,1,1,78,0
+1480464675812,1048,Search Page CS,200,OK,JMeter SEARCH_TEST 3-3,text,true,,3835,1,1,1047,0
+1480464676860,91,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-3,text,true,,1849,1,1,91,0
+1480464678176,71,Index Page,200,OK,JMeter SEARCH_TEST 3-4,text,true,,1503,1,1,71,0
+1480464678248,453,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-4,text,true,,2727,1,1,453,0
+1480464678702,921,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-4,text,true,,3592,1,1,921,0
+1480464679624,96,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-4,text,true,,1849,1,1,96,0
+1480464679721,1029,Search Page CS,200,OK,JMeter SEARCH_TEST 3-4,text,true,,3835,1,1,1028,0
+1480464680750,82,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-4,text,true,,1849,1,1,82,0
+1480464682176,69,Index Page,200,OK,JMeter SEARCH_TEST 3-5,text,true,,1503,1,1,69,0
+1480464682246,551,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-5,text,true,,2727,1,1,551,0
+1480464682798,306,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-5,text,true,,2223,1,1,306,0
+1480464683104,78,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-5,text,true,,1849,1,1,78,0
+1480464683183,945,Search Page CS,200,OK,JMeter SEARCH_TEST 3-5,text,true,,3835,1,1,945,0
+1480464684129,88,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-5,text,true,,1849,1,1,88,0
+1480464686174,83,Index Page,200,OK,JMeter SEARCH_TEST 3-6,text,true,,1503,1,1,83,0
+1480464686257,534,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-6,text,true,,2727,1,1,533,0
+1480464686792,613,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-6,text,true,,2864,1,1,613,0
+1480464687406,89,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-6,text,true,,1849,1,1,89,0
+1480464687496,933,Search Page CS,200,OK,JMeter SEARCH_TEST 3-6,text,true,,3835,1,1,932,0
+1480464688430,77,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-6,text,true,,1849,1,1,76,0
+1480464690178,71,Index Page,200,OK,JMeter SEARCH_TEST 3-7,text,true,,1503,1,1,71,0
+1480464690249,536,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-7,text,true,,2727,1,1,535,0
+1480464690785,195,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-7,text,true,,1999,1,1,191,0
+1480464690981,79,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-7,text,true,,1849,1,1,79,0
+1480464691061,1055,Search Page CS,200,OK,JMeter SEARCH_TEST 3-7,text,true,,3835,1,1,1054,0
+1480464692117,79,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-7,text,true,,1849,1,1,78,0
+1480464694175,69,Index Page,200,OK,JMeter SEARCH_TEST 3-8,text,true,,1503,1,1,68,0
+1480464694244,533,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-8,text,true,,2727,1,1,533,0
+1480464694778,921,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-8,text,true,,3592,1,1,921,0
+1480464695700,84,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-8,text,true,,1849,1,1,84,0
+1480464695784,939,Search Page CS,200,OK,JMeter SEARCH_TEST 3-8,text,true,,3835,1,1,939,0
+1480464696724,79,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-8,text,true,,1849,1,1,79,0
+1480464698176,76,Index Page,200,OK,JMeter SEARCH_TEST 3-9,text,true,,1503,1,1,76,0
+1480464698253,518,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-9,text,true,,2727,1,1,517,0
+1480464698771,307,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-9,text,true,,2223,1,1,307,0
+1480464699078,89,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-9,text,true,,1849,1,1,84,0
+1480464699168,936,Search Page CS,200,OK,JMeter SEARCH_TEST 3-9,text,true,,3835,1,1,935,0
+1480464700104,78,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-9,text,true,,1849,1,1,78,0
+1480464702174,72,Index Page,200,OK,JMeter SEARCH_TEST 3-10,text,true,,1503,1,1,72,0
+1480464702247,518,Course Listing Page,200,OK,JMeter SEARCH_TEST 3-10,text,true,,2727,1,1,517,0
+1480464702765,81,Search Page course keyword,200,OK,JMeter SEARCH_TEST 3-10,text,true,,1846,1,1,81,0
+1480464702846,87,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-10,text,true,,1849,1,1,87,0
+1480464702934,1061,Search Page CS,200,OK,JMeter SEARCH_TEST 3-10,text,true,,3835,1,1,1059,0
+1480464703997,79,Search Page randomstring,200,OK,JMeter SEARCH_TEST 3-10,text,true,,1849,1,1,79,0
