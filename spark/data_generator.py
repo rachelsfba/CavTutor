@@ -2,8 +2,8 @@
 import string
 import random
 
-num_samples = 1000
-num_items = 10
+num_samples = 100
+num_items = 11
 num_users = 20
 name_length = 5
 
@@ -18,7 +18,7 @@ users = list(generate_names(num_users, name_length))
 
 for i in range(num_samples):
     random.shuffle(users)
-    print(users[0], random.randint(1,num_items), sep="\t")
+    print(users[0]+"\t"+str(random.randint(1,num_items)))
 
 
 
