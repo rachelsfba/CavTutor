@@ -2,9 +2,9 @@
 import string
 import random
 
-num_samples = 100
-num_items = 11
-num_users = 20
+num_samples = 1000
+num_items = 25
+num_users = 100
 name_length = 5
 
 def generate_names(num_names, length):

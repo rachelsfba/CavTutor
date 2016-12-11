@@ -13,6 +13,7 @@ services:
             MASTER: spark://spark-master:7077
             SPARK_CONF_DIR: /conf
             SPARK_INPUT_FILE: /data/input.txt
+            SPARK_OUTPUT_FILE: /data/output.txt
             SPARK_DATA_DIR: /data
         volumes:
             - ./data:/data
